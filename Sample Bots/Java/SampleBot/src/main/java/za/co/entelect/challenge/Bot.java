@@ -87,14 +87,14 @@ public class Bot {
     }
 
     private Command makeMove(GameState state) {
-
-        int possibleShipCommands = Code.values().length;
-        int lowerBounds = 0;
-        Code commandCode = Code.values()[ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands)];
-        int upperBounds = state.MapDimension;
-        int xCoord = ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands + upperBounds);
-        int yCoord = ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands + upperBounds);
-        return new Command(commandCode, xCoord, yCoord);
+        return new Hunt(state).randomShot();
+//        int possibleShipCommands = Code.values().length;
+//        int lowerBounds = 0;
+//        Code commandCode = Code.values()[ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands)];
+//        int upperBounds = state.MapDimension;
+//        int xCoord = ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands + upperBounds);
+//        int yCoord = ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands + upperBounds);
+//        return new Command(commandCode, xCoord, yCoord);
     }
 
     private void writeMove(Command command) throws IOException {
