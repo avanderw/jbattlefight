@@ -11,7 +11,10 @@ import za.co.entelect.challenge.domain.state.GameState;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import za.co.entelect.challenge.domain.state.OpponentCell;
 
 public class Bot {
 
@@ -87,34 +90,36 @@ public class Bot {
     }
 
     private Command makeMove(GameState state) {
-        return new Hunt(state).randomShot();
-//        int possibleShipCommands = Code.values().length;
-//        int lowerBounds = 0;
-//        Code commandCode = Code.values()[ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands)];
-//        int upperBounds = state.MapDimension;
-//        int xCoord = ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands + upperBounds);
-//        int yCoord = ThreadLocalRandom.current().nextInt(lowerBounds, possibleShipCommands + upperBounds);
-//        return new Command(commandCode, xCoord, yCoord);
+        if (this.isHunting(state)) {
+            return new Hunt(state).randomShot();
+        } else {
+            return new Kill(state).nextShot();
+        }
     }
 
     private void writeMove(Command command) throws IOException {
 
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(workingDirectory, commandFileName)));
-        bufferedWriter.write(command.toString());
-        bufferedWriter.flush();
-        bufferedWriter.close();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(workingDirectory, commandFileName)))) {
+            bufferedWriter.write(command.toString());
+            bufferedWriter.flush();
+        }
     }
 
     private void writePlaceShips(PlaceShipCommand placeShipCommand) throws IOException {
 
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(workingDirectory, placeShipFileName)));
-        bufferedWriter.write(placeShipCommand.toString());
-        bufferedWriter.flush();
-        bufferedWriter.close();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(workingDirectory, placeShipFileName)))) {
+            bufferedWriter.write(placeShipCommand.toString());
+            bufferedWriter.flush();
+        }
     }
 
     private void log(String message) {
 
         System.out.println(String.format("[BOT]\t%s", message));
+    }
+
+    private Boolean isHunting(GameState state) {
+        return !state.OpponentMap.Cells.stream().filter(c -> c.Damaged && !state.OpponentMap.shotAllAdjacent(c)).findAny().isPresent();
+
     }
 }

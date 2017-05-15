@@ -17,4 +17,8 @@ public class OpponentCell {
 
         return new Point(X, Y);
     }
+
+    boolean isShot() {
+        return Damaged || Missed;
+    }
 }

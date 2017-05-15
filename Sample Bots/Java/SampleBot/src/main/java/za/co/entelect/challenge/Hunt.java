@@ -1,13 +1,15 @@
 package za.co.entelect.challenge;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import za.co.entelect.challenge.domain.command.Command;
 import za.co.entelect.challenge.domain.command.code.Code;
 import za.co.entelect.challenge.domain.command.ship.ShipType;
 import za.co.entelect.challenge.domain.state.GameState;
 import za.co.entelect.challenge.domain.state.OpponentCell;
-import za.co.entelect.challenge.domain.state.Ship;
 
 public class Hunt {
 
@@ -26,12 +28,13 @@ public class Hunt {
     }
 
     Command randomShot() {
-        Optional<OpponentCell> cell = state.OpponentMap.Cells.stream()
-                .filter(c -> !c.Damaged && !c.Missed && ((c.Y % 2 == 0 && c.X % 2 == 0) || (c.X % 2 == 1 && c.Y % 2 == 1)))
-                .findAny();
-
-        Command command = cell.isPresent() ? new Command(Code.FIRESHOT, cell.get().X, cell.get().Y) : new Command(Code.DO_NOTHING, 0, 0);
-        return command;
+        List<OpponentCell> emptyCells = state.OpponentMap.Cells.stream().filter(c -> !c.Damaged && !c.Missed && ((c.Y % 2 == 0 && c.X % 2 == 0) || (c.X % 2 == 1 && c.Y % 2 == 1))).collect(Collectors.toList());
+        if (emptyCells.isEmpty()) {
+            return new Command(Code.DO_NOTHING, 0, 0);
+        } else {
+            OpponentCell randomEmptyCell = emptyCells.get(ThreadLocalRandom.current().nextInt(0, (int) emptyCells.size()));
+            return new Command(Code.FIRESHOT, randomEmptyCell.X, randomEmptyCell.Y);
+        }
     }
 
 }
