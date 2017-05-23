@@ -42,7 +42,7 @@ public class Bot {
         GameState gameState = gson.fromJson(new StringReader(loadState()), GameState.class);
 
         if (gameState.Phase == 1) {
-            PlaceShipCommand placeShipCommand = placeShips();
+            PlaceShipCommand placeShipCommand = placeShips(gameState);
             writePlaceShips(placeShipCommand);
         } else {
             Command command = makeMove(gameState);
@@ -50,28 +50,33 @@ public class Bot {
         }
     }
 
-    private PlaceShipCommand placeShips() {
-
+    private PlaceShipCommand placeShips(GameState state) {
+        Placement battleship = new Placement(state).random(ShipType.Battleship);
+        Placement carrier = new Placement(state).random(ShipType.Carrier);
+        Placement cruiser = new Placement(state).random(ShipType.Cruiser);
+        Placement destroyer = new Placement(state).random(ShipType.Destroyer);
+        Placement submarine = new Placement(state).random(ShipType.Submarine);
+        
         ArrayList<ShipType> shipsToPlace = new ArrayList<>();
-        shipsToPlace.add(ShipType.Battleship);
-        shipsToPlace.add(ShipType.Carrier);
-        shipsToPlace.add(ShipType.Cruiser);
-        shipsToPlace.add(ShipType.Destroyer);
-        shipsToPlace.add(ShipType.Submarine);
+        shipsToPlace.add(battleship.type);
+        shipsToPlace.add(carrier.type);
+        shipsToPlace.add(cruiser.type);
+        shipsToPlace.add(destroyer.type);
+        shipsToPlace.add(submarine.type);
 
         ArrayList<Point> points = new ArrayList<>();
-        points.add(new Point(1, 0));
-        points.add(new Point(3, 1));
-        points.add(new Point(4, 2));
-        points.add(new Point(7, 3));
-        points.add(new Point(1, 8));
+        points.add(battleship.point);
+        points.add(carrier.point);
+        points.add(cruiser.point);
+        points.add(destroyer.point);
+        points.add(submarine.point);
 
         ArrayList<Direction> directions = new ArrayList<>();
-        directions.add(Direction.North);
-        directions.add(Direction.East);
-        directions.add(Direction.North);
-        directions.add(Direction.North);
-        directions.add(Direction.East);
+        directions.add(battleship.direction);
+        directions.add(carrier.direction);
+        directions.add(cruiser.direction);
+        directions.add(destroyer.direction);
+        directions.add(submarine.direction);
 
         return new PlaceShipCommand(shipsToPlace, points, directions);
     }

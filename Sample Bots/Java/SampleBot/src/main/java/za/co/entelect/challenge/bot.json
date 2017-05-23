@@ -1,8 +1,0 @@
-{
-    "Author":"Andrew van der Westhuizen",
-    "Email":"avanderw@gmail.com",
-    "NickName" :"Battlefight",
-    "BotType": 1,
-    "ProjectLocation" : "",
-    "RunFile" : "target\\sample-bot-1.0-SNAPSHOT.jar"
-}

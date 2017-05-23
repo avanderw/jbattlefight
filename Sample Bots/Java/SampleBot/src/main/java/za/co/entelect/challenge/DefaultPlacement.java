@@ -36,6 +36,9 @@ public class DefaultPlacement {
     }
 
     public Command hunt(GameState state) {
+        if (state.MapDimension < 10) {
+            return new Command(Code.DO_NOTHING, 0, 0);
+        }
         for (Point point : huntDefault) {
             if (state.OpponentMap.getCellAt(point.getX(), point.getY()).Missed) {
                 return new Command(Code.DO_NOTHING, 0, 0);
