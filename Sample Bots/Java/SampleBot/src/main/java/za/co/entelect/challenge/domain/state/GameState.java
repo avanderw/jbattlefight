@@ -22,32 +22,41 @@ public class GameState {
     public int Phase;
 
     private boolean[][] placeMap;
+
     public void place(Placement placement) {
         if (placeMap == null) {
             placeMap = new boolean[MapDimension][MapDimension];
         }
-        
-        placeMap[placement.point.getY()][placement.point.getX()] = true;
+
         switch (placement.direction) {
             case North:
+                for (int i = 0; i < placement.type.length(); i++) {
+                    placeMap[placement.point.getY() + i][placement.point.getX()] = true;
+                }
                 break;
             case East:
+                for (int i = 0; i < placement.type.length(); i++) {
+                    placeMap[placement.point.getY()][placement.point.getX() + 1] = true;
+                }
                 break;
             case South:
+                for (int i = 0; i < placement.type.length(); i++) {
+                    placeMap[placement.point.getY() - i][placement.point.getX()] = true;
+                }
                 break;
             case West:
-                break;
-            default:
+                for (int i = 0; i < placement.type.length(); i++) {
+                    placeMap[placement.point.getY()][placement.point.getX() - i] = true;
+                }
                 break;
         }
-        
-            
+
     }
 
     public boolean canPlace(Placement aThis) {
         return true;
     }
-    
+
     public static void main(String[] args) {
         GameState state = new GameState();
         state.MapDimension = 10;
