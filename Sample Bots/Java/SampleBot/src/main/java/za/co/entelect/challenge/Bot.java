@@ -91,8 +91,16 @@ public class Bot {
 
     private Command makeMove(GameState state) {
         if (this.isHunting(state)) {
+            Command defaultHunt = new DefaultPlacement().hunt(state);
+            if (!defaultHunt.getCommandCode().equals(Code.DO_NOTHING)) {
+                return defaultHunt;
+            }
             return new Hunt(state).randomShot();
         } else {
+            Command defaultKill = new DefaultPlacement().hunt(state);
+            if (!defaultKill.getCommandCode().equals(Code.DO_NOTHING)) {
+                return defaultKill;
+            }
             return new Kill(state).nextShot();
         }
     }

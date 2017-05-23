@@ -1,13 +1,10 @@
 package za.co.entelect.challenge;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import za.co.entelect.challenge.domain.command.Command;
 import za.co.entelect.challenge.domain.command.code.Code;
-import za.co.entelect.challenge.domain.command.ship.ShipType;
 import za.co.entelect.challenge.domain.state.GameState;
 import za.co.entelect.challenge.domain.state.OpponentCell;
 
@@ -25,6 +22,10 @@ public class Hunt {
 
     Hunt(GameState state) {
         this.state = state;
+    }
+    
+    Command defaultPlacement() {
+        return new DefaultPlacement().hunt(state);
     }
 
     Command randomShot() {
