@@ -3,7 +3,7 @@ package za.co.entelect.challenge.domain.command;
 
 public class Point {
 
-    private int x;
+    public int x;
 
     public int getX() {
 
@@ -25,11 +25,16 @@ public class Point {
         this.y = y;
     }
 
-    private int y;
+    public int y;
 
     public Point(int x, int y) {
 
         this.x = x;
         this.y = y;
+    }
+    
+    @Override
+    public String toString() {
+        return x + "," + y;
     }
 }

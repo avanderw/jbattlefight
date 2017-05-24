@@ -20,28 +20,43 @@ public class Placement {
     public Placement random(ShipType shipType) {
         this.type = shipType;
 
-        int randX = ThreadLocalRandom.current().nextInt(state.MapDimension);
-        int randY = ThreadLocalRandom.current().nextInt(state.MapDimension);
-
+        long start = System.currentTimeMillis();
         while (point == null && direction == null) {
-            point = new Point(randX, randY);
+            point = new Point(ThreadLocalRandom.current().nextInt(state.MapDimension), ThreadLocalRandom.current().nextInt(state.MapDimension));
             direction = Direction.random();
 
             boolean clear = false;
             switch (direction) {
                 case North:
-                    clear = (randY + type.length() >= state.MapDimension && state.canPlace(this));
+                    clear = (point.y + type.length() >= state.MapDimension);
+                    if (!clear) {
+                        clear = !state.canPlace(this);
+                    }
                     break;
                 case East:
-                    clear = (randX + type.length() >= state.MapDimension && state.canPlace(this));
+                    clear = (point.x + type.length() >= state.MapDimension);
+                    if (!clear) {
+                        clear = !state.canPlace(this);
+                    }
                     break;
                 case South:
-                    clear = (randY - type.length() < 0 && state.canPlace(this));
+                    clear = (point.y - type.length() < 0);
+                    if (!clear) {
+                        clear = !state.canPlace(this);
+                    }
                     break;
                 case West:
-                    clear = (randX - type.length() < 0 && state.canPlace(this));
+                    clear = (point.x - type.length() < 0);
+                    if (!clear) {
+                        clear = !state.canPlace(this);
+                    }
                     break;
             }
+//            if (System.currentTimeMillis() - start > 2000) {
+//                System.out.println(state.debugPlace());
+//                System.out.println(point);
+//                System.out.println(direction);
+//            }
             if (clear) {
                 point = null;
                 direction = null;
@@ -57,5 +72,9 @@ public class Placement {
         this.direction = direction;
         return this;
     }
-
+    
+    @Override
+    public String toString() {
+        return String.format("%s %s %s", new Object[]{type, point, direction});
+    }
 }
