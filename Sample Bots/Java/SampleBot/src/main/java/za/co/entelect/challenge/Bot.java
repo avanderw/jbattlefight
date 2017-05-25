@@ -96,12 +96,14 @@ public class Bot {
 
     private Command makeMove(GameState state) {
         if (this.isHunting(state)) {
+            System.out.println("Hunting");
             Command defaultHunt = new DefaultPlacement().hunt(state);
             if (!defaultHunt.getCommandCode().equals(Code.DO_NOTHING)) {
                 return defaultHunt;
             }
-            return new Hunt(state).randomShot();
+            return new Hunt(state).probabilityShot();
         } else {
+            System.out.println("Killing");
             Command defaultKill = new DefaultPlacement().hunt(state);
             if (!defaultKill.getCommandCode().equals(Code.DO_NOTHING)) {
                 return defaultKill;
@@ -125,12 +127,7 @@ public class Bot {
             bufferedWriter.flush();
         }
     }
-
-    private void log(String message) {
-
-        System.out.println(String.format("[BOT]\t%s", message));
-    }
-
+    
     private Boolean isHunting(GameState state) {
         return !state.OpponentMap.Cells.stream().filter(c -> c.Damaged && !state.OpponentMap.shotAllAdjacent(c)).findAny().isPresent();
 

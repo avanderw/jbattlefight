@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import za.co.entelect.challenge.domain.command.Point;
 import za.co.entelect.challenge.domain.command.direction.Direction;
+import za.co.entelect.challenge.domain.command.ship.ShipType;
 
 public class OpponentMap {
 
@@ -66,16 +67,16 @@ public class OpponentMap {
         return cells;
     }
 
-    public boolean hasCellsForDirection(Point startLocation, Direction direction, int length) {
+    public boolean allCellsAreUnshot(Point startLocation, Direction direction, int length) {
         OpponentCell startCell = getCellAt(startLocation.getX(), startLocation.getY());
 
-        if (startCell == null) {
+        if (startCell == null || startCell.isShot()) {
             return false;
         }
 
         for (int i = 1; i < length; i++) {
             OpponentCell nextCell = getAdjacentCell(startCell, direction);
-            if (nextCell == null) {
+            if (nextCell == null || nextCell.isShot()) {
                 return false;
             }
             startCell = nextCell;

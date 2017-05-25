@@ -51,7 +51,6 @@ public class GameState {
                 }
                 break;
         }
-
     }
 
     public boolean canPlace(Placement placement) {

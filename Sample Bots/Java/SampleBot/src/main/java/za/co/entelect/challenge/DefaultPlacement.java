@@ -44,6 +44,7 @@ public class DefaultPlacement {
                 return new Command(Code.DO_NOTHING, 0, 0);
             }
             if (!(state.OpponentMap.getCellAt(point.getX(), point.getY()).Damaged)) {
+                System.out.println("Default hunt");
                 return new Command(Code.FIRESHOT, point.getX(), point.getY());
             }
         }
@@ -52,6 +53,7 @@ public class DefaultPlacement {
     }
 
     public Command kill(GameState state) {
+        System.out.println("Default kill");
         for (Point point : killDefault) {
             if (state.OpponentMap.getCellAt(point.getX(), point.getY()).Missed) {
                 return new Command(Code.DO_NOTHING, 0, 0);
