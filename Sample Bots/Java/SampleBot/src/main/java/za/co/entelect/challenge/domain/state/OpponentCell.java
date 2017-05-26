@@ -21,4 +21,9 @@ public class OpponentCell {
     boolean isShot() {
         return Damaged || Missed;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%s, %s : damaged=%s", new Object[]{X, Y, Damaged});
+    }
 }

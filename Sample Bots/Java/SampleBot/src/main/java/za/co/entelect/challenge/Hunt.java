@@ -23,12 +23,10 @@ public class Hunt {
         }
     }
     private final GameState state;
-    int[][] probabilityMap;
+    
 
     Hunt(GameState state) {
         this.state = state;
-
-        probabilityMap = new int[state.MapDimension][state.MapDimension];
     }
 
     Command defaultPlacement() {
@@ -48,53 +46,9 @@ public class Hunt {
 
     Command probabilityShot() {
         System.out.println("Making probability shot");
-        int maxProb = 0;
-        for (int y = 0; y < probabilityMap.length; y++) {
-            for (int x = 0; x < probabilityMap.length; x++) {
-                for (ShipType ship : ShipType.values()) {
-                    if (state.OpponentMap.allCellsAreUnshot(new Point(x, y), Direction.North, ship.length())) {
-                        probabilityMap[y][x]++;
-                    }
-                    if (state.OpponentMap.allCellsAreUnshot(new Point(x, y), Direction.East, ship.length())) {
-                        probabilityMap[y][x]++;
-                    }
-                    if (state.OpponentMap.allCellsAreUnshot(new Point(x, y), Direction.South, ship.length())) {
-                        probabilityMap[y][x]++;
-                    }
-                    if (state.OpponentMap.allCellsAreUnshot(new Point(x, y), Direction.West, ship.length())) {
-                        probabilityMap[y][x]++;
-                    }
-                }
-                maxProb = Math.max(maxProb, probabilityMap[y][x]);
-            }
-        }
-
-        if (maxProb == 0) {
-            System.out.println("Max probability 0");
-            throw new RuntimeException("Max probability 0");
-            //return randomShot();
-        }
+        Point shot = new Probability(state).randomBestShot();
         
-        List<Point> options = new ArrayList();
-        String pMap = "";
-        for (int y = 0; y < probabilityMap.length; y++) {
-            for (int x = 0; x < probabilityMap.length; x++) {
-                pMap += String.format("%2d,", probabilityMap[y][x]);
-                if (probabilityMap[y][x] == maxProb) {
-                    options.add(new Point(x, y));
-                }
-            }
-            pMap += "\n";
-        }
-        System.out.println(pMap);
-        
-        if (options.isEmpty()) {
-            System.out.println("No highest probability");
-            return randomShot();
-        }
-        
-        int randIdx = ThreadLocalRandom.current().nextInt(options.size());
-        return new Command(Code.FIRESHOT, options.get(randIdx).x, options.get(randIdx).y);
+        return new Command(Code.FIRESHOT, shot.x, shot.y);
     }
 
 }

@@ -117,4 +117,17 @@ public class OpponentMap {
             throw new NoSuchElementException("No un-shot adjacent cell");
         }
     }
+
+    public OpponentCell getNextShot(OpponentCell cell, Direction direction) {
+        OpponentCell nextCell = getAdjacentCell(cell, direction);
+        if (nextCell == null || nextCell.Missed) {
+            return null;
+        }
+        
+        if (nextCell.Damaged) {
+            return getNextShot(nextCell, direction);
+        }
+        
+        return nextCell;
+    }
 }
