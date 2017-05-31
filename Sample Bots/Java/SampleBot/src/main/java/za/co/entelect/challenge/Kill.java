@@ -39,49 +39,61 @@ public class Kill {
                     if (!northWest.isShot()) {
                         return new Command(Code.FIRESHOT, northWest.X, northWest.Y);
                     }
-                } else if (south != null && south.Damaged && west != null && west.Damaged) {
+                }
+
+                if (south != null && south.Damaged && west != null && west.Damaged) {
                     OpponentCell southWest = state.OpponentMap.getAdjacentCell(west, Direction.South);
                     if (!southWest.isShot()) {
                         return new Command(Code.FIRESHOT, southWest.X, southWest.Y);
                     }
-                } else if (south != null && south.Damaged && east != null && east.Damaged) {
+                }
+
+                if (south != null && south.Damaged && east != null && east.Damaged) {
                     OpponentCell southEast = state.OpponentMap.getAdjacentCell(east, Direction.South);
                     if (!southEast.isShot()) {
                         return new Command(Code.FIRESHOT, southEast.X, southEast.Y);
                     }
-                } else if (north != null && north.Damaged && east != null && east.Damaged) {
+                }
+
+                if (north != null && north.Damaged && east != null && east.Damaged) {
                     OpponentCell northEast = state.OpponentMap.getAdjacentCell(east, Direction.North);
                     if (!northEast.isShot()) {
                         return new Command(Code.FIRESHOT, northEast.X, northEast.Y);
                     }
-                } else if ((north != null && north.Damaged) || (south != null && south.Damaged)) {
-                    //System.out.println("Attacking north or south of " + cell);
+                }
+
+                if (north != null && north.Damaged) {
+                    OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.South);
+                    if (shot != null) {
+                        return new Command(Code.FIRESHOT, shot.X, shot.Y);
+                    }
+                }
+
+                if (south != null && south.Damaged) {
                     OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.North);
                     if (shot != null) {
                         return new Command(Code.FIRESHOT, shot.X, shot.Y);
                     }
+                }
 
-                    shot = state.OpponentMap.getNextShot(cell, Direction.South);
+                if (east != null && east.Damaged) {
+                    OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.West);
                     if (shot != null) {
                         return new Command(Code.FIRESHOT, shot.X, shot.Y);
                     }
-                } else if ((east != null && east.Damaged) || (west != null && west.Damaged)) {
-                    //System.out.println("Attacking east or west of " + cell);
+                }
+
+                if (west != null && west.Damaged) {
                     OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.East);
                     if (shot != null) {
                         return new Command(Code.FIRESHOT, shot.X, shot.Y);
                     }
-
-                    shot = state.OpponentMap.getNextShot(cell, Direction.West);
-                    if (shot != null) {
-                        return new Command(Code.FIRESHOT, shot.X, shot.Y);
-                    }
-                } else {
-                    System.out.println("First hit! attacking most probable neighbour");
-                    OpponentCell shot = new Probability(state).bestNeighbour(cell);
-
-                    return new Command(Code.FIRESHOT, shot.X, shot.Y);
                 }
+
+                System.out.println("First hit! attacking most probable neighbour");
+                OpponentCell shot = new Probability(state).bestNeighbour(cell);
+
+                return new Command(Code.FIRESHOT, shot.X, shot.Y);
             }
         }
 
