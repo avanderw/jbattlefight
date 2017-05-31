@@ -69,21 +69,20 @@ public class Bot {
     }
 
     private Command makeMove(GameState state) {
-        if (this.isHunting(state)) {
-            System.out.println("Hunting");
-            Command defaultHunt = new DefaultPlacement().hunt(state);
-            if (!defaultHunt.getCommandCode().equals(Code.DO_NOTHING)) {
-                return defaultHunt;
-            }
-            return new Hunt(state).probabilityShot();
-        } else {
-            System.out.println("Killing");
-            Command defaultKill = new DefaultPlacement().hunt(state);
-            if (!defaultKill.getCommandCode().equals(Code.DO_NOTHING)) {
-                return defaultKill;
-            }
-            return new Kill(state).nextShot();
+        Command move = new DefaultPlacement().hunt(state);
+        if (!move.getCommandCode().equals(Code.DO_NOTHING)) {
+            System.out.println("Hunting default placement");
+            return move;
         }
+        
+        move = new Kill(state).nextShot();
+        if (!move.getCommandCode().equals(Code.DO_NOTHING)) {
+            System.out.println("Killing");
+            return move;
+        }
+        
+        System.out.println("Hunting");
+        return new Hunt(state).probabilityShot();
     }
 
     private void writeMove(Command command) throws IOException {
