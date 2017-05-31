@@ -41,8 +41,7 @@ public class Probability {
         }
 
         if (maxProb == 0) {
-            System.out.println("Max probability 0");
-            throw new RuntimeException("Max probability 0");
+            System.out.println("WARN: Max probability 0");
         }
 
         String pMap = "";
