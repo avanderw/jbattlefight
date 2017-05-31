@@ -34,7 +34,27 @@ public class Kill {
                 OpponentCell east = state.OpponentMap.getAdjacentCell(cell, Direction.East);
                 OpponentCell west = state.OpponentMap.getAdjacentCell(cell, Direction.West);
 
-                if ((north != null && north.Damaged) || (south != null && south.Damaged)) {
+                if (north != null && north.Damaged && west != null && west.Damaged) {
+                    OpponentCell northWest = state.OpponentMap.getAdjacentCell(west, Direction.North);
+                    if (!northWest.isShot()) {
+                        return new Command(Code.FIRESHOT, northWest.X, northWest.Y);
+                    }
+                } else if (south != null && south.Damaged && west != null && west.Damaged) {
+                    OpponentCell southWest = state.OpponentMap.getAdjacentCell(west, Direction.South);
+                    if (!southWest.isShot()) {
+                        return new Command(Code.FIRESHOT, southWest.X, southWest.Y);
+                    }
+                } else if (south != null && south.Damaged && east != null && east.Damaged) {
+                    OpponentCell southEast = state.OpponentMap.getAdjacentCell(east, Direction.South);
+                    if (!southEast.isShot()) {
+                        return new Command(Code.FIRESHOT, southEast.X, southEast.Y);
+                    }
+                } else if (north != null && north.Damaged && east != null && east.Damaged) {
+                    OpponentCell northEast = state.OpponentMap.getAdjacentCell(east, Direction.North);
+                    if (!northEast.isShot()) {
+                        return new Command(Code.FIRESHOT, northEast.X, northEast.Y);
+                    }
+                } else if ((north != null && north.Damaged) || (south != null && south.Damaged)) {
                     //System.out.println("Attacking north or south of " + cell);
                     OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.North);
                     if (shot != null) {
