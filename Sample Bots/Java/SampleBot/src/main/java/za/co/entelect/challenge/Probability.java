@@ -79,6 +79,20 @@ public class Probability {
             bestProbability = map[west.Y][west.X];
         }
 
+        if (bestProbability == 0) {
+            if (north != null && !north.isShot()) {
+                return north;
+            } else if (east != null && !east.isShot()) {
+                return east;
+            } else if (south != null && !south.isShot()) {
+                return south;
+            } else if (west != null && !west.isShot()) {
+                return west;
+            }
+
+            throw new RuntimeException("There are no neighbours with probability");
+        }
+
         return bestNeighbour;
     }
 

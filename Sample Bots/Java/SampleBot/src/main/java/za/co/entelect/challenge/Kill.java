@@ -35,6 +35,7 @@ public class Kill {
                 OpponentCell west = state.OpponentMap.getAdjacentCell(cell, Direction.West);
 
                 if (north != null && north.Damaged && west != null && west.Damaged) {
+                    System.out.println("hit north and west, searching northwest " + cell);
                     OpponentCell northWest = state.OpponentMap.getAdjacentCell(west, Direction.North);
                     if (!northWest.isShot()) {
                         return new Command(Code.FIRESHOT, northWest.X, northWest.Y);
@@ -42,6 +43,7 @@ public class Kill {
                 }
 
                 if (south != null && south.Damaged && west != null && west.Damaged) {
+                    System.out.println("hit south and west, searching southwest " + cell);
                     OpponentCell southWest = state.OpponentMap.getAdjacentCell(west, Direction.South);
                     if (!southWest.isShot()) {
                         return new Command(Code.FIRESHOT, southWest.X, southWest.Y);
@@ -49,6 +51,7 @@ public class Kill {
                 }
 
                 if (south != null && south.Damaged && east != null && east.Damaged) {
+                    System.out.println("hit south and east, searching southeast " + cell);
                     OpponentCell southEast = state.OpponentMap.getAdjacentCell(east, Direction.South);
                     if (!southEast.isShot()) {
                         return new Command(Code.FIRESHOT, southEast.X, southEast.Y);
@@ -56,6 +59,7 @@ public class Kill {
                 }
 
                 if (north != null && north.Damaged && east != null && east.Damaged) {
+                    System.out.println("hit north and east, searching northeast " + cell);
                     OpponentCell northEast = state.OpponentMap.getAdjacentCell(east, Direction.North);
                     if (!northEast.isShot()) {
                         return new Command(Code.FIRESHOT, northEast.X, northEast.Y);
@@ -63,41 +67,81 @@ public class Kill {
                 }
 
                 if (north != null && north.Damaged) {
+                    System.out.println("hit north, searching south " + cell);
                     OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.South);
                     if (shot != null) {
                         return new Command(Code.FIRESHOT, shot.X, shot.Y);
                     }
+
+                    System.out.println("nothing south, searching north");
+                    shot = state.OpponentMap.getNextShot(cell, Direction.North);
+                    if (shot != null) {
+                        return new Command(Code.FIRESHOT, shot.X, shot.Y);
+                    }
+
+                    System.out.println("nothing north");
+
                 }
 
                 if (south != null && south.Damaged) {
+                    System.out.println("hit south, searching north " + cell);
                     OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.North);
                     if (shot != null) {
                         return new Command(Code.FIRESHOT, shot.X, shot.Y);
                     }
+
+                    System.out.println("nothing north, searching south");
+                    shot = state.OpponentMap.getNextShot(cell, Direction.South);
+                    if (shot != null) {
+                        return new Command(Code.FIRESHOT, shot.X, shot.Y);
+                    }
+
+                    System.out.println("nothing south");
                 }
 
                 if (east != null && east.Damaged) {
+                    System.out.println("hit east, searching west " + cell);
                     OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.West);
                     if (shot != null) {
                         return new Command(Code.FIRESHOT, shot.X, shot.Y);
                     }
+
+                    System.out.println("nothing west, searching east");
+                    shot = state.OpponentMap.getNextShot(cell, Direction.East);
+                    if (shot != null) {
+                        return new Command(Code.FIRESHOT, shot.X, shot.Y);
+                    }
+
+                    System.out.println("nothing east");
                 }
 
                 if (west != null && west.Damaged) {
+                    System.out.println("hit west, searching east " + cell);
                     OpponentCell shot = state.OpponentMap.getNextShot(cell, Direction.East);
                     if (shot != null) {
                         return new Command(Code.FIRESHOT, shot.X, shot.Y);
                     }
+
+                    System.out.println("nothing east, searching west");
+                    shot = state.OpponentMap.getNextShot(cell, Direction.West);
+                    if (shot != null) {
+                        return new Command(Code.FIRESHOT, shot.X, shot.Y);
+                    }
+
+                    System.out.println("nothing west");
                 }
 
-                System.out.println("First hit! attacking most probable neighbour");
-                OpponentCell shot = new Probability(state).bestNeighbour(cell);
-
-                return new Command(Code.FIRESHOT, shot.X, shot.Y);
+                if ((north == null || !north.Damaged) && (east == null || !east.Damaged) && (south == null || !south.Damaged) && (west == null || !west.Damaged)) {
+                    System.out.println("First hit! attacking most probable neighbour");
+                    OpponentCell shot = new Probability(state).bestNeighbour(cell);
+                    if (shot != null) {
+                        return new Command(Code.FIRESHOT, shot.X, shot.Y);
+                    }
+                }
             }
         }
 
-        System.out.println("No linear attack found");
+        System.out.println("no attack found");
         return new Command(Code.DO_NOTHING, 0, 0);
     }
 
