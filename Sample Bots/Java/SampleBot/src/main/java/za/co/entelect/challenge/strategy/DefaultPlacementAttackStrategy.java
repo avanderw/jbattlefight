@@ -1,4 +1,4 @@
-package za.co.entelect.challenge;
+package za.co.entelect.challenge.strategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import za.co.entelect.challenge.domain.command.Point;
 import za.co.entelect.challenge.domain.command.code.Code;
 import za.co.entelect.challenge.domain.state.GameState;
 
-public class DefaultPlacement {
+public class DefaultPlacementAttackStrategy {
 
     List<Point> huntDefault;
     List<Point> killDefault;
 
-    public DefaultPlacement() {
+    public DefaultPlacementAttackStrategy() {
         huntDefault = new ArrayList();
         huntDefault.add(new Point(1, 0));
         huntDefault.add(new Point(3, 1));

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.entelect.challenge;
+package za.co.entelect.challenge.strategy;
 
 import java.util.ArrayList;
+import za.co.entelect.challenge.Placement;
 import za.co.entelect.challenge.domain.command.PlaceShipCommand;
 import za.co.entelect.challenge.domain.command.Point;
 import za.co.entelect.challenge.domain.command.direction.Direction;
@@ -16,9 +17,9 @@ import za.co.entelect.challenge.domain.state.GameState;
  *
  * @author CP318674
  */
-public class RandomPlacement {
+public class RandomPlacementStrategy {
 
-    static PlaceShipCommand placeShips(GameState state) {
+    public static PlaceShipCommand placeShips(GameState state) {
         Placement battleship = new Placement(state).random(ShipType.Battleship);
         Placement carrier = new Placement(state).random(ShipType.Carrier);
         Placement cruiser = new Placement(state).random(ShipType.Cruiser);

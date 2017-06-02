@@ -1,14 +1,15 @@
-package za.co.entelect.challenge;
+package za.co.entelect.challenge.strategy;
 
 import java.util.ArrayList;
+import za.co.entelect.challenge.Placement;
 import za.co.entelect.challenge.domain.command.PlaceShipCommand;
 import za.co.entelect.challenge.domain.command.Point;
 import za.co.entelect.challenge.domain.command.direction.Direction;
 import za.co.entelect.challenge.domain.command.ship.ShipType;
 import za.co.entelect.challenge.domain.state.GameState;
 
-public class EdgePlacement {
-    static PlaceShipCommand placeShips(GameState state) {
+public class EdgePlacementStrategy {
+    public static PlaceShipCommand placeShips(GameState state) {
         Placement battleship = new Placement(state).fixed(ShipType.Battleship, new Point(0, 0), Direction.East);
         Placement carrier = new Placement(state).fixed(ShipType.Carrier, new Point(state.MapDimension-1, 0), Direction.North);
         Placement cruiser = new Placement(state).fixed(ShipType.Cruiser, new Point(state.MapDimension-1, state.MapDimension-1), Direction.West);

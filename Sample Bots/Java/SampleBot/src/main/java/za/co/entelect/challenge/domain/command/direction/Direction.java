@@ -1,5 +1,8 @@
 package za.co.entelect.challenge.domain.command.direction;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum Direction {
@@ -19,5 +22,15 @@ public enum Direction {
         } else {
             return West;
         }
+    }
+
+    public static List<Direction> list() {
+        List<Direction> directions = new ArrayList();
+        directions.add(North);
+        directions.add(East);
+        directions.add(South);
+        directions.add(West);
+        
+        return directions;
     }
 }

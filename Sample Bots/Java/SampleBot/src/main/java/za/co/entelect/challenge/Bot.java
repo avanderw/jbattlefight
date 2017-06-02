@@ -1,5 +1,7 @@
 package za.co.entelect.challenge;
 
+import za.co.entelect.challenge.strategy.DefaultPlacementAttackStrategy;
+import za.co.entelect.challenge.strategy.EdgePlacementStrategy;
 import com.google.gson.Gson;
 import za.co.entelect.challenge.domain.command.Command;
 import za.co.entelect.challenge.domain.command.PlaceShipCommand;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import za.co.entelect.challenge.domain.state.OpponentCell;
+import za.co.entelect.challenge.strategy.DanglingDestroyerPlacementStrategy;
 
 public class Bot {
 
@@ -52,7 +55,7 @@ public class Bot {
     }
 
     private PlaceShipCommand placeShips(GameState state) {
-        return EdgePlacement.placeShips(state);
+        return DanglingDestroyerPlacementStrategy.placeShips(state);
     }
 
     private String loadState() throws IOException {
@@ -69,7 +72,7 @@ public class Bot {
     }
 
     private Command makeMove(GameState state) {
-        Command move = new DefaultPlacement().hunt(state);
+        Command move = new DefaultPlacementAttackStrategy().hunt(state);
         if (!move.getCommandCode().equals(Code.DO_NOTHING)) {
             System.out.println("Hunting default placement, "+move);
             return move;

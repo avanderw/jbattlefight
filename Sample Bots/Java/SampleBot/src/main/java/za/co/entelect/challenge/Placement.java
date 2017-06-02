@@ -1,5 +1,7 @@
 package za.co.entelect.challenge;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import za.co.entelect.challenge.domain.command.Point;
 import za.co.entelect.challenge.domain.command.direction.Direction;
@@ -70,11 +72,72 @@ public class Placement {
         this.type = shipType;
         this.point = point;
         this.direction = direction;
+        state.place(this);
         return this;
     }
-    
+
     @Override
     public String toString() {
         return String.format("%s %s %s", new Object[]{type, point, direction});
+    }
+
+    public Placement group(ShipType shipType, Point start) {
+        this.type = shipType;
+
+        Point point = start;
+        while (!state.canPlace(point)) {
+            switch (Direction.random()) {
+                case North:
+                    if (point.y + 1 < state.MapDimension) {
+                        point.y++;
+                    }
+                    break;
+                case East:
+                    if (point.x + 1 < state.MapDimension) {
+                        point.x++;
+                    }
+                    break;
+                case South:
+                    if (point.y - 1 >= 0) {
+                        point.y--;
+                    }
+                    break;
+                case West:
+                    if (point.x - 1 >= 0) {
+                        point.x--;
+                    }
+                    break;
+            }
+        }
+
+        this.point = new Point(point.x, point.y);
+        List<Direction> directions = Direction.list();
+        Collections.shuffle(directions);
+        while (!directions.isEmpty()) {
+            this.direction = directions.remove(0);
+            if (state.canPlace(this)) {
+                state.place(this);
+                return this;
+            }
+        }
+
+        return group(shipType, this.point);
+    }
+
+    public Placement avoid(ShipType shipType) {
+        this.type = shipType;
+        while (!state.canPlace(this)) {
+            this.point = new Point(ThreadLocalRandom.current().nextInt(state.MapDimension), ThreadLocalRandom.current().nextInt(state.MapDimension));
+            this.direction = Direction.random();
+        }
+
+        if (!state.secludedPlace(this)) {
+            this.point = new Point(ThreadLocalRandom.current().nextInt(state.MapDimension), ThreadLocalRandom.current().nextInt(state.MapDimension));
+            this.direction = Direction.random();
+            return avoid(shipType);
+        }
+
+        state.place(this);
+        return this;
     }
 }

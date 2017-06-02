@@ -1,5 +1,6 @@
 package za.co.entelect.challenge;
 
+import za.co.entelect.challenge.strategy.DefaultPlacementAttackStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,7 +31,7 @@ public class Hunt {
     }
 
     Command defaultPlacement() {
-        return new DefaultPlacement().hunt(state);
+        return new DefaultPlacementAttackStrategy().hunt(state);
     }
 
     Command randomShot() {
