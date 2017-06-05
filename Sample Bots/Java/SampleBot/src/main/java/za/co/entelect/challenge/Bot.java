@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import za.co.entelect.challenge.domain.state.OpponentCell;
+import za.co.entelect.challenge.strategy.AvoidPlacementStrategy;
 import za.co.entelect.challenge.strategy.DanglingDestroyerPlacementStrategy;
 
 public class Bot {
@@ -55,7 +56,7 @@ public class Bot {
     }
 
     private PlaceShipCommand placeShips(GameState state) {
-        return DanglingDestroyerPlacementStrategy.placeShips(state);
+        return AvoidPlacementStrategy.placeShips(state);
     }
 
     private String loadState() throws IOException {
