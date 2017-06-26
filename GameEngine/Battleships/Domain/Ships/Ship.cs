@@ -13,16 +13,15 @@ namespace Domain.Ships
 {
     public abstract class Ship
     {
-        [JsonIgnore]
-        protected readonly Cell[] _cells;
+        [JsonIgnore] protected readonly Cell[] _cells;
 
         [JsonProperty]
         public IEnumerable<Cell> Cells => this._cells;
 
-        public bool Destroyed => _cells.All(x => x != null && x.Hit);
+        public bool Destroyed { get; set; }
 
         public bool Placed { get; set; }
-        
+
         [JsonIgnore]
         public BattleshipPlayer Owner { get; }
 
@@ -30,7 +29,7 @@ namespace Domain.Ships
         public ShipType ShipType { get; }
 
         [JsonProperty]
-        public List<Weapon> Weapons => new List<Weapon>() {new SingleShotWeapon(Owner)};
+        public List<Weapon> Weapons { get; set; }
 
         private Ship()
         {
@@ -38,7 +37,7 @@ namespace Domain.Ships
             this.Placed = false;
         }
 
-        protected Ship(BattleshipPlayer owner, int segmentCount, ShipType shipType) : this()
+        protected Ship(BattleshipPlayer owner, int segmentCount, ShipType shipType, Weapon weapon) : this()
         {
             this.ShipType = shipType;
             this.Owner = owner;
@@ -46,14 +45,14 @@ namespace Domain.Ships
             {
                 throw new ArgumentException("Ship can't have zero or negative cells", nameof(segmentCount));
             }
-
+            this.Weapons = new List<Weapon> { new SingleShotWeapon(Owner, 1, WeaponType.SingleShot), weapon };
             this._cells = new Cell[segmentCount];
         }
 
         public void Place(Point point, Direction direction, PlayerMap playerMap)
         {
             var startCell = playerMap.GetCellAtPoint(point);
-            
+
             var cells = new List<Cell>();
             try
             {
@@ -74,7 +73,8 @@ namespace Domain.Ships
 
                 if (length < _cells.Length - 1)
                 {
-                    throw new InvalidOperationException($"There are not enough cells left in the {direction} direction to finish placing the {ShipType}");
+                    throw new InvalidOperationException(
+                        $"There are not enough cells left in the {direction} direction to finish placing the {ShipType}");
                 }
 
                 Placed = true;
@@ -90,18 +90,21 @@ namespace Domain.Ships
         {
             var startCell = playerMap.GetCellAtPoint(point);
 
-            var length = 1;
+            var length = 0;
             var cell = startCell;
-            while (length <= _cells.Length)
+            while (length < _cells.Length)
             {
-                if (!cell.CanPlace() || !cell.HasNeighbour(direction))
+                if (!cell.CanPlace())
                     return false;
 
-                cell = cell.Neighbour(direction);
                 length++;
+                if (!cell.HasNeighbour(direction))
+                    break;
+
+                cell = cell.Neighbour(direction);
             }
 
-            return true;
+            return length == _cells.Length;
         }
 
         public override string ToString()

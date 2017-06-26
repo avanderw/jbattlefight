@@ -6,9 +6,12 @@ using BotRunner.Util;
 namespace TestHarness.TestHarnesses.Bot.Runners
 {
     public class GolangRunner : BotRunner {
-      public GolangRunner(BotHarness parentHarness) : base(parentHarness)
-      {
-      }
+        private readonly EnvironmentSettings _environmentSettings;
+
+        public GolangRunner(BotHarness parentHarness, EnvironmentSettings environmentSettings) : base(parentHarness)
+        {
+            _environmentSettings = environmentSettings;
+        }
       
       protected override ProcessHandler CreateProcessHandler()
       {
@@ -23,7 +26,14 @@ namespace TestHarness.TestHarnesses.Bot.Runners
 
         protected override void RunCalibrationTest()
         {
-	    /* Leaving this unimplemented until Calibration test bot methodology has been formalised */
+            var calibrationExe = _environmentSettings.CalibrationPathToGolang;
+            var processArgs = String.Format("{0} \"{1}\"", ParentHarness.BattleshipPlayer.Key,
+                                    ParentHarness.CurrentWorkingDirectory);
+
+            using (var handler = new ProcessHandler(AppDomain.CurrentDomain.BaseDirectory, calibrationExe, processArgs, ParentHarness.Logger, true))
+            {
+                handler.RunProcess();
+            }
         }
     }
 }

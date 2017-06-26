@@ -9,8 +9,11 @@ namespace TestHarness.TestHarnesses.Bot.Runners
 {
     public class RustRunner : BotRunner
     {
-        public RustRunner(BotHarness parentHarness) : base(parentHarness)
+        private readonly EnvironmentSettings _environmentSettings;
+
+        public RustRunner(BotHarness parentHarness, EnvironmentSettings environmentSettings) : base(parentHarness)
         {
+            _environmentSettings = environmentSettings;
         }
 
         protected override ProcessHandler CreateProcessHandler()
@@ -27,8 +30,7 @@ namespace TestHarness.TestHarnesses.Bot.Runners
 
         protected override void RunCalibrationTest()
         {
-            var calibrationExe = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                @"Calibrations" + Path.DirectorySeparatorChar + "BotCalibrationRust.exe");
+            var calibrationExe = _environmentSettings.CalibrationPathToRust;
             var processArgs =
                 String.Format("{0} \"{1}\"", ParentHarness.BattleshipPlayer.Key, ParentHarness.CurrentWorkingDirectory);
 

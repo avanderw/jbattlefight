@@ -54,4 +54,3 @@ runbots-recompile:
 	  rm -fr $(SAMPLEBOTHOME)/Golang/main
 	  rm -fr $(SAMPLEBOTHOME)/C#/SampleBot/bin
 	  $(MONO) $(TARGET) -b $(SAMPLEBOTHOME)/C#/SampleBot $(SAMPLEBOTHOME)/Golang  --clog --pretty --debug --forceRebuild
-

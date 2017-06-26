@@ -16,12 +16,14 @@ namespace TestHarness.TestHarnesses.Bot.Compilers
         private readonly BotMeta _botMeta;
         private readonly string _botDir;
         private readonly ILogger _compileLogger;
+        private readonly EnvironmentSettings _environmentSettings;
 
-        public PythonCompiler(BotMeta botMeta, string botDir, ILogger compileLogger)
+        public PythonCompiler(BotMeta botMeta, string botDir, ILogger compileLogger, EnvironmentSettings environmentSettings)
         {
             _botMeta = botMeta;
             _botDir = botDir;
             _compileLogger = compileLogger;
+            _environmentSettings = environmentSettings;
         }
 
         public bool HasPackageManager()
@@ -38,8 +40,15 @@ namespace TestHarness.TestHarnesses.Bot.Compilers
         {
             if (!HasPackageManager()) return true;
 
+
+            var pythonVersion = "3";
+            if (_botMeta.BotType == BotMeta.BotTypes.Python2)
+            {
+                pythonVersion = "2";
+            }
+
             _compileLogger.LogInfo("Found requirements.txt, doing install");
-            using (var handler = new ProcessHandler(_botDir, Settings.Default.PathToPythonPackageIndex, "install -r requirements.txt", _compileLogger))
+            using (var handler = new ProcessHandler(_botDir, "py", String.Format("-{0} -m pip install -r requirements.txt", pythonVersion), _compileLogger))
             {
                 handler.ProcessToRun.ErrorDataReceived += ProcessDataRecieved;
                 handler.ProcessToRun.OutputDataReceived += ProcessDataRecieved;
