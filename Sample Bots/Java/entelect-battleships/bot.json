@@ -1,0 +1,8 @@
+{
+    "Author":"Andrew van der Westhuizen",
+    "Email":"avanderw@gmail.com",
+    "NickName" :"Battlefight v5",
+    "BotType": 1,
+    "ProjectLocation" : "",
+    "RunFile" : "target\\battlefight-5.0.jar"
+}

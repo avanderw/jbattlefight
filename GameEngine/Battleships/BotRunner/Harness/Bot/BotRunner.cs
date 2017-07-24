@@ -5,6 +5,7 @@ using System.Linq;
 using BotRunner.Exceptions;
 using BotRunner.Properties;
 using BotRunner.Util;
+using Domain.Maps;
 using GameEngine.Commands;
 using GameEngine.Commands.PlayerCommands;
 using Newtonsoft.Json;
@@ -46,7 +47,7 @@ namespace TestHarness.TestHarnesses.Bot
             stopWatch.Stop();
 
             MaxRunTime = MaxRunTime.Add(stopWatch.Elapsed);
-
+            
             ParentHarness.Logger.LogInfo(
                 $"Bot calibration complete and can run an additional {stopWatch.ElapsedMilliseconds}ms due to environment startup");
         }
@@ -58,6 +59,7 @@ namespace TestHarness.TestHarnesses.Bot
                 var sw = new Stopwatch();
                 try
                 {
+                    ParentHarness.BotMaxExecution((long) MaxRunTime.TotalMilliseconds);
                     handler.LimitExecutionTime = ParentHarness.EnforceTimeLimit;
                     handler.ProcessToRun.OutputDataReceived +=
                         (sender, args) => ParentHarness.Logger.LogInfo("Output from bot: " + args.Data);
@@ -75,7 +77,7 @@ namespace TestHarness.TestHarnesses.Bot
                     sw.Start();
                     handler.RunProcess();
                     sw.Stop();
-
+                    ParentHarness.BotExecutionTime(sw.ElapsedMilliseconds);
                     ParentHarness.Logger.LogInfo("Your bots total execution time was " + sw.Elapsed);
 
                     HaltOnError();
@@ -89,9 +91,14 @@ namespace TestHarness.TestHarnesses.Bot
                     _errorLogged = true;
                     HaltOnError();
                 }
+                if (_errorLogged)
+                {
+                    ParentHarness.BotEncounteredExecutionException();
+                }
 
                 if (ParentHarness.EnforceTimeLimit && sw.Elapsed >= MaxRunTime)
                 {
+                    ParentHarness.BotExecutionTimeLimitExceeded();
                     ParentHarness.Logger.LogInfo("Your bot exceeded the maximum execution time");
                     throw new TimeLimitExceededException("Time limit exceeded by " + (sw.Elapsed - MaxRunTime));
                 }
@@ -125,7 +132,19 @@ namespace TestHarness.TestHarnesses.Bot
                 switch (otherCommand.Code)
                 {
                     case 1:
-                        return new FireShotCommand(otherCommand.Point);
+                        return new FireSingleShotCommand(otherCommand.Point);
+                    case 2:
+                        return new FireDoubleShotCommand(otherCommand.Point, Direction.North);
+                    case 3:
+                        return new FireDoubleShotCommand(otherCommand.Point, Direction.East);
+                    case 4:
+                        return new FireCornerrShotCommand(otherCommand.Point);
+                    case 5:
+                        return new FireCrossShotCommand(otherCommand.Point, true);
+                    case 6:
+                        return new FireCrossShotCommand(otherCommand.Point, false);
+                    case 7:
+                        return new FireSeekerMissleCommand(otherCommand.Point);
                     default:
                         return new DoNothingCommand();
                 }
@@ -146,10 +165,11 @@ namespace TestHarness.TestHarnesses.Bot
                 return null;
 
             var basicCommand = File.ReadAllText(commandLocation).Split(',');
-            if (basicCommand.Length != 3)
+            if (basicCommand.Length > 3)
             {
                 throw new ArgumentException("There needs to be 3 numbers seperated by commas in the general command file");
             }
+
             return new GeneralCommand(Convert.ToInt32(basicCommand[0]), Convert.ToInt32(basicCommand[1]),
                 Convert.ToInt32(basicCommand[2]));
         }

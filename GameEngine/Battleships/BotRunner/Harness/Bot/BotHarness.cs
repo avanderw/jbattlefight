@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using BotRunner.Exceptions;
 using BotRunner.Properties;
+using BotRunner.Util;
 using Domain.Bot;
 using Domain.File;
 using Domain.Games;
@@ -31,7 +32,7 @@ namespace TestHarness.TestHarnesses.Bot
         private int _currentRound = 0;
         private int _totalDoNothingCommands;
 
-        public BotHarness(BotMeta meta, string botDir, string workDir, bool noTimeLimit, bool haltOnError)
+        public BotHarness(BotMeta meta, string botDir, string workDir, bool noTimeLimit, bool haltOnError, EnvironmentSettings environmentSettings)
             : base(meta.NickName ?? meta.Author ?? meta.Email)
         {
             BotMeta = meta;
@@ -48,20 +49,27 @@ namespace TestHarness.TestHarnesses.Bot
                 case BotMeta.BotTypes.CSharp:
                 case BotMeta.BotTypes.CPlusPlus:
                 case BotMeta.BotTypes.FSharp:
-                    _botRunner = new DotNetRunner(this);
+                    _botRunner = new DotNetRunner(this, environmentSettings);
                     break;
                 case BotMeta.BotTypes.Python2:
                 case BotMeta.BotTypes.Python3:
-                    _botRunner = new PythonRunner(this);
+                    _botRunner = new PythonRunner(this, environmentSettings);
                     break;
                 case BotMeta.BotTypes.Java:
-                    _botRunner = new JavaRunner(this);
+                case BotMeta.BotTypes.Scala:
+                    _botRunner = new JavaRunner(this, environmentSettings);
                     break;
                 case BotMeta.BotTypes.Golang:
-                    _botRunner = new GolangRunner(this);
+                    _botRunner = new GolangRunner(this, environmentSettings);
                     break;
                 case BotMeta.BotTypes.JavaScript:
-                    _botRunner = new JavaScriptRunner(this);
+                    _botRunner = new JavaScriptRunner(this, environmentSettings);
+                    break;
+                case BotMeta.BotTypes.Julia:
+                    _botRunner = new JuliaRunner(this, environmentSettings);
+                    break;
+                case BotMeta.BotTypes.Rust:
+                    _botRunner = new RustRunner(this, environmentSettings);
                     break;
                 default:
                     throw new ArgumentException("Invalid bot type " + meta.BotType);
@@ -125,6 +133,7 @@ namespace TestHarness.TestHarnesses.Bot
             }
             if (_totalDoNothingCommands >= 20)
             {
+                BotUnresponsive();
                 Logger.LogInfo(
                     "Bot sent to many do nothing commands, something is most likely going wrong, please fix your bot. The player's ships will all be marked as destroyed and killed off.");
                 BattleshipPlayer.Killoff();
@@ -159,12 +168,13 @@ namespace TestHarness.TestHarnesses.Bot
 
             WriteLogs();
             RemoveCommandFile(true);
+            BotCommandPublished(command);
             PublishCommand(command);
         }
 
         private void ClearRoundFiles()
         {
-            var dir = Path.Combine(CurrentWorkingDirectory, Settings.Default.StateFileName);
+            /*var dir = Path.Combine(CurrentWorkingDirectory, Settings.Default.StateFileName);
 
             if (File.Exists(dir))
                 File.Delete(dir);
@@ -172,7 +182,7 @@ namespace TestHarness.TestHarnesses.Bot
             dir = Path.Combine(CurrentWorkingDirectory, Settings.Default.MapFileName);
 
             if (File.Exists(dir))
-                File.Delete(dir);
+                File.Delete(dir);*/
         }
 
         private void RemoveCommandFile(bool restoreContent = false)
@@ -248,5 +258,40 @@ namespace TestHarness.TestHarnesses.Bot
         {
             return $"Phase {gameMap.Phase} - Round {round}";
         }
+
+
+        #region Tournament Methods
+
+        public virtual void BotMaxExecution(long executionTime)
+        {
+            
+        }
+
+        public virtual void BotExecutionTime(long executionTime)
+        {
+            
+        }
+
+        public virtual void BotExecutionTimeLimitExceeded()
+        {
+            
+        }
+
+        public virtual void BotCommandPublished(ICommand command)
+        {
+            
+        }
+
+        public virtual void BotEncounteredExecutionException()
+        {
+
+        }
+
+        public virtual void BotUnresponsive()
+        {
+
+        }
+
+        #endregion
     }
 }

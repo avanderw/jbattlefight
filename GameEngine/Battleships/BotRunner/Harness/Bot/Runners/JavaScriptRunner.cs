@@ -10,8 +10,11 @@ namespace TestHarness.TestHarnesses.Bot.Runners
 {
     public class JavaScriptRunner : BotRunner
     {
-        public JavaScriptRunner(BotHarness parentHarness) : base(parentHarness)
+        private readonly EnvironmentSettings _environmentSettings;
+
+        public JavaScriptRunner(BotHarness parentHarness, EnvironmentSettings environmentSettings) : base(parentHarness)
         {
+            _environmentSettings = environmentSettings;
         }
 
         protected override ProcessHandler CreateProcessHandler()
@@ -21,17 +24,16 @@ namespace TestHarness.TestHarnesses.Bot.Runners
 
             processArgs = AddAdditionalRunArgs(processArgs);
 
-            return new ProcessHandler(ParentHarness.BotDir, Settings.Default.PathToNode, processArgs, ParentHarness.Logger);
+            return new ProcessHandler(ParentHarness.BotDir, _environmentSettings.PathToNode, processArgs, ParentHarness.Logger);
         }
 
         protected override void RunCalibrationTest()
         {
-            var calibrationFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-               @"Calibrations" + Path.DirectorySeparatorChar + "BotCalibrationNode.js");
+            var calibrationFile = _environmentSettings.CalibrationPathToJavaScript;
             var processArgs = String.Format("{0} {1} \"{2}\"", calibrationFile,
                 ParentHarness.BattleshipPlayer.Key, ParentHarness.CurrentWorkingDirectory);
 
-            using (var handler = new ProcessHandler(AppDomain.CurrentDomain.BaseDirectory, Settings.Default.PathToNode, processArgs, ParentHarness.Logger))
+            using (var handler = new ProcessHandler(AppDomain.CurrentDomain.BaseDirectory, _environmentSettings.PathToNode, processArgs, ParentHarness.Logger))
             {
                 handler.RunProcess();
             }

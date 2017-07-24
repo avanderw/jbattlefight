@@ -16,12 +16,15 @@ namespace Domain.Bot
         {
             CSharp,
             Java,
-            JavaScript,
+            JavaScript,            
             CPlusPlus,
             Python2,
             Python3,
             FSharp,
-            Golang
+            Golang,
+            Rust,
+            Julia,
+            Scala
         }
     }
 }

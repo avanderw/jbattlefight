@@ -9,8 +9,11 @@ namespace TestHarness.TestHarnesses.Bot.Runners
 {
     public class DotNetRunner : BotRunner
     {
-        public DotNetRunner(BotHarness parentHarness) : base(parentHarness)
+        private readonly EnvironmentSettings _environmentSettings;
+
+        public DotNetRunner(BotHarness parentHarness, EnvironmentSettings environmentSettings) : base(parentHarness)
         {
+            _environmentSettings = environmentSettings;
         }
 
         protected override ProcessHandler CreateProcessHandler()
@@ -29,8 +32,7 @@ namespace TestHarness.TestHarnesses.Bot.Runners
 
         protected override void RunCalibrationTest()
         {
-            var calibrationExe = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                @"Calibrations" + Path.DirectorySeparatorChar + GetCalibrarionExe());
+            var calibrationExe = GetCalibrarionExe();
             var processArgs =
                 String.Format("{0} \"{1}\"", ParentHarness.BattleshipPlayer.Key, ParentHarness.CurrentWorkingDirectory);
 
@@ -55,14 +57,11 @@ namespace TestHarness.TestHarnesses.Bot.Runners
             switch (ParentHarness.BotMeta.BotType)
             {
                 case BotMeta.BotTypes.CPlusPlus:
-                    return "BotCalibrationCPlusPlus.exe";
-                case BotMeta.BotTypes.FSharp:
-                    return "BotCalibrationFSharp.exe";
-                    case BotMeta.BotTypes.CSharp:
+                    return _environmentSettings.CalibrationPathToCPlusPlus;
+                case BotMeta.BotTypes.CSharp:
                 default:
-                        return "BotCalibrationDotNet.exe";
+                    return _environmentSettings.CalibrationPathToCSharp;
             }
-            
         }
     }
 }

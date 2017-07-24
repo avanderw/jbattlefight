@@ -35,8 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
@@ -77,6 +81,10 @@
     <ProjectReference Include="..\Domain\1. Domain.csproj">
       <Project>{9A0FEB3F-B67C-4300-87A4-DA9BE8F81088}</Project>
       <Name>1. Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameEngine\2. GameEngine.csproj">
+      <Project>{4B3FEF3B-945E-4D02-8ED4-8F20CBE7041E}</Project>
+      <Name>2. GameEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
