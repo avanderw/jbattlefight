@@ -6,7 +6,7 @@ import za.co.entelect.challenge.domain.command.direction.Direction;
 
 public class PlayerMap {
 
-    public BattleshipPlayer Owner;
+    public Owner Owner;
 
     public ArrayList<Cell> Cells;
 

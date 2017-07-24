@@ -59,7 +59,7 @@ public class Bot {
         return AvoidPlacementStrategy.placeShips(state);
     }
 
-    private String loadState() throws IOException {
+    String loadState() throws IOException {
 
         StringBuilder jsonText = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(workingDirectory, stateFileName)));
@@ -69,6 +69,7 @@ public class Bot {
             jsonText.append("\r\n");
             line = bufferedReader.readLine();
         }
+        System.out.println(jsonText.toString());
         return jsonText.toString();
     }
 

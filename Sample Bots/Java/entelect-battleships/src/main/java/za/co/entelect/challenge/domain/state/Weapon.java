@@ -5,6 +5,6 @@ public class Weapon {
     public WeaponType WeaponType;
 
     public enum WeaponType {
-        SingleShot
+        SingleShot, SeekerMissle, DoubleShot, DiagonalCrossShot, CornerShot, CrossShot
     }
 }
