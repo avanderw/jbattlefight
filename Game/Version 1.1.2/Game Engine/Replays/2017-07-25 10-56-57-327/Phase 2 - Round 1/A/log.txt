@@ -1,0 +1,11 @@
+
+25-07-2017 10:56:59:609 - D: 	Executing bot with following commands java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 2 - Round 1\A"
+25-07-2017 10:56:59:609 - I: 	Executing process java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 2 - Round 1\A"
+25-07-2017 10:56:59:616 - I: 	Bot has 4000ms to run before it will be forcefully killed
+25-07-2017 10:56:59:974 - I: 	Output from bot: Default hunt
+25-07-2017 10:56:59:999 - I: 	Output from bot: Hunting default placement, 1,1,0
+25-07-2017 10:56:59:999 - I: 	Output from bot: 1,1,0
+25-07-2017 10:57:00:003 - I: 	Output from bot: [Bot]	Bot finished in 201 ms.
+25-07-2017 10:57:00:006 - E: 	Output from bot: 
+25-07-2017 10:57:00:006 - I: 	Output from bot: 
+25-07-2017 10:57:00:011 - I: 	Your bots total execution time was 00:00:00.4017605

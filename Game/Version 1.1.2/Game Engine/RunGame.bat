@@ -1,1 +1,1 @@
-Battleships.exe -b "..\Reference Bots\C#" "..\Reference Bots\C#" --clog --pretty
+Battleships.exe -b "..\..\..\Reference Bots\battlefight.v4" "..\..\..\Sample Bots\Java\entelect-battleships" --clog --pretty --debug --size 3

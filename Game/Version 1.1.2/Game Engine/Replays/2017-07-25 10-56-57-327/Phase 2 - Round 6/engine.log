@@ -1,0 +1,7 @@
+
+25-07-2017 10:57:06:149 - I: 	Added Command FireSingleShotCommand for Player Battlefight v4
+25-07-2017 10:57:06:560 - I: 	Added Command FireSingleShotCommand for Player Battlefight v5
+25-07-2017 10:57:06:561 - D: 	Beginning round processing
+25-07-2017 10:57:06:561 - D: 	Processing Player Commands
+25-07-2017 10:57:06:561 - D: 	Killing off players who have no ships left
+25-07-2017 10:57:06:562 - D: 	Round processing complete

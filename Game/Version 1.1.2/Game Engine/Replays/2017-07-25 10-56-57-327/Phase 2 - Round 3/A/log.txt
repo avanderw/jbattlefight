@@ -1,0 +1,30 @@
+
+25-07-2017 10:57:01:974 - D: 	Executing bot with following commands java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 2 - Round 3\A"
+25-07-2017 10:57:01:974 - I: 	Executing process java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 2 - Round 3\A"
+25-07-2017 10:57:01:980 - I: 	Bot has 4000ms to run before it will be forcefully killed
+25-07-2017 10:57:02:313 - I: 	Output from bot: 
+25-07-2017 10:57:02:313 - I: 	Output from bot: Searching for linear kills
+25-07-2017 10:57:02:317 - I: 	Output from bot: no attack found
+25-07-2017 10:57:02:317 - I: 	Output from bot: 
+25-07-2017 10:57:02:317 - I: 	Output from bot: Hunting...
+25-07-2017 10:57:02:318 - I: 	Output from bot: Making probability shot
+25-07-2017 10:57:02:413 - I: 	Output from bot:  5, 0,10,11,13,14,15,15,14,15,14,13,11,10,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 11,11,14,15,16,16,16,16,14,16,15,14,12,11,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 13,12,16,17,18,18,18,18,14,18,17,16,14,13,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 14,14,17,18,19,19,19,19,14,19,18,17,15,14,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 15,15,18,19,19,18,16,15, 0,15,15,16,15,15,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 15,16,18,19,20,20,20,20,15,20,19,18,16,15,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 15,16,18,19,20,20,20,20,16,20,19,18,16,15,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 15,16,18,19,20,20,20,20,18,20,19,18,16,15,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 15,16,18,19,20,20,20,20,19,20,19,18,16,15,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 15,16,18,19,20,20,20,20,20,20,19,18,16,15,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 14,15,17,18,19,19,19,19,19,19,18,17,15,14,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 13,14,16,17,18,18,18,18,18,18,17,16,14,13,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 11,12,14,15,16,16,16,16,16,16,15,14,12,11,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 10,11,13,14,15,15,15,15,15,15,14,13,11,10,
+25-07-2017 10:57:02:413 - I: 	Output from bot: 
+25-07-2017 10:57:02:414 - I: 	Output from bot: 1,5,6
+25-07-2017 10:57:02:418 - I: 	Output from bot: [Bot]	Bot finished in 285 ms.
+25-07-2017 10:57:02:421 - I: 	Output from bot: 
+25-07-2017 10:57:02:422 - E: 	Output from bot: 
+25-07-2017 10:57:02:427 - I: 	Your bots total execution time was 00:00:00.4527390

@@ -1,0 +1,12 @@
+
+25-07-2017 10:56:57:715 - I: 	Loaded bot ..\..\..\Reference Bots\battlefight.v4
+25-07-2017 10:56:57:722 - I: 	Loaded bot ..\..\..\Sample Bots\Java\entelect-battleships
+25-07-2017 10:56:57:722 - I: 	Registered player Battlefight v4
+25-07-2017 10:56:57:722 - I: 	Registered player Battlefight v5
+25-07-2017 10:56:57:800 - I: 		OK!
+25-07-2017 10:56:58:882 - I: 	Added Command PlaceShipCommand for Player Battlefight v4
+25-07-2017 10:56:59:382 - I: 	Added Command PlaceShipCommand for Player Battlefight v5
+25-07-2017 10:56:59:384 - D: 	Beginning round processing
+25-07-2017 10:56:59:385 - D: 	Processing Player Commands
+25-07-2017 10:56:59:395 - D: 	Killing off players who have no ships left
+25-07-2017 10:56:59:395 - D: 	Round processing complete

@@ -1,0 +1,14 @@
+
+25-07-2017 10:57:07:980 - D: 	Executing bot with following commands java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 2 - Round 8\A"
+25-07-2017 10:57:07:980 - I: 	Executing process java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 2 - Round 8\A"
+25-07-2017 10:57:07:986 - I: 	Bot has 4000ms to run before it will be forcefully killed
+25-07-2017 10:57:08:361 - I: 	Output from bot: 
+25-07-2017 10:57:08:362 - I: 	Output from bot: Searching for linear kills
+25-07-2017 10:57:08:391 - I: 	Output from bot: hit north, searching south 6, 5 : damaged=true
+25-07-2017 10:57:08:392 - I: 	Output from bot: nothing south, searching north
+25-07-2017 10:57:08:392 - I: 	Output from bot: Found kill shot, 1,6,7
+25-07-2017 10:57:08:392 - I: 	Output from bot: 1,6,7
+25-07-2017 10:57:08:396 - I: 	Output from bot: [Bot]	Bot finished in 223 ms.
+25-07-2017 10:57:08:399 - I: 	Output from bot: 
+25-07-2017 10:57:08:399 - E: 	Output from bot: 
+25-07-2017 10:57:08:403 - I: 	Your bots total execution time was 00:00:00.4237671

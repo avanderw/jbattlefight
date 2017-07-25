@@ -1,9 +1,8 @@
 package net.avdw.battlefight.state;
 
 import java.util.ArrayList;
-import za.co.entelect.challenge.domain.command.ship.ShipType;
 
-public class State {
+public class StateModel {
 
     public PlayerMap PlayerMap;
     public OpponentMap OpponentMap;
@@ -77,11 +76,35 @@ public class State {
     }
 
     public class Weapon {
-
+        
         public WeaponType WeaponType;
+        public int EnergyRequired;
     }
 
     public enum WeaponType {
-        SingleShot, SeekerMissle, DoubleShot, DiagonalCrossShot, CornerShot, CrossShot
+        SingleShot, 
+        SeekerMissle, 
+        DoubleShot, 
+        DiagonalCrossShot, 
+        CornerShot, 
+        CrossShot
+    }
+
+    public enum ShipType {
+        Battleship(4),
+        Carrier(5),
+        Cruiser(3),
+        Destroyer(2),
+        Submarine(3);
+
+        private final int length;
+
+        private ShipType(final int length) {
+            this.length = length;
+        }
+
+        public int length() {
+            return length;
+        }
     }
 }

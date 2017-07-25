@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class StateReader {
-    static public State read(File stateFile) throws FileNotFoundException, IOException {
+    static public StateModel read(File stateFile) throws FileNotFoundException, IOException {
         StringBuilder jsonStringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(stateFile));
         String line = bufferedReader.readLine();
@@ -18,6 +18,6 @@ public class StateReader {
             line = bufferedReader.readLine();
         }
         
-        return new Gson().fromJson(jsonStringBuilder.toString(), State.class);
+        return new Gson().fromJson(jsonStringBuilder.toString(), StateModel.class);
     }
 }

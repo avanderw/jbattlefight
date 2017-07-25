@@ -1,30 +1,19 @@
 package za.co.entelect.challenge;
 
 import za.co.entelect.challenge.strategy.DefaultPlacementAttackStrategy;
-import za.co.entelect.challenge.strategy.EdgePlacementStrategy;
 import com.google.gson.Gson;
 import za.co.entelect.challenge.domain.command.Command;
 import za.co.entelect.challenge.domain.command.PlaceShipCommand;
-import za.co.entelect.challenge.domain.command.Point;
 import za.co.entelect.challenge.domain.command.code.Code;
-import za.co.entelect.challenge.domain.command.direction.Direction;
-import za.co.entelect.challenge.domain.command.ship.ShipType;
 import za.co.entelect.challenge.domain.state.GameState;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
-import za.co.entelect.challenge.domain.state.OpponentCell;
 import za.co.entelect.challenge.strategy.AvoidPlacementStrategy;
-import za.co.entelect.challenge.strategy.DanglingDestroyerPlacementStrategy;
 
 public class Bot {
 
     private String workingDirectory;
 
-    private String key;
 
     private final String commandFileName = "command.txt";
 
@@ -37,7 +26,6 @@ public class Bot {
     public Bot(String key, String workingDirectory) {
 
         this.workingDirectory = workingDirectory;
-        this.key = key;
         this.gson = new Gson();
     }
 

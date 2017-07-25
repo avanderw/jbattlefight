@@ -1,0 +1,21 @@
+
+25-07-2017 10:56:58:257 - I: 	Executing process java -Xms512m -jar "" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 1 - Round 0\A"
+25-07-2017 10:56:58:374 - I: 	Bot calibration complete and can run an additional 118ms due to environment startup
+25-07-2017 10:56:58:391 - D: 	Executing bot with following commands java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 1 - Round 0\A"
+25-07-2017 10:56:58:391 - I: 	Executing process java -Xms512m -jar "target\sample-bot-1.0-SNAPSHOT-jar-with-dependencies.jar" A "C:\Users\CP318674\Documents\2017-Battleships\Game\Version 1.1.2\Game Engine\Replays\2017-07-25 10-56-57-327\Phase 1 - Round 0\A"
+25-07-2017 10:56:58:397 - I: 	Bot has 4000ms to run before it will be forcefully killed
+25-07-2017 10:56:58:780 - I: 	Output from bot: Secluded place Carrier 7,7 East
+25-07-2017 10:56:58:780 - I: 	Output from bot: placing Carrier 7,7 East
+25-07-2017 10:56:58:780 - I: 	Output from bot: Secluded place Battleship 7,4 West
+25-07-2017 10:56:58:780 - I: 	Output from bot: placing Battleship 7,4 West
+25-07-2017 10:56:58:780 - I: 	Output from bot: Secluded place Cruiser 12,8 North
+25-07-2017 10:56:58:780 - I: 	Output from bot: placing Cruiser 12,8 North
+25-07-2017 10:56:58:781 - I: 	Output from bot: Secluded place Submarine 7,1 North
+25-07-2017 10:56:58:781 - I: 	Output from bot: Secluded place Submarine 2,7 North
+25-07-2017 10:56:58:781 - I: 	Output from bot: placing Submarine 2,7 North
+25-07-2017 10:56:58:781 - I: 	Output from bot: Secluded place Destroyer 4,13 West
+25-07-2017 10:56:58:781 - I: 	Output from bot: placing Destroyer 4,13 West
+25-07-2017 10:56:58:856 - I: 	Output from bot: [Bot]	Bot finished in 183 ms.
+25-07-2017 10:56:58:859 - I: 	Output from bot: 
+25-07-2017 10:56:58:859 - E: 	Output from bot: 
+25-07-2017 10:56:58:864 - I: 	Your bots total execution time was 00:00:00.4726918
