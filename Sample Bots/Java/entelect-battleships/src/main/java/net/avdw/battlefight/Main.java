@@ -1,5 +1,9 @@
 package net.avdw.battlefight;
 
+import net.avdw.battlefight.state.StateResolver;
+import net.avdw.battlefight.kill.KillBehaviourTree;
+import net.avdw.battlefight.place.PlacementStrategy;
+import net.avdw.battlefight.hunt.HuntBehaviourTree;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,17 +21,17 @@ public class Main {
 
         try {
             StateModel stateModel = StateReader.read(new File(workingDirectory, "state.json"));
-            StateMachine.setup(stateModel);
-            
-            Action action;
-            switch (StateMachine.state) {
-                case PLACE: 
-                    action = PlacementStategy.place(stateModel);
+            StateResolver.setup(stateModel);
+
+            Action action = null;
+            switch (StateResolver.state) {
+                case PLACE:
+                    action = PlacementStrategy.place(stateModel);
                     break;
-                case KILL: 
+                case KILL:
                     action = KillBehaviourTree.execute(stateModel);
                     break;
-                case HUNT: 
+                case HUNT:
                     action = HuntBehaviourTree.execute(stateModel);
                     break;
             }

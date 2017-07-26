@@ -1,5 +1,7 @@
 package net.avdw.battlefight;
 
-class Action {
+public class Action {
+
+    public String filename;
     
 }
