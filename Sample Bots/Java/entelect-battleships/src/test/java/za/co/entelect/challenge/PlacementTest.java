@@ -100,27 +100,32 @@ public class PlacementTest {
         parseOutput(action.toString()).forEach((placement) -> {
             switch (placement.direction) {
                 case North:
-                    if (placement.y + placement.type.length() > 14) {
+                    if (placement.y + placement.type.length() >= 14) {
                         fail(String.format("Cannot place ship: %s", placement));
                     }
                     break;
                 case South:
-                    if (placement.y - placement.type.length() <= 0) {
+                    if (placement.y - placement.type.length() < 0) {
                         fail(String.format("Cannot place ship: %s", placement));
                     }
                     break;
                 case East:
-                    if (placement.x + placement.type.length() > 14) {
+                    if (placement.x + placement.type.length() >= 14) {
                         fail(String.format("Cannot place ship: %s", placement));
                     }
                     break;
                 case West:
-                    if (placement.x - placement.type.length() <= 0) {
+                    if (placement.x - placement.type.length() < 0) {
                         fail(String.format("Cannot place ship: %s", placement));
                     }
                     break;
             }
         });
+    }
+    
+    @Test
+    public void inAllCornersNoDestroyer() {
+        
     }
 
     @Test
