@@ -11,6 +11,6 @@ public class PlaceAction extends Action {
 
     @Override
     public String toString() {
-        return "Battleship 1 2 North\nCarrier 6 3 West\nCruiser 3 4 North\nDestroyer 4 5 North\nSubmarine 5 6 North";
+        return "Battleship 0 0 East\nCarrier 7 3 West\nCruiser 3 5 North\nDestroyer 10 5 North\nSubmarine 4 12 West";
     }
 }
