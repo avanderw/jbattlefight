@@ -1,0 +1,10 @@
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\bin\Debug\netcoreapp1.1\ReplayZ.deps.json
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\bin\Debug\netcoreapp1.1\ReplayZ.runtimeconfig.json
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\bin\Debug\netcoreapp1.1\ReplayZ.runtimeconfig.dev.json
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\bin\Debug\netcoreapp1.1\ReplayZ.dll
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\bin\Debug\netcoreapp1.1\ReplayZ.pdb
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\obj\Debug\netcoreapp1.1\ReplayZ.csproj.CoreCompileInputs.cache
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\obj\Debug\netcoreapp1.1\ReplayZ.AssemblyInfoInputs.cache
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\obj\Debug\netcoreapp1.1\ReplayZ.AssemblyInfo.cs
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\obj\Debug\netcoreapp1.1\ReplayZ.dll
+C:\Users\CP318674\Documents\2017-Battleships\GameVisualizer\ReplayZ\obj\Debug\netcoreapp1.1\ReplayZ.pdb
