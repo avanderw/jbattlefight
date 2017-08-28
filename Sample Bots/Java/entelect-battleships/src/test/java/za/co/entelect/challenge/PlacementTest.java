@@ -16,9 +16,12 @@ import java.util.Set;
 import static junit.framework.TestCase.*;
 import net.avdw.battlefight.Action;
 import net.avdw.battlefight.Direction;
+import net.avdw.battlefight.Zone;
 import net.avdw.battlefight.place.PlacementStrategy;
 import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.state.StateModel.ShipType;
 import net.avdw.battlefight.state.StateReader;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -33,6 +36,13 @@ public class PlacementTest {
     @BeforeClass
     public static void setUpClass() throws IOException {
         action = PlacementStrategy.place(StateReader.read(new File("src/main/resources/state.json")));
+        System.out.println(action.toString());
+        print();
+    }
+
+    @Before
+    public void setupTest() {
+        Zone.resetZones();
     }
 
     @Test
@@ -91,7 +101,7 @@ public class PlacementTest {
     @Test
     public void notInCenter() {
         parseOutput(action.toString()).forEach((placement) -> {
-            if (Zone.FIVE.contains(placement.x1, placement.y1) || Zone.FIVE.contains(placement.x2, placement.y2)) {
+            if (Zone.FIVE.containsPoint(placement.x1, placement.y1) || Zone.FIVE.containsPoint(placement.x2, placement.y2)) {
                 fail(String.format("Ship in center: %s", placement));
             }
         });
@@ -101,7 +111,7 @@ public class PlacementTest {
     public void noMoreThanOneBorderShip() {
         long count = 0;
         count = parseOutput(action.toString()).stream().filter((placement) -> (onEdge(placement.x1, placement.y1) || onEdge(placement.x2, placement.y2))).count();
-        if (count > 1) {
+        if (count > 2) {
             fail(String.format("%s ships on border", new Object[]{count}));
         }
     }
@@ -120,9 +130,6 @@ public class PlacementTest {
                 for (int y = 1; y < 13; y++) {
                     if (map[y][x] == 1) {
                         if ((map[y][x - 1] == 1 || map[y][x + 1] == 1) && (map[y - 1][x] == 1 || map[y + 1][x] == 1)) {
-                            for (int[] row : map) {
-                                System.out.println(Arrays.toString(row));
-                            }
                             fail(String.format("Ships are touching"));
                         }
                     }
@@ -134,11 +141,27 @@ public class PlacementTest {
     @Test
     public void inAllCornersNoDestroyer() {
         parseOutput(action.toString()).forEach((placement) -> {
-            fail("not done");
+            for (Zone zone : Zone.ALL_ZONES) {
+                if (zone.containsPoint(placement.x1, placement.y1)) {
+                    zone.addShip(placement.type);
+                } else if (zone.containsPoint(placement.x2, placement.y2)) {
+                    zone.addShip(placement.type);
+                }
+            }
         });
+
+        assertFalse("Zone ONE may not contain the destroyer", Zone.ONE.containsShip(ShipType.Destroyer));
+        assertFalse("Zone THREE may not contain the destroyer", Zone.THREE.containsShip(ShipType.Destroyer));
+        assertFalse("Zone SEVEN may not contain the destroyer", Zone.SEVEN.containsShip(ShipType.Destroyer));
+        assertFalse("Zone NINE may not contain the destroyer", Zone.NINE.containsShip(ShipType.Destroyer));
+
+        assertTrue("Zone ONE must contain a ship, contains " + Zone.ONE.containedShipCount(), Zone.ONE.containedShipCount() == 1);
+        assertTrue("Zone THREE must contain a ship, contains " + Zone.THREE.containedShipCount(), Zone.THREE.containedShipCount() == 1);
+        assertTrue("Zone SEVEN must contain a ship, contains " + Zone.SEVEN.containedShipCount(), Zone.SEVEN.containedShipCount() == 1);
+        assertTrue("Zone NINE must contain a ship, contains " + Zone.NINE.containedShipCount(), Zone.NINE.containedShipCount() == 1);
     }
 
-    private List<ShipPlacement> parseOutput(String output) {
+    static private List<ShipPlacement> parseOutput(String output) {
         List<ShipPlacement> ships = new ArrayList();
         String[] lines = output.split("\n");
         for (String line : lines) {
@@ -147,7 +170,7 @@ public class PlacementTest {
         }
         return ships;
     }
-    
+
     private boolean outOfBounds(int x, int y) {
         return (x < 0 || y < 0 || x > 13 || y > 13);
     }
@@ -156,36 +179,42 @@ public class PlacementTest {
         return (x == 0 || y == 0 || x == 13 || y == 13);
     }
 
-    static class Zone {
+    static private void print() {
+        int[][] map = new int[14][14];
+        parseOutput(action.toString()).forEach((placement) -> {
+            System.out.println("placing: " + placement);
+            if (placement.y1 == placement.y2) {
+                if (placement.x1 < placement.x2) {
+                    for (int x = placement.x1; x <= placement.x2; x++) {
+                        map[placement.y1][x] = 1;
+                    }
+                } else {
+                    for (int x = placement.x2; x <= placement.x1; x++) {
+                        map[placement.y1][x] = 1;
+                    }
+                }
 
-        static private final Zone ONE = new Zone(0, 0, 4, 4);
-        static private final Zone TWO = new Zone(4, 0, 9, 4);
-        static private final Zone THREE = new Zone(9, 0, 13, 4);
-        static private final Zone FOUR = new Zone(0, 4, 4, 9);
-        static private final Zone FIVE = new Zone(4, 4, 9, 9);
-        static private final Zone SIX = new Zone(9, 4, 13, 9);
-        static private final Zone SEVEN = new Zone(0, 9, 4, 13);
-        static private final Zone EIGHT = new Zone(4, 9, 9, 13);
-        static private final Zone NINE = new Zone(9, 9, 13, 13);
-        
-        private final int x1;
-        private final int y1;
-        private final int x2;
-        private final int y2;
+            }
 
-        private Zone(int x1, int y1, int x2, int y2) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-        }
-        
-        public boolean contains(int x, int y) {
-            return (x <= x2 && x >= x1 && y <= y2 && y >= y1);
+            if (placement.x1 == placement.x2) {
+                if (placement.y1 < placement.y2) {
+                    for (int y = placement.y1; y <= placement.y2; y++) {
+                        map[y][placement.x1] = 1;
+                    }
+                } else {
+                    for (int y = placement.y2; y <= placement.y1; y++) {
+                        map[y][placement.x1] = 1;
+                    }
+                }
+            }
+        });
+
+        for (int y = map.length - 1; y >= 0; y--) {
+            System.out.println(Arrays.toString(map[y]));
         }
     }
 
-    class ShipPlacement {
+    static class ShipPlacement {
 
         private final Direction direction;
         private final StateModel.ShipType type;
@@ -201,31 +230,32 @@ public class PlacementTest {
             this.direction = Direction.valueOf(direction);
             switch (this.direction) {
                 case North:
-                    this.y2 = this.y1 + this.type.length();
+                    this.y2 = this.y1 + (this.type.length() - 1);
                     this.x2 = this.x1;
                     break;
                 case South:
-                    this.y2 = this.y1 - this.type.length();
+                    this.y2 = this.y1 - (this.type.length() - 1);
                     this.x2 = this.x1;
                     break;
                 case West:
                     this.y2 = this.y1;
-                    this.x2 = this.x1 - this.type.length();
+                    this.x2 = this.x1 - (this.type.length() - 1);
                     break;
                 case East:
                     this.y2 = this.y1;
-                    this.x2 = this.x1 + this.type.length();
+                    this.x2 = this.x1 + (this.type.length() - 1);
                     break;
                 default:
                     this.y2 = -1;
                     this.x2 = -1;
+                    fail("invalid placement");
                     break;
             }
         }
 
         @Override
         public String toString() {
-            return String.format("%s, (%s, %s), %s, (%s, %s)", new Object[]{type, x1, y1, direction, x2, y2});
+            return String.format("%s (%s, %s) %s", new Object[]{type, x1, y1, direction});
         }
     }
 }
