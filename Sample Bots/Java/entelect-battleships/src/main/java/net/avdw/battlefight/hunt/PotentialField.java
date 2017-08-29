@@ -5,9 +5,11 @@ import net.avdw.battlefight.state.StateModel;
 
 public class PotentialField {
 
+    final int[][] field = new int[14][14];
+
     public PotentialField(StateModel stateModel) {
         Stream<StateModel.OpponentShip> huntShips = stateModel.OpponentMap.Ships.stream().filter((ship) -> !ship.Destroyed);
-        final int[][] field = new int[14][14];
+
         huntShips.forEach((ship) -> {
             for (int y = 0; y < field.length; y++) {
                 for (int x = 0; x < field.length; x++) {
@@ -15,6 +17,14 @@ public class PotentialField {
                 }
             }
         });
+    }
+
+    int potentialAt(int x, int y) {
+        return field[y][x];
+    }
+
+    void apply(HuntMask mask) {
+
     }
 
 }

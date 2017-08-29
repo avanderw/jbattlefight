@@ -1,20 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.avdw.battlefight.hunt;
 
 import net.avdw.battlefight.state.StateModel;
 
-/**
- *
- * @author CP318674
- */
 class HuntMask {
 
+    boolean[][] mask;
+
     HuntMask(StateModel stateModel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int minLength = stateModel.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed)
+                .mapToInt(ship -> ship.ShipType.length())
+                .min().getAsInt();
+
+        System.out.println("Hunting for ship length: " + minLength);
+
+        mask = new boolean[14][14];
+        for (int y = 0; y < mask.length; y++) {
+            for (int x = 0; x < mask.length; x++) {
+                mask[y][x] = ((x + y) % minLength) == 0;
+            }
+        }
+        
+        System.out.println(this);
     }
-    
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int y = 0; y < mask.length; y++) {
+            for (int x = 0; x < mask.length; x++) {
+                sb.append(mask[y][x] ? "1" : "0");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
 }
