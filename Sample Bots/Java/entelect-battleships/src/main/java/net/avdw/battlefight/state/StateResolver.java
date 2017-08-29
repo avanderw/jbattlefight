@@ -1,15 +1,21 @@
 package net.avdw.battlefight.state;
 
+import java.util.stream.Stream;
+
 public class StateResolver {
 
     public static AiState state;
 
-    public enum AiState {
-        PLACE, HUNT, KILL;
+    static void reset() {
+        state = null;
     }
 
     static public void setup(StateModel stateModel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Stream<StateModel.OpponentCell> hitCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged);
+        state = (hitCells.count() > 0) ? AiState.KILL : AiState.HUNT;
     }
 
+    public enum AiState {
+        PLACE, HUNT, KILL;
+    }
 }

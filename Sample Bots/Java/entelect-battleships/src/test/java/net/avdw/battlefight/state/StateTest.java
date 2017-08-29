@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.entelect.challenge;
+package net.avdw.battlefight.state;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class StateTest extends TestCase {
 
     @Test
     public void testLoad() throws IOException {
-        StateModel state = StateReader.read(new File("src/main/resources/state.json"));
+        StateModel state = StateReader.read(new File("src/test/resources/state.json"));
 
         assertNotNull(state);
         assertNotNull(state.GameVersion);

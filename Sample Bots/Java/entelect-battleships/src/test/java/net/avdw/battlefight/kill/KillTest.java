@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.entelect.challenge;
+package net.avdw.battlefight.kill;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author CP318674
  */
-public class HuntTest {
+public class KillTest {
     
-    public HuntTest() {
+    public KillTest() {
     }
     
     @BeforeClass
@@ -41,4 +41,5 @@ public class HuntTest {
     public void belowWasteMetric() {
         
     }
+    
 }

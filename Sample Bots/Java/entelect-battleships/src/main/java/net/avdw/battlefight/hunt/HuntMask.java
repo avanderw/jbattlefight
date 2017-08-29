@@ -5,19 +5,16 @@
  */
 package net.avdw.battlefight.hunt;
 
-import net.avdw.battlefight.Action;
 import net.avdw.battlefight.state.StateModel;
 
 /**
  *
  * @author CP318674
  */
-public class HuntBehaviourTree {
+class HuntMask {
 
-    static public Action execute(StateModel stateModel) {
-        PotentialField field = new PotentialField(stateModel);
-        HuntMask mask = new HuntMask(stateModel);
-        return null;
+    HuntMask(StateModel stateModel) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

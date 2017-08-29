@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.entelect.challenge;
+package net.avdw.battlefight.place;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,6 @@ import static junit.framework.TestCase.*;
 import net.avdw.battlefight.Action;
 import net.avdw.battlefight.Direction;
 import net.avdw.battlefight.Zone;
-import net.avdw.battlefight.place.PlacementStrategy;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateModel.ShipType;
 import net.avdw.battlefight.state.StateReader;
@@ -35,7 +34,7 @@ public class PlacementTest {
 
     @BeforeClass
     public static void setUpClass() throws IOException {
-        action = PlacementStrategy.place(StateReader.read(new File("src/main/resources/state.json")));
+        action = PlacementStrategy.place(StateReader.read(new File("src/test/resources/state.json")));
         System.out.println(action.toString());
         print();
     }
@@ -81,6 +80,7 @@ public class PlacementTest {
                         break;
                 }
                 if (xySet.contains(xy)) {
+                    System.out.println(xySet);
                     fail(String.format("Cannot place ship: %s", placement));
                 } else {
                     xySet.add(xy);
