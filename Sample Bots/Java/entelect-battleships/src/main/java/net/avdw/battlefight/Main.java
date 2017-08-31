@@ -1,5 +1,6 @@
 package net.avdw.battlefight;
 
+import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateResolver;
 import net.avdw.battlefight.kill.KillBehaviourTree;
 import net.avdw.battlefight.place.PlacementStrategy;

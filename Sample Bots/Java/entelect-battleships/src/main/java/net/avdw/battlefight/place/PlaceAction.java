@@ -3,8 +3,8 @@ package net.avdw.battlefight.place;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.avdw.battlefight.Action;
-import net.avdw.battlefight.Place;
+import net.avdw.battlefight.struct.Action;
+import net.avdw.battlefight.struct.Place;
 import net.avdw.battlefight.state.StateModel;
 
 public class PlaceAction extends Action {

@@ -3,7 +3,7 @@ package net.avdw.battlefight.hunt;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-import net.avdw.battlefight.Point;
+import net.avdw.battlefight.struct.Point;
 import net.avdw.battlefight.state.StateModel;
 
 public class PotentialField {

@@ -1,4 +1,4 @@
-package net.avdw.battlefight;
+package net.avdw.battlefight.struct;
 
 public class Action {
 

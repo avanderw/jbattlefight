@@ -5,7 +5,7 @@
  */
 package net.avdw.battlefight.kill;
 
-import net.avdw.battlefight.Action;
+import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
 
 /**

@@ -3,8 +3,8 @@ package net.avdw.battlefight.place;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import net.avdw.battlefight.Action;
-import net.avdw.battlefight.Zone;
+import net.avdw.battlefight.struct.Action;
+import net.avdw.battlefight.struct.Zone;
 import net.avdw.battlefight.state.StateModel;
 
 public class PlacementStrategy {

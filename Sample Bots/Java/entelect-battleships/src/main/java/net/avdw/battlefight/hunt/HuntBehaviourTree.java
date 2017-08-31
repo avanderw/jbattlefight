@@ -1,6 +1,6 @@
 package net.avdw.battlefight.hunt;
 
-import net.avdw.battlefight.Action;
+import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
 
 public class HuntBehaviourTree {
