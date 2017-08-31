@@ -1,0 +1,1 @@
+Battleships.exe -b "..\..\..\Reference Bots\battlefight.v4" "..\..\..\Sample Bots\Java\entelect-battleships" --clog --pretty --debug --size 3

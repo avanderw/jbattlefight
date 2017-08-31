@@ -21,3 +21,7 @@ Reference Bots/C#/ReferenceBot/bin/*
 Reference Bots/C#/ReferenceBot/obj/*
 /Sample Bots/Java/entelect-battleships/target/
 /Sample Bots/Java/entelect-battleships/nbproject/
+Game/Version 1.1.2/Game Engine/Replays/
+Game/Version 1.2.0/Game Engine/Replays/
+GameVisualizer/ReplayZ/wwwroot/Replays/
+Game/Version 1.2.0/Reference Bots/C#/
