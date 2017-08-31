@@ -9,7 +9,7 @@ class HuntMask {
     HuntMask(StateModel stateModel) {
         int minLength = stateModel.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed)
                 .mapToInt(ship -> ship.ShipType.length())
-                .min().getAsInt();
+                .max().getAsInt();
 
         System.out.println("Hunting for ship length: " + minLength);
 
@@ -26,7 +26,7 @@ class HuntMask {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int y = 0; y < mask.length; y++) {
+        for (int y = 13; y >= 0; y--) {
             for (int x = 0; x < mask.length; x++) {
                 sb.append(mask[y][x] ? "1" : "0");
             }

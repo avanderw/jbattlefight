@@ -1153,7 +1153,7 @@
                 "Destroyed": false,
                 "ShipType": "Battleship"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Carrier"
             }, {
                 "Destroyed": false,

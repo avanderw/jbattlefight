@@ -1144,19 +1144,19 @@
     },
     "OpponentMap": {
         "Ships": [{
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Submarine"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Destroyer"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Battleship"
             }, {
                 "Destroyed": false,
                 "ShipType": "Carrier"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Cruiser"
             }],
         "Alive": true,

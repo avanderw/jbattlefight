@@ -1147,10 +1147,10 @@
                 "Destroyed": true,
                 "ShipType": "Submarine"
             }, {
-                "Destroyed": true,
+                "Destroyed": false,
                 "ShipType": "Destroyer"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Battleship"
             }, {
                 "Destroyed": true,

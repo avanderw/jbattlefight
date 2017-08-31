@@ -1150,13 +1150,13 @@
                 "Destroyed": true,
                 "ShipType": "Destroyer"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Battleship"
             }, {
                 "Destroyed": true,
                 "ShipType": "Carrier"
             }, {
-                "Destroyed": true,
+                "Destroyed": false,
                 "ShipType": "Cruiser"
             }],
         "Alive": true,
