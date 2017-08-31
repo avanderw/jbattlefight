@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.avdw.battlefight.struct.Action;
-import net.avdw.battlefight.struct.Place;
 import net.avdw.battlefight.state.StateModel;
 
 public class PlaceAction extends Action {
@@ -16,7 +15,7 @@ public class PlaceAction extends Action {
         filename = "place.txt";
     }
 
-    public void place(StateModel.ShipType type, Place place) {
+    public void place(StateModel.ShipType type, net.avdw.battlefight.struct.Place place) {
         ships.add(String.format("%s %s %s %s", new Object[]{type, place.x, place.y, place.direction.name()}));
     }
 

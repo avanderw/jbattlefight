@@ -10,7 +10,6 @@ public class HuntBehaviourTree {
         HuntMask mask = new HuntMask(stateModel);
         
         field.apply(mask);
-        return null;
+        return new HuntAction(field.maxPotential().get(0));
     }
-
 }
