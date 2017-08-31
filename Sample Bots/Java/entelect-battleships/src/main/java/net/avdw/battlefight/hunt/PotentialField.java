@@ -20,6 +20,8 @@ public class PotentialField {
                 }
             }
         });
+        
+        System.out.println(this);
     }
 
     int potentialAt(int x, int y) {

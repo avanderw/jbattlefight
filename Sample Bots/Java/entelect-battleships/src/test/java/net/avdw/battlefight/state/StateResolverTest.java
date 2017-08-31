@@ -54,4 +54,10 @@ public class StateResolverTest {
         assertEquals("Should always kill when ships not sunk.", StateResolver.AiState.KILL, StateResolver.state);
     }
     
+    @Test
+    public void testPlaceState() throws IOException {
+        StateModel stateModel = StateReader.read(new File("src/test/resources/place-state.json"));
+        StateResolver.setup(stateModel);
+        assertEquals("Ships need to be placed.", StateResolver.AiState.PLACE, StateResolver.state);
+    }
 }

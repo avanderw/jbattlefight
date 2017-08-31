@@ -11,8 +11,12 @@ public class StateResolver {
     }
 
     static public void setup(StateModel stateModel) {
-        Stream<StateModel.OpponentCell> hitCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged);
-        state = (hitCells.count() > 0) ? AiState.KILL : AiState.HUNT;
+        if (stateModel.Phase == 1) {
+            state = AiState.PLACE;
+        } else {
+            Stream<StateModel.OpponentCell> hitCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged);
+            state = (hitCells.count() > 0) ? AiState.KILL : AiState.HUNT;
+        }
     }
 
     public enum AiState {
