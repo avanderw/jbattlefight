@@ -12,7 +12,7 @@ public class StateModel {
     public int MapDimension;
     public int Phase;
 
-    public class PlayerMap {
+    static public class PlayerMap {
 
         public Owner Owner;
         public ArrayList<Cell> Cells;
@@ -20,7 +20,7 @@ public class StateModel {
         public int MapHeight;
     }
 
-    public class OpponentMap {
+    static public class OpponentMap {
 
         public boolean Alive;
         public int Points;
@@ -29,7 +29,7 @@ public class StateModel {
         public ArrayList<OpponentCell> Cells;
     }
 
-    public class Owner {
+    static public class Owner {
 
         public int FailedFirstRoundCommands;
         public String Name;
@@ -44,7 +44,7 @@ public class StateModel {
         public char Key;
     }
 
-    public class Cell {
+    static public class Cell {
 
         public boolean Occupied;
         public boolean Hit;
@@ -52,13 +52,13 @@ public class StateModel {
         public int Y;
     }
 
-    public class OpponentShip {
+    static public class OpponentShip {
 
         public boolean Destroyed;
         public ShipType ShipType;
     }
 
-    public class OpponentCell {
+    static public class OpponentCell {
 
         public boolean Damaged;
         public boolean Missed;
@@ -66,7 +66,7 @@ public class StateModel {
         public int Y;
     }
 
-    public class Ship {
+    static public class Ship {
 
         public boolean Destroyed;
         public boolean Placed;
@@ -75,22 +75,22 @@ public class StateModel {
         public ArrayList<Cell> Cells;
     }
 
-    public class Weapon {
-        
+    static public class Weapon {
+
         public WeaponType WeaponType;
         public int EnergyRequired;
     }
 
-    public enum WeaponType {
-        SingleShot, 
-        SeekerMissle, 
-        DoubleShot, 
-        DiagonalCrossShot, 
-        CornerShot, 
+    static public enum WeaponType {
+        SingleShot,
+        SeekerMissle,
+        DoubleShot,
+        DiagonalCrossShot,
+        CornerShot,
         CrossShot
     }
 
-    public enum ShipType {
+    static public enum ShipType {
         Battleship(4),
         Carrier(5),
         Cruiser(3),
