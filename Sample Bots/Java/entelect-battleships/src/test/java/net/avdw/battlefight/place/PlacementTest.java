@@ -101,7 +101,7 @@ public class PlacementTest {
     @Test
     public void notInCenter() {
         parseOutput(action.toString()).forEach((placement) -> {
-            if (Zone.FIVE.containsPoint(placement.x1, placement.y1) || Zone.FIVE.containsPoint(placement.x2, placement.y2)) {
+            if (Zone.FIVE.containsPointBoundsExclusive(placement.x1, placement.y1) || Zone.FIVE.containsPointBoundsExclusive(placement.x2, placement.y2)) {
                 fail(String.format("Ship in center: %s", placement));
             }
         });

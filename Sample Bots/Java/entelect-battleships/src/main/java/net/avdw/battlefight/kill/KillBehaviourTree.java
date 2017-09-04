@@ -1,6 +1,7 @@
 package net.avdw.battlefight.kill;
 
-import java.util.List;
+import java.util.Optional;
+import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.NoAction;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
@@ -9,21 +10,26 @@ import net.avdw.battlefight.struct.Point;
 public class KillBehaviourTree {
 
     static public Action execute(StateModel stateModel) {
-        final StateModel.OpponentCell[][] map = transformMap(stateModel.OpponentMap.Cells);
-        StateModel.OpponentCell killShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && killIsUnfinished(map, cell)).findAny().get();
+        final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
+        Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell)).findAny();
+        if (!killShotOption.isPresent()) {
+            return null;
+        }
+
+        StateModel.OpponentCell killShot = killShotOption.get();
 
         printMap(map);
         return finishKill(map, killShot);
     }
 
     private static Action finishKill(StateModel.OpponentCell[][] map, StateModel.OpponentCell killShot) {
-        if (map[killShot.Y - 1][killShot.X].Damaged && !(map[killShot.Y + 1][killShot.X].Missed || map[killShot.Y + 1][killShot.X].Damaged)) {
+        if ((killShot.Y - 1 >= 0 && map[killShot.Y - 1][killShot.X].Damaged) && (killShot.Y + 1 < 14 && !(map[killShot.Y + 1][killShot.X].Missed || map[killShot.Y + 1][killShot.X].Damaged))) {
             return new KillAction(new Point(killShot.X, killShot.Y + 1));
-        } else if (map[killShot.Y + 1][killShot.X].Damaged && !(map[killShot.Y - 1][killShot.X].Missed || map[killShot.Y - 1][killShot.X].Damaged)) {
+        } else if ((killShot.Y + 1 < 14 && map[killShot.Y + 1][killShot.X].Damaged) && (killShot.Y - 1 >= 0 && !(map[killShot.Y - 1][killShot.X].Missed || map[killShot.Y - 1][killShot.X].Damaged))) {
             return new KillAction(new Point(killShot.X, killShot.Y - 1));
-        } else if (map[killShot.Y][killShot.X - 1].Damaged && !(map[killShot.Y][killShot.X + 1].Missed || map[killShot.Y][killShot.X + 1].Damaged)) {
+        } else if ((killShot.X - 1 >= 0 && map[killShot.Y][killShot.X - 1].Damaged) && (killShot.X + 1 < 14 && !(map[killShot.Y][killShot.X + 1].Missed || map[killShot.Y][killShot.X + 1].Damaged))) {
             return new KillAction(new Point(killShot.X + 1, killShot.Y));
-        } else if (map[killShot.Y][killShot.X + 1].Damaged && !(map[killShot.Y][killShot.X - 1].Missed || map[killShot.Y][killShot.X - 1].Damaged)) {
+        } else if ((killShot.X + 1 < 14 && map[killShot.Y][killShot.X + 1].Damaged) && (killShot.X - 1 >= 0 && !(map[killShot.Y][killShot.X - 1].Missed || map[killShot.Y][killShot.X - 1].Damaged))) {
             return new KillAction(new Point(killShot.X - 1, killShot.Y));
         }
 
@@ -31,48 +37,17 @@ public class KillBehaviourTree {
     }
 
     static Action huntAxis(final StateModel.OpponentCell[][] map, StateModel.OpponentCell killShot) {
-        if (!(map[killShot.Y - 1][killShot.X].Damaged || map[killShot.Y - 1][killShot.X].Missed)) {
+        if (killShot.Y - 1 >= 0 && (!(map[killShot.Y - 1][killShot.X].Damaged || map[killShot.Y - 1][killShot.X].Missed))) {
             return new KillAction(new Point(killShot.X, killShot.Y - 1));
-        } else if (!(map[killShot.Y][killShot.X + 1].Damaged || map[killShot.Y][killShot.X + 1].Missed)) {
+        } else if (killShot.X + 1 < 14 && (!(map[killShot.Y][killShot.X + 1].Damaged || map[killShot.Y][killShot.X + 1].Missed))) {
             return new KillAction(new Point(killShot.X + 1, killShot.Y));
-        } else if (!(map[killShot.Y + 1][killShot.X].Damaged || map[killShot.Y + 1][killShot.X].Missed)) {
+        } else if (killShot.Y + 1 < 14 && (!(map[killShot.Y + 1][killShot.X].Damaged || map[killShot.Y + 1][killShot.X].Missed))) {
             return new KillAction(new Point(killShot.X, killShot.Y + 1));
-        } else if (!(map[killShot.Y][killShot.X - 1].Damaged || map[killShot.Y][killShot.X - 1].Missed)) {
+        } else if (killShot.X - 1 >= 0 && (!(map[killShot.Y][killShot.X - 1].Damaged || map[killShot.Y][killShot.X - 1].Missed))) {
             return new KillAction(new Point(killShot.X - 1, killShot.Y));
         }
 
         return new NoAction();
-    }
-
-    static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell) {
-        if (map[cell.Y - 1][cell.X].Damaged && map[cell.Y + 1][cell.X].Damaged) {
-            return false;
-        }
-        if (map[cell.Y][cell.X - 1].Damaged && map[cell.Y][cell.X + 1].Damaged) {
-            return false;
-        }
-        if (map[cell.Y - 1][cell.X].Damaged && map[cell.Y + 1][cell.X].Missed) {
-            return false;
-        }
-        if (map[cell.Y - 1][cell.X].Missed && map[cell.Y + 1][cell.X].Damaged) {
-            return false;
-        }
-        if (map[cell.Y][cell.X - 1].Damaged && map[cell.Y][cell.X + 1].Missed) {
-            return false;
-        }
-        if (map[cell.Y][cell.X - 1].Missed && map[cell.Y][cell.X + 1].Damaged) {
-            return false;
-        }
-
-        return true;
-    }
-
-    static StateModel.OpponentCell[][] transformMap(List<StateModel.OpponentCell> cells) {
-        final StateModel.OpponentCell[][] map = new StateModel.OpponentCell[14][14];
-        cells.stream().forEach(cell -> {
-            map[cell.Y][cell.X] = cell;
-        });
-        return map;
     }
 
     private static void printMap(StateModel.OpponentCell[][] map) {

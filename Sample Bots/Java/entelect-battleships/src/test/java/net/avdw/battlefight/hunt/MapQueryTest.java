@@ -1,5 +1,6 @@
 package net.avdw.battlefight.hunt;
 
+import net.avdw.battlefight.MapQuery;
 import java.io.File;
 import java.io.IOException;
 import net.avdw.battlefight.state.StateModel;

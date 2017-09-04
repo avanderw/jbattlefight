@@ -31,7 +31,9 @@ public class Main {
                     break;
                 case KILL:
                     action = KillBehaviourTree.execute(stateModel);
-                    break;
+                    if (action != null) {
+                        break;
+                    }
                 case HUNT:
                     action = HuntBehaviourTree.execute(stateModel);
                     break;

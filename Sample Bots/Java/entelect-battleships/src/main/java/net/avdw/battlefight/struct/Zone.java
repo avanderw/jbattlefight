@@ -69,6 +69,9 @@ public class Zone {
     public boolean containsPoint(int x, int y) {
         return (x <= x2 && x >= x1 && y <= y1 && y >= y2);
     }
+    public boolean containsPointBoundsExclusive(int x, int y) {
+        return (x < x2 && x > x1 && y < y1 && y > y2);
+    }
 
     public void addShip(StateModel.ShipType type) {
         containedShips.add(type);

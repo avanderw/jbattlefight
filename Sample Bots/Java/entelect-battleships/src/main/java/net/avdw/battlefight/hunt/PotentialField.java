@@ -1,5 +1,6 @@
 package net.avdw.battlefight.hunt;
 
+import net.avdw.battlefight.MapQuery;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;

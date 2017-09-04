@@ -3,6 +3,7 @@ package net.avdw.battlefight.kill;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.struct.Action;
@@ -15,11 +16,15 @@ public class KillBehaviourTreeTest {
 
     private static StateModel killState;
     private static StateModel continueKillState;
+    private static StateModel finishKillState;
+    private static StateModel continueHuntState;
 
     @BeforeClass
     public static void setUpClass() throws IOException {
         killState = StateReader.read(new File("src/test/resources/kill-state.json"));
         continueKillState = StateReader.read(new File("src/test/resources/continue-kill.json"));
+        finishKillState = StateReader.read(new File("src/test/resources/finish-kill.json"));
+        continueHuntState = StateReader.read(new File("src/test/resources/continue-hunt-after-kill.json"));
     }
 
     @Test
@@ -35,8 +40,19 @@ public class KillBehaviourTreeTest {
     @Test
     public void testContinueKill() {
         Action action = KillBehaviourTree.execute(continueKillState);
-        System.out.println(action);
         assertEquals("Ship is clearly on row 8", 8, action.point.y);
+    }
+
+    @Test
+    public void testFinishKill() {
+        Action action = KillBehaviourTree.execute(finishKillState);
+        assertEquals("1,9,7", action.toString());
+    }
+
+    @Test
+    public void testContinueHunt() {
+        Action action = KillBehaviourTree.execute(continueHuntState);
+        assertNull(action);
     }
 
     @Test
@@ -56,48 +72,53 @@ public class KillBehaviourTreeTest {
         map[1][1] = shotCell;
         map[1][2] = emptyCell;
         map[0][1] = emptyCell;
-        assertTrue("Surrounded by empty cells is head and tail.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertTrue("Surrounded by empty cells is head and tail.", MapQuery.killIsUnfinished(map, shotCell));
 
         map[2][1] = shotCell;
-        assertTrue("Only shot above is unfinished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertTrue("Only shot above is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
         map[0][1] = shotCell;
-        assertFalse("Shot above and below is finished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertFalse("Shot above and below is finished.", MapQuery.killIsUnfinished(map, shotCell));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = shotCell;
-        assertTrue("Only shot left is unfinished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertTrue("Only shot left is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
         map[1][2] = shotCell;
-        assertFalse("Shot left and right is finished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertFalse("Shot left and right is finished.", MapQuery.killIsUnfinished(map, shotCell));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = missCell;
-        assertTrue("Only missed above is unfinished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertTrue("Only missed above is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = missCell;
-        assertTrue("Only missed left is unfinished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertTrue("Only missed left is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = missCell;
         map[0][1] = shotCell;
-        assertFalse("Missed above and shot below is finished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertFalse("Missed above and shot below is finished.", MapQuery.killIsUnfinished(map, shotCell));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = shotCell;
         map[1][2] = missCell;
-        assertFalse("Shot left and missed right is finished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertFalse("Shot left and missed right is finished.", MapQuery.killIsUnfinished(map, shotCell));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = shotCell;
         map[1][2] = shotCell;
-        assertTrue("Shot above and right is unfinished.", KillBehaviourTree.killIsUnfinished(map, shotCell));
+        assertTrue("Shot above and right is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
         map[2][1] = map[1][2] = emptyCell;
     }
 
     @Test
     public void testTransformMap() {
-        StateModel.OpponentCell[][] result = KillBehaviourTree.transformMap(killState.OpponentMap.Cells);
+        StateModel.OpponentCell[][] result = MapQuery.transformMap(killState.OpponentMap.Cells);
         assertEquals("First element of the map should be equal the list item.", killState.OpponentMap.Cells.get(0), result[0][0]);
     }
-
+    
+    @Test
+    public void testBoundsCheck() throws IOException {
+        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"))));
+        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"))));
+    }
 }
