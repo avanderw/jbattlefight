@@ -41,7 +41,7 @@ public class HuntMaskTest {
     @After
     public void tearDown() {
     }
-
+    
     @Test
     public void testHuntLargestFirstMask() {
         HuntMask huntMask = new HuntMask(carrierSunk);

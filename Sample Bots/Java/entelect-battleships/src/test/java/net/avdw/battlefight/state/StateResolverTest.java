@@ -67,4 +67,11 @@ public class StateResolverTest {
         StateResolver.setup(stateModel);
         assertEquals("Should continue hunting after kill.", StateResolver.AiState.HUNT, StateResolver.state);
     }
+    
+    @Test
+    public void testKilledShipState() throws IOException {
+        StateModel stateModel = StateReader.read(new File("src/test/resources/hunt-one-earlier.json"));
+        StateResolver.setup(stateModel);
+        assertEquals("Should continue hunting.", StateResolver.AiState.HUNT, StateResolver.state);
+    }
 }
