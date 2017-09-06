@@ -9,9 +9,9 @@ import net.avdw.battlefight.struct.Point;
 
 public class KillBehaviourTree {
 
-    static public Action execute(StateModel stateModel) {
+    static public Action execute(final StateModel stateModel) {
         final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-        Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell)).findAny();
+        Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, stateModel.OpponentMap.Ships)).findAny();
         if (!killShotOption.isPresent()) {
             return null;
         }

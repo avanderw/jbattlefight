@@ -21,10 +21,10 @@ public class KillBehaviourTreeTest {
 
     @BeforeClass
     public static void setUpClass() throws IOException {
-        killState = StateReader.read(new File("src/test/resources/kill-state.json"));
-        continueKillState = StateReader.read(new File("src/test/resources/continue-kill.json"));
-        finishKillState = StateReader.read(new File("src/test/resources/finish-kill.json"));
-        continueHuntState = StateReader.read(new File("src/test/resources/continue-hunt-after-kill.json"));
+        killState = StateReader.read(new File("src/test/resources/kill-state.json"), StateModel.class);
+        continueKillState = StateReader.read(new File("src/test/resources/continue-kill.json"), StateModel.class);
+        finishKillState = StateReader.read(new File("src/test/resources/finish-kill.json"), StateModel.class);
+        continueHuntState = StateReader.read(new File("src/test/resources/continue-hunt-after-kill.json"), StateModel.class);
     }
 
     @Test
@@ -72,41 +72,41 @@ public class KillBehaviourTreeTest {
         map[1][1] = shotCell;
         map[1][2] = emptyCell;
         map[0][1] = emptyCell;
-        assertTrue("Surrounded by empty cells is head and tail.", MapQuery.killIsUnfinished(map, shotCell));
+        assertTrue("Surrounded by empty cells is head and tail.", MapQuery.killIsUnfinished(map, shotCell, null));
 
         map[2][1] = shotCell;
-        assertTrue("Only shot above is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertTrue("Only shot above is unfinished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[0][1] = shotCell;
-        assertFalse("Shot above and below is finished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertFalse("Shot above and below is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = shotCell;
-        assertTrue("Only shot left is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertTrue("Only shot left is unfinished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[1][2] = shotCell;
-        assertFalse("Shot left and right is finished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertFalse("Shot left and right is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = missCell;
-        assertTrue("Only missed above is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertTrue("Only missed above is unfinished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = missCell;
-        assertTrue("Only missed left is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertTrue("Only missed left is unfinished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = missCell;
         map[0][1] = shotCell;
-        assertFalse("Missed above and shot below is finished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertFalse("Missed above and shot below is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = shotCell;
         map[1][2] = missCell;
-        assertFalse("Shot left and missed right is finished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertFalse("Shot left and missed right is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = shotCell;
         map[1][2] = shotCell;
-        assertTrue("Shot above and right is unfinished.", MapQuery.killIsUnfinished(map, shotCell));
+        assertTrue("Shot above and right is unfinished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[2][1] = map[1][2] = emptyCell;
     }
 
@@ -118,7 +118,20 @@ public class KillBehaviourTreeTest {
     
     @Test
     public void testBoundsCheck() throws IOException {
-        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"))));
-        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"))));
+        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class)));
+        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class)));
+    }
+    
+    @Test
+    public void testKillingDeadShips() throws IOException {
+        Action action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships.json"), StateModel.class));
+        assertNotEquals("Row should be 9, 10, 11.", 5, action.point.y);
+        assertNotEquals("Row should be 9, 10, 11.", 4, action.point.y);
+        assertNotEquals("Row should be 9, 10, 11.", 3, action.point.y);
+        
+        action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships-again.json"), StateModel.class));
+        System.out.println(action);
+        assertNotEquals("Row should be 3, 4, 5.", 10, action.point.y);
+        assertNotEquals("Row should be 3, 4, 5.", 7, action.point.y);
     }
 }

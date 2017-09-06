@@ -1,6 +1,7 @@
 package net.avdw.battlefight;
 
 import java.util.List;
+import java.util.stream.Stream;
 import net.avdw.battlefight.state.StateModel;
 
 public class MapQuery {
@@ -27,7 +28,7 @@ public class MapQuery {
         return fit;
     }
 
-    public static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell) {
+    public static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell, List<StateModel.OpponentShip> ships) {
         if (cell.Y - 1 >= 0 && map[cell.Y - 1][cell.X].Damaged && cell.Y + 1 < 14 && map[cell.Y + 1][cell.X].Damaged) {
             return false;
         }
@@ -45,6 +46,10 @@ public class MapQuery {
         }
         if (cell.X - 1 >= 0 && map[cell.Y][cell.X - 1].Missed && cell.X + 1 < 14 && map[cell.Y][cell.X + 1].Damaged) {
             return false;
+        }
+
+        if (ships != null) {
+            Stream<StateModel.OpponentShip> deadShips = ships.stream().filter(ship -> ship.Destroyed);
         }
 
         return true;

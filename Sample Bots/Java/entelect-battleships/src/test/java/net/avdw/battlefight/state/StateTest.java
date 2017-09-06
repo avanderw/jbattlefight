@@ -34,7 +34,7 @@ public class StateTest extends TestCase {
 
     @Test
     public void testLoad() throws IOException {
-        StateModel state = StateReader.read(new File("src/test/resources/state.json"));
+        StateModel state = StateReader.read(new File("src/test/resources/state.json"), StateModel.class);
 
         assertNotNull(state);
         assertNotNull(state.GameVersion);

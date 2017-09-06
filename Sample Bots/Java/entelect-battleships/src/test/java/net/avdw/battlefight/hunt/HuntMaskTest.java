@@ -22,12 +22,12 @@ public class HuntMaskTest {
 
     @BeforeClass
     public static void setUpClass() throws IOException {
-        noShipsSunk = StateReader.read(new File("src/test/resources/no-ships-sunk.json"));
-        destroyerLeft = StateReader.read(new File("src/test/resources/destroyer-left.json"));
-        battleshipLeft = StateReader.read(new File("src/test/resources/battleship-left.json"));
-        carrierLeft = StateReader.read(new File("src/test/resources/carrier-left.json"));
-        carrierSunk = StateReader.read(new File("src/test/resources/carrier-sunk.json"));
-        cruiserLeft = StateReader.read(new File("src/test/resources/cruiser-left.json"));
+        noShipsSunk = StateReader.read(new File("src/test/resources/no-ships-sunk.json"), StateModel.class);
+        destroyerLeft = StateReader.read(new File("src/test/resources/destroyer-left.json"), StateModel.class);
+        battleshipLeft = StateReader.read(new File("src/test/resources/battleship-left.json"), StateModel.class);
+        carrierLeft = StateReader.read(new File("src/test/resources/carrier-left.json"), StateModel.class);
+        carrierSunk = StateReader.read(new File("src/test/resources/carrier-sunk.json"), StateModel.class);
+        cruiserLeft = StateReader.read(new File("src/test/resources/cruiser-left.json"), StateModel.class);
     }
 
     @AfterClass

@@ -21,7 +21,7 @@ public class Main {
         String workingDirectory = args[1];
 
         try {
-            StateModel stateModel = StateReader.read(new File(workingDirectory, "state.json"));
+            StateModel stateModel = StateReader.read(new File(workingDirectory, "state.json"), StateModel.class);
             StateResolver.setup(stateModel);
 
             Action action = null;

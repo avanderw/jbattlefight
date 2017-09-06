@@ -24,17 +24,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author CP318674
- */
 public class PlacementTest {
 
     static private Action action;
 
     @BeforeClass
     public static void setUpClass() throws IOException {
-        action = PlacementStrategy.place(StateReader.read(new File("src/test/resources/state.json")));
+        action = PlacementStrategy.place(StateReader.read(new File("src/test/resources/state.json"), StateModel.class));
         System.out.println(action.toString());
         print();
     }

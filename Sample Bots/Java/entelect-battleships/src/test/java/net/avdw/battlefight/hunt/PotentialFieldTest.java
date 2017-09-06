@@ -19,8 +19,8 @@ public class PotentialFieldTest {
 
     @BeforeClass
     public static void setUpClass() throws IOException {
-        noShipsSunk = StateReader.read(new File("src/test/resources/no-ships-sunk.json"));
-        carrierSunk = StateReader.read(new File("src/test/resources/carrier-sunk.json"));
+        noShipsSunk = StateReader.read(new File("src/test/resources/no-ships-sunk.json"), StateModel.class);
+        carrierSunk = StateReader.read(new File("src/test/resources/carrier-sunk.json"), StateModel.class);
     }
 
     @AfterClass

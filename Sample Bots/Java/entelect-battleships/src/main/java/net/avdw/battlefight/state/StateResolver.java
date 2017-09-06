@@ -12,7 +12,7 @@ public class StateResolver {
         state = null;
     }
 
-    static public void setup(StateModel stateModel) {
+    static public void setup(final StateModel stateModel) {
         if (stateModel.Phase == 1) {
             state = AiState.PLACE;
         } else {
@@ -22,7 +22,7 @@ public class StateResolver {
                 state = AiState.HUNT;
             } else {
                 final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-                Stream<StateModel.OpponentCell> unfinishedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged && MapQuery.killIsUnfinished(map, cell));
+                Stream<StateModel.OpponentCell> unfinishedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, stateModel.OpponentMap.Ships));
                 state = (unfinishedCells.count() > 0) ? AiState.KILL : AiState.HUNT;
             }
         }

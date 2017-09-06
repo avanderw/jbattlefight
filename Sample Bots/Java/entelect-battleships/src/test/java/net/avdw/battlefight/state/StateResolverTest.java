@@ -42,35 +42,35 @@ public class StateResolverTest {
 
     @Test
     public void testHuntState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/no-ships-hit.json"));
+        StateModel stateModel = StateReader.read(new File("src/test/resources/no-ships-hit.json"), StateModel.class);
         StateResolver.setup(stateModel);
         assertEquals("Should always hunt if no ships are hit.", StateResolver.AiState.HUNT, StateResolver.state);
     }
     
     @Test
     public void testKillState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/no-ships-sunk.json"));
+        StateModel stateModel = StateReader.read(new File("src/test/resources/no-ships-sunk.json"), StateModel.class);
         StateResolver.setup(stateModel);
         assertEquals("Should always kill when ships not sunk.", StateResolver.AiState.KILL, StateResolver.state);
     }
     
     @Test
     public void testPlaceState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/place-state.json"));
+        StateModel stateModel = StateReader.read(new File("src/test/resources/place-state.json"), StateModel.class);
         StateResolver.setup(stateModel);
         assertEquals("Ships need to be placed.", StateResolver.AiState.PLACE, StateResolver.state);
     }
     
     @Test
     public void testContinueHuntState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/continue-hunt-after-kill.json"));
+        StateModel stateModel = StateReader.read(new File("src/test/resources/continue-hunt-after-kill.json"), StateModel.class);
         StateResolver.setup(stateModel);
         assertEquals("Should continue hunting after kill.", StateResolver.AiState.HUNT, StateResolver.state);
     }
     
     @Test
     public void testKilledShipState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/hunt-one-earlier.json"));
+        StateModel stateModel = StateReader.read(new File("src/test/resources/hunt-one-earlier.json"), StateModel.class);
         StateResolver.setup(stateModel);
         assertEquals("Should continue hunting.", StateResolver.AiState.HUNT, StateResolver.state);
     }

@@ -17,7 +17,7 @@ public class MapQueryTest {
     
     @BeforeClass
     public static void setUpClass() throws IOException {
-        stateModel = StateReader.read(new File("src/test/resources/no-ships-sunk.json"));
+        stateModel = StateReader.read(new File("src/test/resources/no-ships-sunk.json"), StateModel.class);
     }
     
     @AfterClass
