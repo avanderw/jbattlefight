@@ -4,9 +4,7 @@ import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Point;
 
 public class HuntAction extends Action {
-
-    private final Point point;
-
+    
     public HuntAction(Point point) {
         super();
         filename = "command.txt";

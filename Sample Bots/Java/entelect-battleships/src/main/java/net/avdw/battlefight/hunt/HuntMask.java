@@ -5,7 +5,20 @@ import net.avdw.battlefight.state.StateModel;
 class HuntMask {
 
     boolean[][] mask;
+   
+    HuntMask(int size) {
+        System.out.println("Override mask length: " + size);
 
+        mask = new boolean[14][14];
+        for (int y = 0; y < mask.length; y++) {
+            for (int x = 0; x < mask.length; x++) {
+                mask[y][x] = ((x + y) % size) == 0;
+            }
+        }
+        
+        System.out.println(this);
+    }
+    
     HuntMask(StateModel stateModel) {
         int minLength = stateModel.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed)
                 .mapToInt(ship -> ship.ShipType.length())

@@ -67,16 +67,16 @@ public class PlacementTest {
             for (int i = 0; i < placement.type.length(); i++) {
                 switch (placement.direction) {
                     case North:
-                        xy = placement.x1 + "" + (placement.y1 + i);
+                        xy = pad(placement.x1) + "" + pad(placement.y1 + i);
                         break;
                     case South:
-                        xy = placement.x1 + "" + (placement.y1 - i);
+                        xy = pad(placement.x1) + "" + pad(placement.y1 - i);
                         break;
                     case East:
-                        xy = (placement.x1 + i) + "" + placement.y1;
+                        xy = pad(placement.x1 + i) + "" + pad(placement.y1);
                         break;
                     case West:
-                        xy = (placement.x1 - i) + "" + placement.y1;
+                        xy = pad(placement.x1 - i) + "" + pad(placement.y1);
                         break;
                 }
                 if (xySet.contains(xy)) {
@@ -87,6 +87,10 @@ public class PlacementTest {
                 }
             }
         });
+    }
+
+    private String pad(int value) {
+        return (value < 10) ? "0" + value : "" + value;
     }
 
     @Test
