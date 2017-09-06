@@ -3,22 +3,23 @@ package net.avdw.battlefight.kill;
 import java.util.Optional;
 import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.NoAction;
+import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.struct.Point;
 
 public class KillBehaviourTree {
 
-    static public Action execute(final StateModel stateModel) {
+    static public Action execute(final StateModel stateModel, PersistentModel persist) {
         final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-        Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, stateModel.OpponentMap.Ships)).findAny();
+        Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist.lastAction)).findAny();
         if (!killShotOption.isPresent()) {
             return null;
         }
 
         StateModel.OpponentCell killShot = killShotOption.get();
 
-        printMap(map);
+        MapQuery.printMap(map);
         return finishKill(map, killShot);
     }
 
@@ -48,22 +49,6 @@ public class KillBehaviourTree {
         }
 
         return new NoAction();
-    }
-
-    private static void printMap(StateModel.OpponentCell[][] map) {
-        for (int y = 13; y >= 0; y--) {
-            for (int x = 0; x < 14; x++) {
-                if (map[y][x].Damaged) {
-                    System.out.print("!");
-                } else if (map[y][x].Missed) {
-                    System.out.print("x");
-                } else {
-                    System.out.print(".");
-                }
-            }
-            System.out.println(" " + y);
-        }
-        System.out.println("01234567890123");
     }
 
 }

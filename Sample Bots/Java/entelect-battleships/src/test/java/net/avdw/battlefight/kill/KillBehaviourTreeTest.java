@@ -2,15 +2,15 @@ package net.avdw.battlefight.kill;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import net.avdw.battlefight.MapQuery;
+import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
+import net.avdw.battlefight.state.StateWriter;
 import net.avdw.battlefight.struct.Action;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 public class KillBehaviourTreeTest {
 
@@ -29,7 +29,15 @@ public class KillBehaviourTreeTest {
 
     @Test
     public void testBasicExecute() {
-        Action action = KillBehaviourTree.execute(killState);
+        PersistentModel.Action lastAction = new PersistentModel.Action();
+        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.x = 7;
+        lastAction.y = 2;
+
+        PersistentModel model = new PersistentModel();
+        model.lastAction = lastAction;
+
+        Action action = KillBehaviourTree.execute(killState, model);
         System.out.println(action);
         assertNotEquals("Cannot be an already shot cell", "1,7,3", action.toString());
         assertEquals("First shot is always south cell", "1,7,2", action.toString());
@@ -39,24 +47,48 @@ public class KillBehaviourTreeTest {
 
     @Test
     public void testContinueKill() {
-        Action action = KillBehaviourTree.execute(continueKillState);
+        PersistentModel.Action lastAction = new PersistentModel.Action();
+        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.x = 7;
+        lastAction.y = 8;
+
+        PersistentModel model = new PersistentModel();
+        model.lastAction = lastAction;
+
+        Action action = KillBehaviourTree.execute(continueKillState, model);
         assertEquals("Ship is clearly on row 8", 8, action.point.y);
     }
 
     @Test
     public void testFinishKill() {
-        Action action = KillBehaviourTree.execute(finishKillState);
+        PersistentModel.Action lastAction = new PersistentModel.Action();
+        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.x = 9;
+        lastAction.y = 8;
+
+        PersistentModel model = new PersistentModel();
+        model.lastAction = lastAction;
+
+        Action action = KillBehaviourTree.execute(finishKillState, model);
         assertEquals("1,9,7", action.toString());
     }
 
     @Test
     public void testContinueHunt() {
-        Action action = KillBehaviourTree.execute(continueHuntState);
+        PersistentModel.Action lastAction = new PersistentModel.Action();
+        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.x = 7;
+        lastAction.y = 2;
+
+        PersistentModel model = new PersistentModel();
+        model.lastAction = lastAction;
+
+        Action action = KillBehaviourTree.execute(continueHuntState, model);
         assertNull(action);
     }
 
     @Test
-    public void testUnfinishedKillCell() {
+    public void testUnfinishedKillCell() throws IOException {
         StateModel.OpponentCell[][] map = new StateModel.OpponentCell[14][14];
 
         StateModel.OpponentCell shotCell = new StateModel.OpponentCell();
@@ -115,22 +147,29 @@ public class KillBehaviourTreeTest {
         StateModel.OpponentCell[][] result = MapQuery.transformMap(killState.OpponentMap.Cells);
         assertEquals("First element of the map should be equal the list item.", killState.OpponentMap.Cells.get(0), result[0][0]);
     }
-    
+
     @Test
     public void testBoundsCheck() throws IOException {
-        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class)));
-        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class)));
+        PersistentModel model = new PersistentModel();
+        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class), model));
+        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class), model));
     }
-    
+
     @Test
     public void testKillingDeadShips() throws IOException {
-        Action action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships.json"), StateModel.class));
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.y = 10;
+        persist.lastAction.x = 10;
+
+        Action action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships.json"), StateModel.class), persist);
         assertNotEquals("Row should be 9, 10, 11.", 5, action.point.y);
         assertNotEquals("Row should be 9, 10, 11.", 4, action.point.y);
         assertNotEquals("Row should be 9, 10, 11.", 3, action.point.y);
-        
-        action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships-again.json"), StateModel.class));
-        System.out.println(action);
+
+        persist.lastAction.y = 4;
+        action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships-again.json"), StateModel.class), persist);
         assertNotEquals("Row should be 3, 4, 5.", 10, action.point.y);
         assertNotEquals("Row should be 3, 4, 5.", 7, action.point.y);
     }

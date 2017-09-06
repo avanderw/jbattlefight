@@ -1,8 +1,9 @@
 package net.avdw.battlefight;
 
 import java.util.List;
-import java.util.stream.Stream;
+import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.struct.Direction;
 
 public class MapQuery {
 
@@ -28,7 +29,7 @@ public class MapQuery {
         return fit;
     }
 
-    public static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell, List<StateModel.OpponentShip> ships) {
+    public static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell, PersistentModel.Action lastAction) {
         if (cell.Y - 1 >= 0 && map[cell.Y - 1][cell.X].Damaged && cell.Y + 1 < 14 && map[cell.Y + 1][cell.X].Damaged) {
             return false;
         }
@@ -48,11 +49,12 @@ public class MapQuery {
             return false;
         }
 
-        if (ships != null) {
-            Stream<StateModel.OpponentShip> deadShips = ships.stream().filter(ship -> ship.Destroyed);
+        if (lastAction == null || cell.X == lastAction.x || cell.Y == lastAction.y) {
+            return true;
+        } else {
+            return false;
         }
 
-        return true;
     }
 
     public static StateModel.OpponentCell[][] transformMap(List<StateModel.OpponentCell> cells) {
@@ -62,4 +64,71 @@ public class MapQuery {
         });
         return map;
     }
+
+    public static void printMap(StateModel.OpponentCell[][] map) {
+        for (int y = 13; y >= 0; y--) {
+            for (int x = 0; x < 14; x++) {
+                if (map[y][x].Damaged) {
+                    System.out.print("!");
+                } else if (map[y][x].Missed) {
+                    System.out.print("x");
+                } else {
+                    System.out.print(".");
+                }
+            }
+            System.out.println(" " + y);
+        }
+        System.out.println("01234567890123");
+    }
+
+    public static boolean shipCanFit(StateModel.OpponentCell[][] map, int x, int y, int length, Direction direction) {
+        switch (direction) {
+            case North:
+                if (y + (length - 1) > 13) {
+                    return false;
+                }
+
+                for (int i = 0; i < length; i++) {
+                    if (map[y + i][x].Damaged || map[y + i][x].Missed) {
+                        return false;
+                    }
+                }
+                break;
+            case South:
+                if (y - (length - 1) < 0) {
+                    return false;
+                }
+
+                for (int i = 0; i < length; i++) {
+                    if (map[y - i][x].Damaged || map[y - i][x].Missed) {
+                        return false;
+                    }
+                }
+                break;
+            case East:
+                if (x + (length - 1) > 13) {
+                    return false;
+                }
+
+                for (int i = 0; i < length; i++) {
+                    if (map[y][x + i].Damaged || map[y][x + i].Missed) {
+                        return false;
+                    }
+                }
+                break;
+            case West:
+                if (x - (length - 1) < 0) {
+                    return false;
+                }
+
+                for (int i = 0; i < length; i++) {
+                    if (map[y][x - i].Damaged || map[y][x - i].Missed) {
+                        return false;
+                    }
+                }
+                break;
+        }
+        return true;
+    }
+
 }

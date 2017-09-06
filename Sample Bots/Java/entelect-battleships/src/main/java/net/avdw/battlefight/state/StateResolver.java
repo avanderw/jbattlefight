@@ -1,6 +1,5 @@
 package net.avdw.battlefight.state;
 
-import java.util.List;
 import java.util.stream.Stream;
 import net.avdw.battlefight.MapQuery;
 
@@ -12,7 +11,7 @@ public class StateResolver {
         state = null;
     }
 
-    static public void setup(final StateModel stateModel) {
+    static public void setup(final StateModel stateModel, final PersistentModel persist) {
         if (stateModel.Phase == 1) {
             state = AiState.PLACE;
         } else {
@@ -22,7 +21,7 @@ public class StateResolver {
                 state = AiState.HUNT;
             } else {
                 final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-                Stream<StateModel.OpponentCell> unfinishedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, stateModel.OpponentMap.Ships));
+                Stream<StateModel.OpponentCell> unfinishedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist.lastAction));
                 state = (unfinishedCells.count() > 0) ? AiState.KILL : AiState.HUNT;
             }
         }

@@ -19,59 +19,49 @@ import static org.junit.Assert.*;
  * @author CP318674
  */
 public class StateResolverTest {
-    
-    public StateResolverTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-        StateResolver.reset();
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testHuntState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/no-ships-hit.json"), StateModel.class);
-        StateResolver.setup(stateModel);
+        PersistentModel persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
+        StateModel state = StateReader.read(new File("src/test/resources/no-ships-hit.json"), StateModel.class);
+        StateResolver.setup(state, persist);
         assertEquals("Should always hunt if no ships are hit.", StateResolver.AiState.HUNT, StateResolver.state);
     }
     
     @Test
     public void testKillState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/no-ships-sunk.json"), StateModel.class);
-        StateResolver.setup(stateModel);
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.x = 4;
+        persist.lastAction.y = 9;
+        
+        StateModel state = StateReader.read(new File("src/test/resources/no-ships-sunk.json"), StateModel.class);
+        StateResolver.setup(state, persist);
         assertEquals("Should always kill when ships not sunk.", StateResolver.AiState.KILL, StateResolver.state);
     }
     
     @Test
     public void testPlaceState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/place-state.json"), StateModel.class);
-        StateResolver.setup(stateModel);
+        PersistentModel persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
+        StateModel state = StateReader.read(new File("src/test/resources/place-state.json"), StateModel.class);
+        StateResolver.setup(state, persist);
         assertEquals("Ships need to be placed.", StateResolver.AiState.PLACE, StateResolver.state);
     }
     
     @Test
     public void testContinueHuntState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/continue-hunt-after-kill.json"), StateModel.class);
-        StateResolver.setup(stateModel);
+        PersistentModel persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
+        StateModel state = StateReader.read(new File("src/test/resources/continue-hunt-after-kill.json"), StateModel.class);
+        StateResolver.setup(state, persist);
         assertEquals("Should continue hunting after kill.", StateResolver.AiState.HUNT, StateResolver.state);
     }
     
     @Test
     public void testKilledShipState() throws IOException {
-        StateModel stateModel = StateReader.read(new File("src/test/resources/hunt-one-earlier.json"), StateModel.class);
-        StateResolver.setup(stateModel);
+        PersistentModel persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
+        StateModel state = StateReader.read(new File("src/test/resources/hunt-one-earlier.json"), StateModel.class);
+        StateResolver.setup(state, persist);
         assertEquals("Should continue hunting.", StateResolver.AiState.HUNT, StateResolver.state);
     }
 }

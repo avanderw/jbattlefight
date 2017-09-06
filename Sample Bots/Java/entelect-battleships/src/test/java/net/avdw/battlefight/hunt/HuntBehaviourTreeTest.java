@@ -2,6 +2,7 @@ package net.avdw.battlefight.hunt;
 
 import java.io.File;
 import java.io.IOException;
+import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.struct.Action;
@@ -13,8 +14,8 @@ public class HuntBehaviourTreeTest {
 
     @Test
     public void testEmptyBoard() throws IOException {
-        assertEquals("Empty board first hit will be for the Battleship at 7,5.",
-                new HuntAction(new Point(7, 5)).toString(),
+        assertEquals("Empty board first hit will be for the Battleship at 4,4.",
+                new HuntAction(new Point(4, 4)).toString(),
                 HuntBehaviourTree.execute(StateReader.read(new File("src/test/resources/no-ships-hit.json"), StateModel.class)).toString());
     }
         
@@ -35,7 +36,11 @@ public class HuntBehaviourTreeTest {
     
     @Test
     public void testCannotFindShip() throws IOException {
-        Action action = HuntBehaviourTree.execute(StateReader.read(new File("src/test/resources/cannot-find-ship.json"), StateModel.class));
+        StateModel model = StateReader.read(new File("src/test/resources/cannot-find-ship.json"), StateModel.class);
+        StateModel.OpponentCell[][] map = MapQuery.transformMap(model.OpponentMap.Cells);
+        MapQuery.printMap(map);
+        
+        Action action = HuntBehaviourTree.execute(model);
         assertNotEquals("Don't make illegal shots.", "1,0,0", action.toString());
         System.out.println(action);
     }

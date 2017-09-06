@@ -12,6 +12,7 @@ public class HuntBehaviourTree {
                 : new HuntMask(2);
 
         field.apply(mask);
+        System.out.println("Field after mask:\n" + field);
         return new HuntAction(field.maxPotential().get(0));
     }
 }

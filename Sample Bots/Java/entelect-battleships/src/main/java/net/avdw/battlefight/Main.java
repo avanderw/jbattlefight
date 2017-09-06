@@ -11,31 +11,41 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.avdw.battlefight.place.PlaceAction;
+import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
+import net.avdw.battlefight.state.StateWriter;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         long startTime = System.currentTimeMillis();
         String workingDirectory = args[1];
 
+        PersistentModel persist = null;
+        if (new File("persistent.json").exists()) {
+            persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
+        }
+
         try {
-            StateModel stateModel = StateReader.read(new File(workingDirectory, "state.json"), StateModel.class);
-            StateResolver.setup(stateModel);
+            StateModel state = StateReader.read(new File(workingDirectory, "state.json"), StateModel.class);
+            StateResolver.setup(state, persist);
 
             Action action = null;
             switch (StateResolver.state) {
                 case PLACE:
-                    action = PlacementStrategy.place(stateModel);
+                    action = PlacementStrategy.place(state);
                     break;
                 case KILL:
-                    action = KillBehaviourTree.execute(stateModel);
+                    System.out.println("Killing");
+                    action = KillBehaviourTree.execute(state, persist);
                     if (action != null) {
                         break;
                     }
                 case HUNT:
-                    action = HuntBehaviourTree.execute(stateModel);
+                    System.out.println("Hunting");
+                    action = HuntBehaviourTree.execute(state);
                     break;
             }
 
@@ -43,9 +53,20 @@ public class Main {
                 bufferedWriter.write(action.toString());
                 bufferedWriter.flush();
             }
+            
+            System.out.println(action);
+            System.out.println(action.type);
+            if (!(action instanceof PlaceAction)) {
+                persist.lastAction = new PersistentModel.Action();
+                System.out.println(action.type.name());
+                persist.lastAction.type = PersistentModel.ActionType.valueOf(action.type.name());
+                persist.lastAction.x = action.point.x;
+                persist.lastAction.y = action.point.y;
+            }
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            StateWriter.write("persistent.json", persist);
             long endTime = System.currentTimeMillis();
             System.out.println(String.format("[Bot]\tBot finished in %d ms.", (endTime - startTime)));
         }
