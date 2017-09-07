@@ -109,8 +109,7 @@ public class PlacementTest {
 
     @Test
     public void noMoreThanOneBorderShip() {
-        long count = 0;
-        count = parseOutput(action.toString()).stream().filter((placement) -> (onEdge(placement.x1, placement.y1) || onEdge(placement.x2, placement.y2))).count();
+        long count = parseOutput(action.toString()).stream().filter((placement) -> (onEdge(placement.x1, placement.y1) || onEdge(placement.x2, placement.y2))).count();
         if (count > 2) {
             fail(String.format("%s ships on border", new Object[]{count}));
         }
@@ -139,7 +138,7 @@ public class PlacementTest {
     }
 
     @Test
-    public void inAllCornersNoDestroyer() {
+    public void inDestroyerInCorner() {
         parseOutput(action.toString()).forEach((placement) -> {
             for (Zone zone : Zone.ALL_ZONES) {
                 if (zone.containsPoint(placement.x1, placement.y1)) {
@@ -150,10 +149,10 @@ public class PlacementTest {
             }
         });
 
-        assertFalse("Zone ONE may not contain the destroyer", Zone.ONE.containsShip(ShipType.Destroyer));
-        assertFalse("Zone THREE may not contain the destroyer", Zone.THREE.containsShip(ShipType.Destroyer));
-        assertFalse("Zone SEVEN may not contain the destroyer", Zone.SEVEN.containsShip(ShipType.Destroyer));
-        assertFalse("Zone NINE may not contain the destroyer", Zone.NINE.containsShip(ShipType.Destroyer));
+        assertFalse("Zone TWO may not contain the destroyer", Zone.TWO.containsShip(ShipType.Destroyer));
+        assertFalse("Zone FOUR may not contain the destroyer", Zone.FOUR.containsShip(ShipType.Destroyer));
+        assertFalse("Zone SIX may not contain the destroyer", Zone.SIX.containsShip(ShipType.Destroyer));
+        assertFalse("Zone EIGHT may not contain the destroyer", Zone.EIGHT.containsShip(ShipType.Destroyer));
 
         assertTrue("Zone ONE must contain a ship, contains " + Zone.ONE.containedShipCount(), Zone.ONE.containedShipCount() == 1);
         assertTrue("Zone THREE must contain a ship, contains " + Zone.THREE.containedShipCount(), Zone.THREE.containedShipCount() == 1);

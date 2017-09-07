@@ -49,11 +49,16 @@ public class Main {
                     break;
             }
 
+            if (action == null) {
+                System.out.println("Killing failed! Hunting as fallback.");
+                action = HuntBehaviourTree.execute(state);
+            }
+
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(workingDirectory, action.filename)))) {
                 bufferedWriter.write(action.toString());
                 bufferedWriter.flush();
             }
-            
+
             System.out.println(action);
             System.out.println(action.type);
             if (!(action instanceof PlaceAction)) {

@@ -49,6 +49,13 @@ public class MapQuery {
             return false;
         }
 
+        if ((cell.Y == 13 && map[12][cell.X].Damaged) || (cell.Y == 0 && map[1][cell.X].Damaged)) {
+            return false;
+        }
+        if ((cell.X == 13 && map[cell.Y][12].Damaged) || (cell.X == 0 && map[cell.Y][1].Damaged)) {
+            return false;
+        }
+
         if (lastAction == null || cell.X == lastAction.x || cell.Y == lastAction.y) {
             return true;
         } else {

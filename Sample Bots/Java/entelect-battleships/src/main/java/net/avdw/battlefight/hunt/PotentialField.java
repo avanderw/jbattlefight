@@ -14,8 +14,16 @@ public class PotentialField {
 
     public PotentialField(StateModel stateModel) {
         Stream<StateModel.OpponentShip> huntShips = stateModel.OpponentMap.Ships.stream().filter((ship) -> !ship.Destroyed);
-
         StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
+
+        placementField(huntShips, map);
+
+        System.out.println(this);
+//        boxBlurField(1);
+//        System.out.println(this);
+    }
+
+    private void placementField(Stream<StateModel.OpponentShip> huntShips, StateModel.OpponentCell[][] map) {
         huntShips.forEach((ship) -> {
             for (int y = 13; y >= 0; y--) {
                 for (int x = 0; x < field.length; x++) {
@@ -45,8 +53,61 @@ public class PotentialField {
                 }
             }
         });
+    }
 
-        System.out.println(this);
+    private void boxBlurField(int strength) {
+        int[][] filter = new int[][]{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
+
+        for (int i = 0; i < strength; i++) {
+            int[][] blur = new int[14][14];
+            for (int y = 13; y >= 0; y--) {
+                for (int x = 0; x < 14; x++) {
+                    int total = 0;
+                    int div = 0;
+                    if (y - 1 >= 0) {
+                        if (x - 1 >= 0) {
+                            total += field[y - 1][x - 1] * filter[0][0];
+                            div += filter[0][0];
+                        }
+                        total += field[y - 1][x] * filter[0][1];
+                        div += filter[0][1];
+                        if (x + 1 < 14) {
+                            total += field[y - 1][x + 1] * filter[0][2];
+                            div += filter[0][2];
+                        }
+                    }
+                    if (x - 1 >= 0) {
+                        total += field[y][x - 1] * filter[1][0];
+                        div += filter[1][0];
+                    }
+                    total += field[y][x] * filter[1][1];
+                    div += filter[1][1];
+                    if (x + 1 < 14) {
+                        total += field[y][x + 1] * filter[1][2];
+                        div += filter[1][2];
+                    }
+                    if (y + 1 < 14) {
+                        if (x - 1 >= 0) {
+                            total += field[y + 1][x - 1] * filter[2][0];
+                            div += filter[2][0];
+                        }
+                        total += field[y + 1][x] * filter[2][1];
+                        div += filter[2][1];
+                        if (x + 1 < 14) {
+                            total += field[y + 1][x + 1] * filter[2][2];
+                            div += filter[2][2];
+                        }
+                    }
+                    blur[y][x] = total / div;
+                }
+            }
+
+            for (int y = 13; y >= 0; y--) {
+                for (int x = 0; x < 14; x++) {
+                    field[y][x] = field[y][x] == 0 ? 0 : blur[y][x];
+                }
+            }
+        }
     }
 
     int potentialAt(int x, int y) {

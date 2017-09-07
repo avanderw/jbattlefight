@@ -18,8 +18,9 @@ public class KillBehaviourTree {
         }
 
         StateModel.OpponentCell killShot = killShotOption.get();
-
         MapQuery.printMap(map);
+        
+        System.out.println("Finishing kill from "+killShot.X + ", "+killShot.Y);
         return finishKill(map, killShot);
     }
 

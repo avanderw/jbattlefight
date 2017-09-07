@@ -6,11 +6,11 @@ import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
-import net.avdw.battlefight.state.StateWriter;
 import net.avdw.battlefight.struct.Action;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 public class KillBehaviourTreeTest {
 
@@ -172,5 +172,20 @@ public class KillBehaviourTreeTest {
         action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships-again.json"), StateModel.class), persist);
         assertNotEquals("Row should be 3, 4, 5.", 10, action.point.y);
         assertNotEquals("Row should be 3, 4, 5.", 7, action.point.y);
+    }
+    
+    @Test
+    public void killReturningNull() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.y = 10;
+        persist.lastAction.x = 0;
+
+        Action action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bug/not-making-shot.json"), StateModel.class), persist);
+        assertNotNull(action);
+        assertNotNull(action.type);
+        assertNotNull(action.point);
+        System.out.println(action.toString());
     }
 }

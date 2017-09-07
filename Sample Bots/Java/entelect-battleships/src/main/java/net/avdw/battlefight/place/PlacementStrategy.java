@@ -15,8 +15,8 @@ public class PlacementStrategy {
         
         Zone currentZone;
         currentZone = remainingZones.remove(ThreadLocalRandom.current().nextInt(remainingZones.size()));
-        currentZone.addShip(StateModel.ShipType.Carrier);
-        action.place(StateModel.ShipType.Carrier, currentZone.fit(StateModel.ShipType.Carrier, true));
+        currentZone.addShip(StateModel.ShipType.Destroyer);
+        action.place(StateModel.ShipType.Destroyer, currentZone.fit(StateModel.ShipType.Destroyer, true));
         
         currentZone = remainingZones.remove(ThreadLocalRandom.current().nextInt(remainingZones.size()));
         currentZone.addShip(StateModel.ShipType.Battleship);
@@ -31,8 +31,9 @@ public class PlacementStrategy {
         action.place(StateModel.ShipType.Submarine, currentZone.fit(StateModel.ShipType.Submarine, false));
 
         currentZone = Zone.ADJACENT_ZONES.get(ThreadLocalRandom.current().nextInt(Zone.ADJACENT_ZONES.size()));
-        currentZone.addShip(StateModel.ShipType.Destroyer);
-        action.place(StateModel.ShipType.Destroyer, currentZone.fit(StateModel.ShipType.Destroyer, false));
+        currentZone.addShip(StateModel.ShipType.Carrier);
+        action.place(StateModel.ShipType.Carrier, currentZone.fit(StateModel.ShipType.Carrier, true));
+        
 
         return action;
     }
