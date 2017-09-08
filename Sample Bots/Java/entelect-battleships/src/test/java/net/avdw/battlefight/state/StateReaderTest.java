@@ -6,6 +6,7 @@
 package net.avdw.battlefight.state;
 
 import java.io.File;
+import net.avdw.battlefight.struct.Action;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class StateReaderTest {
     public static void setUpClass() {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
-        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.type = Action.Type.FIRESHOT;
         
         StateWriter.write("persistent.json", persist);
     }
@@ -49,7 +50,7 @@ public class StateReaderTest {
         final PersistentModel persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
         assertNotNull("State file should not read null.", state);
         assertNotNull("Persist file should not read null.", persist);
-        assertEquals("Action type should resolve to enum.", PersistentModel.ActionType.FIRESHOT, persist.lastAction.type);
+        assertEquals("Action type should resolve to enum.", Action.Type.FIRESHOT, persist.lastAction.type);
     }
 
 }

@@ -14,9 +14,17 @@ public class HuntBehaviourTree {
     static public Action execute(StateModel stateModel) {
         List<Point> weakShots = new ArrayList();
         weakShots.add(new Point(0, 0));
+        weakShots.add(new Point(0, 2));
+        weakShots.add(new Point(2, 0));
         weakShots.add(new Point(13, 0));
+        weakShots.add(new Point(13, 2));
+        weakShots.add(new Point(11, 0));
         weakShots.add(new Point(0, 13));
+        weakShots.add(new Point(2, 13));
+        weakShots.add(new Point(0, 11));
         weakShots.add(new Point(13, 13));
+        weakShots.add(new Point(11, 13));
+        weakShots.add(new Point(13, 11));
 
         while (!weakShots.isEmpty()) {
             Point weak = weakShots.remove(0);

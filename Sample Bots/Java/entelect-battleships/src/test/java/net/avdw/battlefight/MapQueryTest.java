@@ -2,11 +2,11 @@ package net.avdw.battlefight;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.stream.Stream;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
+import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Direction;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -39,7 +39,7 @@ public class MapQueryTest {
     @Test
     public void testKillIsUnfinished() throws IOException {
         PersistentModel.Action lastAction = new PersistentModel.Action();
-        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.type = Action.Type.FIRESHOT;
         lastAction.x = 10;
         lastAction.y = 10;
 

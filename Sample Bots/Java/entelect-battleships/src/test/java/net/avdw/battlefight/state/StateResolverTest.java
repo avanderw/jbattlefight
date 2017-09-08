@@ -7,6 +7,7 @@ package net.avdw.battlefight.state;
 
 import java.io.File;
 import java.io.IOException;
+import net.avdw.battlefight.struct.Action;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -32,7 +33,7 @@ public class StateResolverTest {
     public void testKillState() throws IOException {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
-        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.x = 4;
         persist.lastAction.y = 9;
         
@@ -69,10 +70,22 @@ public class StateResolverTest {
     public void testNotKillingLastShip() {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
-        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.x = 12;
         persist.lastAction.y = 3;
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-killing-last-ship.json"), StateModel.class);
+        StateResolver.setup(state, persist);
+        assertEquals("Should continue killing.", StateResolver.AiState.KILL, StateResolver.state);
+    }
+    
+    @Test
+    public void testV5Bug() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 5;
+        persist.lastAction.y = 1;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v5-didnt-kill.json"), StateModel.class);
         StateResolver.setup(state, persist);
         assertEquals("Should continue killing.", StateResolver.AiState.KILL, StateResolver.state);
     }

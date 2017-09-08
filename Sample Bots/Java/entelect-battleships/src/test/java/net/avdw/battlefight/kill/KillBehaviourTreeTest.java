@@ -7,10 +7,10 @@ import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.struct.Action;
+import net.avdw.battlefight.struct.Direction;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 public class KillBehaviourTreeTest {
 
@@ -30,7 +30,7 @@ public class KillBehaviourTreeTest {
     @Test
     public void testBasicExecute() {
         PersistentModel.Action lastAction = new PersistentModel.Action();
-        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.type = Action.Type.FIRESHOT;
         lastAction.x = 7;
         lastAction.y = 3;
 
@@ -47,7 +47,7 @@ public class KillBehaviourTreeTest {
     @Test
     public void testContinueKill() {
         PersistentModel.Action lastAction = new PersistentModel.Action();
-        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.type = Action.Type.FIRESHOT;
         lastAction.x = 2;
         lastAction.y = 8;
 
@@ -61,7 +61,7 @@ public class KillBehaviourTreeTest {
     @Test
     public void testFinishKill() {
         PersistentModel.Action lastAction = new PersistentModel.Action();
-        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.type = Action.Type.FIRESHOT;
         lastAction.x = 9;
         lastAction.y = 8;
 
@@ -75,7 +75,7 @@ public class KillBehaviourTreeTest {
     @Test
     public void testContinueHunt() {
         PersistentModel.Action lastAction = new PersistentModel.Action();
-        lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        lastAction.type = Action.Type.FIRESHOT;
         lastAction.x = 7;
         lastAction.y = 2;
 
@@ -162,7 +162,7 @@ public class KillBehaviourTreeTest {
     public void testKillingDeadShips() throws IOException {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
-        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.y = 10;
         persist.lastAction.x = 10;
 
@@ -181,7 +181,7 @@ public class KillBehaviourTreeTest {
     public void killReturningNull() {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
-        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.y = 10;
         persist.lastAction.x = 0;
 
@@ -196,12 +196,39 @@ public class KillBehaviourTreeTest {
     public void notKillingLastShip() {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
-        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.x = 12;
         persist.lastAction.y = 3;
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-killing-last-ship.json"), StateModel.class);
         Action action = KillBehaviourTree.execute(state, persist);
 
         assertTrue("Must be close to last shot.", 12 - action.point.x < 2);
+    }
+    
+    @Test
+    public void testV5Bug() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 5;
+        persist.lastAction.y = 1;
+        persist.lastHeading = Direction.East;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v5-didnt-kill.json"), StateModel.class);
+        Action action = KillBehaviourTree.execute(state, persist);
+        assertEquals("Should kill the final ship.", "1,6,1", action.toString());
+    }
+    
+    @Test
+    public void testNotReversing() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 13;
+        persist.lastAction.y = 1;
+        persist.lastHeading = Direction.South;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/not-reversing.json"), StateModel.class);
+        Action action = KillBehaviourTree.execute(state, persist);
+        assertNotNull(action);
+        assertEquals("Should kill the ship.", "1,13,4", action.toString());
     }
 }

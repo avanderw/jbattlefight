@@ -16,10 +16,11 @@ import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.state.StateWriter;
+import net.avdw.battlefight.struct.Point;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, Exception {
         long startTime = System.currentTimeMillis();
         String workingDirectory = args[1];
 
@@ -45,6 +46,7 @@ public class Main {
                     }
                 case HUNT:
                     System.out.println("Hunting");
+                    persist.lastHeading = null;
                     action = HuntBehaviourTree.execute(state);
                     break;
             }
@@ -52,6 +54,11 @@ public class Main {
             if (action == null) {
                 System.out.println("Killing failed! Hunting as fallback.");
                 action = HuntBehaviourTree.execute(state);
+            } else if (state.Phase != 1) {
+                final Point p = action.point;
+                if (state.OpponentMap.Cells.stream().anyMatch(cell -> cell.Y == p.y && cell.X == p.x && (cell.Damaged || cell.Missed))) {
+                    throw new Exception("Something fucked out!");
+                }
             }
 
             try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(workingDirectory, action.filename)))) {
@@ -64,7 +71,7 @@ public class Main {
             if (!(action instanceof PlaceAction)) {
                 persist.lastAction = new PersistentModel.Action();
                 System.out.println(action.type.name());
-                persist.lastAction.type = PersistentModel.ActionType.valueOf(action.type.name());
+                persist.lastAction.type = Action.Type.valueOf(action.type.name());
                 persist.lastAction.x = action.point.x;
                 persist.lastAction.y = action.point.y;
             }

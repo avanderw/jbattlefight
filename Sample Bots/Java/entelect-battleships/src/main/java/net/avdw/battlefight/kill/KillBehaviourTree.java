@@ -6,6 +6,7 @@ import net.avdw.battlefight.hunt.PotentialField;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.struct.Direction;
 import net.avdw.battlefight.struct.Point;
 
 public class KillBehaviourTree {
@@ -25,22 +26,60 @@ public class KillBehaviourTree {
         StateModel.OpponentCell killShot = killShotOption.get();
 
         System.out.println("Finishing kill from " + killShot.X + ", " + killShot.Y);
-        return finishKill(map, killShot);
+        return finishKill(map, killShot, persist);
     }
 
-    private static Action finishKill(StateModel.OpponentCell[][] map, StateModel.OpponentCell killShot) {
-        System.out.println("Finishing kill");
-        if ((killShot.Y - 1 >= 0 && map[killShot.Y - 1][killShot.X].Damaged) && (killShot.Y + 1 < 14 && !(map[killShot.Y + 1][killShot.X].Missed || map[killShot.Y + 1][killShot.X].Damaged))) {
-            return new KillAction(new Point(killShot.X, killShot.Y + 1));
-        } else if ((killShot.Y + 1 < 14 && map[killShot.Y + 1][killShot.X].Damaged) && (killShot.Y - 1 >= 0 && !(map[killShot.Y - 1][killShot.X].Missed || map[killShot.Y - 1][killShot.X].Damaged))) {
-            return new KillAction(new Point(killShot.X, killShot.Y - 1));
-        } else if ((killShot.X - 1 >= 0 && map[killShot.Y][killShot.X - 1].Damaged) && (killShot.X + 1 < 14 && !(map[killShot.Y][killShot.X + 1].Missed || map[killShot.Y][killShot.X + 1].Damaged))) {
-            return new KillAction(new Point(killShot.X + 1, killShot.Y));
-        } else if ((killShot.X + 1 < 14 && map[killShot.Y][killShot.X + 1].Damaged) && (killShot.X - 1 >= 0 && !(map[killShot.Y][killShot.X - 1].Missed || map[killShot.Y][killShot.X - 1].Damaged))) {
-            return new KillAction(new Point(killShot.X - 1, killShot.Y));
-        }
+    private static Action finishKill(StateModel.OpponentCell[][] map, StateModel.OpponentCell killShot, PersistentModel persist) {
+        if (persist.lastHeading == null) {
+            if (killShot.Y - 1 >= 0 && killShot.Y + 1 < 14 && map[killShot.Y - 1][killShot.X].Damaged && !(map[killShot.Y + 1][killShot.X].Missed || map[killShot.Y + 1][killShot.X].Damaged)) {
+                persist.lastHeading = Direction.North;
+                return new KillAction(new Point(killShot.X, killShot.Y + 1));
+            } else if (killShot.Y + 1 < 14 && killShot.Y - 1 >= 0 && map[killShot.Y + 1][killShot.X].Damaged && !(map[killShot.Y - 1][killShot.X].Missed || map[killShot.Y - 1][killShot.X].Damaged)) {
+                persist.lastHeading = Direction.South;
+                return new KillAction(new Point(killShot.X, killShot.Y - 1));
+            } else if (killShot.X - 1 >= 0 && killShot.X + 1 < 14 && map[killShot.Y][killShot.X - 1].Damaged && !(map[killShot.Y][killShot.X + 1].Missed || map[killShot.Y][killShot.X + 1].Damaged)) {
+                persist.lastHeading = Direction.East;
+                return new KillAction(new Point(killShot.X + 1, killShot.Y));
+            } else if (killShot.X + 1 < 14 && killShot.X - 1 >= 0 && map[killShot.Y][killShot.X + 1].Damaged && !(map[killShot.Y][killShot.X - 1].Missed || map[killShot.Y][killShot.X - 1].Damaged)) {
+                persist.lastHeading = Direction.West;
+                return new KillAction(new Point(killShot.X - 1, killShot.Y));
+            }
 
-        return huntAxis(map, killShot);
+            return huntAxis(map, killShot);
+        } else {
+            switch (persist.lastHeading) {
+                case North:
+                    if (killShot.Y + 1 < 14 && !(map[killShot.Y + 1][killShot.X].Damaged || map[killShot.Y + 1][killShot.X].Missed)) {
+                        return new KillAction(new Point(killShot.X, killShot.Y + 1));
+                    } else {
+                        persist.lastHeading = Direction.South;
+                        return new KillAction(new Point(killShot.X, killShot.Y - 1));
+                    }
+                case South:
+                    if (killShot.Y - 1 >= 0 && !(map[killShot.Y - 1][killShot.X].Damaged || map[killShot.Y - 1][killShot.X].Missed)) {
+                        return new KillAction(new Point(killShot.X, killShot.Y - 1));
+                    } else {
+                        persist.lastHeading = Direction.North;
+                        return new KillAction(new Point(killShot.X, killShot.Y + 1));
+                    }
+                case East:
+                    if (killShot.X + 1 < 14 && !(map[killShot.Y][killShot.X + 1].Damaged || map[killShot.Y][killShot.X + 1].Missed)) {
+                        return new KillAction(new Point(killShot.X + 1, killShot.Y));
+                    } else {
+                        persist.lastHeading = Direction.West;
+                        return new KillAction(new Point(killShot.X - 1, killShot.Y));
+                    }
+                case West:
+                    if (killShot.X - 1 >= 0 && !(map[killShot.Y][killShot.X - 1].Damaged || map[killShot.Y][killShot.X - 1].Missed)) {
+                        return new KillAction(new Point(killShot.X - 1, killShot.Y));
+                    } else {
+                        persist.lastHeading = Direction.East;
+                        return new KillAction(new Point(killShot.X + 1, killShot.Y));
+                    }
+                default:
+                    return null;
+            }
+        }
     }
 
     static Action huntAxis(final StateModel.OpponentCell[][] map, StateModel.OpponentCell cell) {
