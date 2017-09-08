@@ -1,0 +1,14 @@
+net\avdw\battlefight\hunt\HuntBehaviourTreeTest.class
+net\avdw\battlefight\struct\ZoneTest.class
+net\avdw\battlefight\place\PlacementTest$ShipPlacement.class
+net\avdw\battlefight\hunt\PotentialFieldTest.class
+net\avdw\battlefight\struct\ZoneTest$1.class
+net\avdw\battlefight\kill\KillBehaviourTreeTest.class
+net\avdw\battlefight\struct\ActionTest.class
+net\avdw\battlefight\state\StateTest.class
+net\avdw\battlefight\place\PlacementTest$1.class
+net\avdw\battlefight\state\StateReaderTest.class
+net\avdw\battlefight\MapQueryTest.class
+net\avdw\battlefight\state\StateResolverTest.class
+net\avdw\battlefight\hunt\HuntMaskTest.class
+net\avdw\battlefight\place\PlacementTest.class
