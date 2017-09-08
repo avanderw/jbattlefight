@@ -40,7 +40,6 @@ public class KillBehaviourTreeTest {
         Action action = KillBehaviourTree.execute(killState, model);
         System.out.println(action);
         assertNotEquals("Cannot be an already shot cell", "1,7,3", action.toString());
-        assertEquals("First shot is always south cell", "1,7,2", action.toString());
         assertNotEquals(Action.Type.DO_NOTHING, action.type);
         assertNotEquals(Action.Type.SHIELD, action.type);
     }
@@ -152,10 +151,10 @@ public class KillBehaviourTreeTest {
     public void testBoundsCheck() throws IOException {
         PersistentModel model = new PersistentModel();
         model.lastAction = new PersistentModel.Action();
-        model.lastAction.x =13;
-        model.lastAction.y =2;
+        model.lastAction.x = 13;
+        model.lastAction.y = 2;
         assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class), model));
-        model.lastAction.y =1;
+        model.lastAction.y = 1;
         assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class), model));
     }
 
@@ -202,8 +201,7 @@ public class KillBehaviourTreeTest {
         persist.lastAction.y = 3;
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-killing-last-ship.json"), StateModel.class);
         Action action = KillBehaviourTree.execute(state, persist);
-        
-        assertTrue("Must be close to last shot.",12 - action.point.x < 2);
-    }
 
+        assertTrue("Must be close to last shot.", 12 - action.point.x < 2);
+    }
 }

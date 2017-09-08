@@ -12,15 +12,18 @@ public class PotentialField {
 
     final int[][] field = new int[14][14];
 
-    public PotentialField(StateModel stateModel) {
+    public PotentialField(StateModel stateModel, boolean ignoreCell, Point cell) {
         Stream<StateModel.OpponentShip> huntShips = stateModel.OpponentMap.Ships.stream().filter((ship) -> !ship.Destroyed);
         StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
+        
+        if (ignoreCell) {
+            map[cell.y][cell.x].Damaged = false;
+            map[cell.y][cell.x].Missed = false;
+        }
 
         placementField(huntShips, map);
 
         System.out.println(this);
-//        boxBlurField(1);
-//        System.out.println(this);
     }
 
     private void placementField(Stream<StateModel.OpponentShip> huntShips, StateModel.OpponentCell[][] map) {
@@ -110,7 +113,7 @@ public class PotentialField {
         }
     }
 
-    int potentialAt(int x, int y) {
+    public int potentialAt(int x, int y) {
         return field[y][x];
     }
 

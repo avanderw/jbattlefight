@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 public class PotentialFieldTest {
 
@@ -39,7 +38,7 @@ public class PotentialFieldTest {
     @Test
     public void testApply() {
         HuntMask mask = new HuntMask(carrierSunk);
-        PotentialField field = new PotentialField(carrierSunk);
+        PotentialField field = new PotentialField(carrierSunk, false, null);
         field.apply(mask);
         assertEquals("2,13 should be 0 with mask", 0, field.potentialAt(2, 13));
     }
@@ -48,7 +47,7 @@ public class PotentialFieldTest {
     public void testEmptyApply() {
         HuntMask mask = new HuntMask(2);
         StateModel model = StateReader.read(new File("src/test/resources/cannot-find-ship.json"), StateModel.class);
-        PotentialField field = new PotentialField(model);
+        PotentialField field = new PotentialField(model, false, null);
         
         field.apply(mask);
         assertNotEquals("There will always be a potential shot.", 0, field.maxPotential().size());
@@ -57,7 +56,7 @@ public class PotentialFieldTest {
     @Test
     public void testMaxPotential() {
         HuntMask mask = new HuntMask(carrierSunk);
-        PotentialField field = new PotentialField(carrierSunk);
+        PotentialField field = new PotentialField(carrierSunk, false, null);
         assertEquals("There should be 28 max points", 28, field.maxPotential().size());
         field.apply(mask);
     }
