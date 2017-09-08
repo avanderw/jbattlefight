@@ -6,7 +6,7 @@ public class Place {
     public int y;
     public Direction direction;
 
-    Place(int x, int y, Direction direction) {
+    public Place(int x, int y, Direction direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;

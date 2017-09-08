@@ -12,13 +12,14 @@ public class KillBehaviourTree {
 
     static public Action execute(final StateModel stateModel, PersistentModel persist) {
         final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
+        MapQuery.printMap(map);
+        
         Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist.lastAction)).findAny();
         if (!killShotOption.isPresent()) {
             return null;
         }
 
         StateModel.OpponentCell killShot = killShotOption.get();
-        MapQuery.printMap(map);
         
         System.out.println("Finishing kill from "+killShot.X + ", "+killShot.Y);
         return finishKill(map, killShot);

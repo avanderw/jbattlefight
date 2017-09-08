@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import static junit.framework.TestCase.*;
+import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Direction;
 import net.avdw.battlefight.struct.Zone;
@@ -76,6 +77,7 @@ public class PlacementTest {
                         break;
                 }
                 if (xySet.contains(xy)) {
+                    System.out.println(action);
                     System.out.println(xySet);
                     fail(String.format("Cannot place ship: %s", placement));
                 } else {
@@ -116,9 +118,10 @@ public class PlacementTest {
     }
 
     @Test
-    public void notTouching() {
+    public void minimizeTouching() {
         int[][] map = new int[14][14];
         parseOutput(action.toString()).forEach((placement) -> {
+            int count = 0;
             for (int x = min(placement.x1, placement.x2); x <= max(placement.x1, placement.x2); x++) {
                 for (int y = min(placement.y1, placement.y2); y <= max(placement.y1, placement.y2); y++) {
                     map[y][x] = 1;
@@ -129,7 +132,12 @@ public class PlacementTest {
                 for (int y = 1; y < 13; y++) {
                     if (map[y][x] == 1) {
                         if ((map[y][x - 1] == 1 || map[y][x + 1] == 1) && (map[y - 1][x] == 1 || map[y + 1][x] == 1)) {
-                            fail(String.format("Ships are touching"));
+                            count++;
+                            if (count > 2) {
+                                MapQuery.printMap(map);
+                                fail(String.format("Too many ships are touching"));
+                            }
+                            break;
                         }
                     }
                 }
@@ -138,12 +146,10 @@ public class PlacementTest {
     }
 
     @Test
-    public void inDestroyerInCorner() {
+    public void isDestroyerInCorner() {
         parseOutput(action.toString()).forEach((placement) -> {
             for (Zone zone : Zone.ALL_ZONES) {
                 if (zone.containsPoint(placement.x1, placement.y1)) {
-                    zone.addShip(placement.type);
-                } else if (zone.containsPoint(placement.x2, placement.y2)) {
                     zone.addShip(placement.type);
                 }
             }
@@ -153,11 +159,6 @@ public class PlacementTest {
         assertFalse("Zone FOUR may not contain the destroyer", Zone.FOUR.containsShip(ShipType.Destroyer));
         assertFalse("Zone SIX may not contain the destroyer", Zone.SIX.containsShip(ShipType.Destroyer));
         assertFalse("Zone EIGHT may not contain the destroyer", Zone.EIGHT.containsShip(ShipType.Destroyer));
-
-        assertTrue("Zone ONE must contain a ship, contains " + Zone.ONE.containedShipCount(), Zone.ONE.containedShipCount() == 1);
-        assertTrue("Zone THREE must contain a ship, contains " + Zone.THREE.containedShipCount(), Zone.THREE.containedShipCount() == 1);
-        assertTrue("Zone SEVEN must contain a ship, contains " + Zone.SEVEN.containedShipCount(), Zone.SEVEN.containedShipCount() == 1);
-        assertTrue("Zone NINE must contain a ship, contains " + Zone.NINE.containedShipCount(), Zone.NINE.containedShipCount() == 1);
     }
 
     static private List<ShipPlacement> parseOutput(String output) {

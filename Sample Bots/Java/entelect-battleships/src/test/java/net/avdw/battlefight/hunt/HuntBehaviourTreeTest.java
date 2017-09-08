@@ -14,14 +14,6 @@ import org.junit.Ignore;
 public class HuntBehaviourTreeTest {
 
     @Test
-    @Ignore
-    public void testEmptyBoard() throws IOException {
-        assertEquals("Empty board first hit will be for the Battleship at 7,5.",
-                new HuntAction(new Point(7, 5)).toString(),
-                HuntBehaviourTree.execute(StateReader.read(new File("src/test/resources/no-ships-hit.json"), StateModel.class)).toString());
-    }
-        
-    @Test
     public void testHuntMaskSwitch() throws IOException {
         Action huntBattleship = HuntBehaviourTree.execute(StateReader.read(new File("src/test/resources/no-ships-hit.json"), StateModel.class));
         Action huntDestroyer = HuntBehaviourTree.execute(StateReader.read(new File("src/test/resources/cruiser-left.json"), StateModel.class));
@@ -47,12 +39,4 @@ public class HuntBehaviourTreeTest {
         System.out.println(action);
     }
     
-    @Test
-    @Ignore("Good to shoot diagnals")
-    public void testSpreadHunt() {
-        StateModel model = StateReader.read(new File("src/test/resources/hunt/spread-hunt.json"), StateModel.class);
-        Action action = HuntBehaviourTree.execute(model);
-        assertNotEquals("Spread shots! Update potential field correctly.", "1,6,6", action.toString());
-    }
-
 }

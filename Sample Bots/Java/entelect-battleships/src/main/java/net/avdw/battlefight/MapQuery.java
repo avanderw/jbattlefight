@@ -55,8 +55,30 @@ public class MapQuery {
         if ((cell.X == 13 && map[cell.Y][12].Damaged) || (cell.X == 0 && map[cell.Y][1].Damaged)) {
             return false;
         }
-
+        
         if (lastAction == null || cell.X == lastAction.x || cell.Y == lastAction.y) {
+            if (lastAction == null) {
+                return true;
+            }
+            if (cell.X != lastAction.x) {
+                int min = Math.min(cell.X, lastAction.x) +1;
+                int max = Math.max(cell.X, lastAction.x) -1;
+
+                for (int i = min; i <= max; i++) {
+                    if (!(map[cell.Y][i].Damaged || map[cell.Y][i].Missed)) {
+                        return false;
+                    }
+                }
+            } else if (cell.Y != lastAction.y) {
+                int min = Math.min(cell.Y, lastAction.y);
+                int max = Math.max(cell.Y, lastAction.y);
+
+                for (int i = min; i <= max; i++) {
+                    if (!(map[i][cell.X].Damaged || map[i][cell.X].Missed)) {
+                        return false;
+                    }
+                }
+            }
             return true;
         } else {
             return false;
@@ -82,6 +104,16 @@ public class MapQuery {
                 } else {
                     System.out.print(".");
                 }
+            }
+            System.out.println(" " + y);
+        }
+        System.out.println("01234567890123");
+    }
+
+    public static void printMap(int[][] map) {
+        for (int y = 13; y >= 0; y--) {
+            for (int x = 0; x < 14; x++) {
+                System.out.print("" + map[y][x]);
             }
             System.out.println(" " + y);
         }

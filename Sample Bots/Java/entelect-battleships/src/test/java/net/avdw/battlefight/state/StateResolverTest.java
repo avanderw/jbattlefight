@@ -64,4 +64,16 @@ public class StateResolverTest {
         StateResolver.setup(state, persist);
         assertEquals("Should continue hunting.", StateResolver.AiState.HUNT, StateResolver.state);
     }
+    
+    @Test
+    public void testNotKillingLastShip() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.x = 12;
+        persist.lastAction.y = 3;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/not-killing-last-ship.json"), StateModel.class);
+        StateResolver.setup(state, persist);
+        assertEquals("Should continue killing.", StateResolver.AiState.KILL, StateResolver.state);
+    }
 }

@@ -32,7 +32,7 @@ public class KillBehaviourTreeTest {
         PersistentModel.Action lastAction = new PersistentModel.Action();
         lastAction.type = PersistentModel.ActionType.FIRESHOT;
         lastAction.x = 7;
-        lastAction.y = 2;
+        lastAction.y = 3;
 
         PersistentModel model = new PersistentModel();
         model.lastAction = lastAction;
@@ -49,7 +49,7 @@ public class KillBehaviourTreeTest {
     public void testContinueKill() {
         PersistentModel.Action lastAction = new PersistentModel.Action();
         lastAction.type = PersistentModel.ActionType.FIRESHOT;
-        lastAction.x = 7;
+        lastAction.x = 2;
         lastAction.y = 8;
 
         PersistentModel model = new PersistentModel();
@@ -70,7 +70,7 @@ public class KillBehaviourTreeTest {
         model.lastAction = lastAction;
 
         Action action = KillBehaviourTree.execute(finishKillState, model);
-        assertEquals("1,9,7", action.toString());
+        assertNull("Kill is finished, should have hunted", action);
     }
 
     @Test
@@ -151,7 +151,11 @@ public class KillBehaviourTreeTest {
     @Test
     public void testBoundsCheck() throws IOException {
         PersistentModel model = new PersistentModel();
+        model.lastAction = new PersistentModel.Action();
+        model.lastAction.x =13;
+        model.lastAction.y =2;
         assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class), model));
+        model.lastAction.y =1;
         assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class), model));
     }
 
@@ -173,7 +177,7 @@ public class KillBehaviourTreeTest {
         assertNotEquals("Row should be 3, 4, 5.", 10, action.point.y);
         assertNotEquals("Row should be 3, 4, 5.", 7, action.point.y);
     }
-    
+
     @Test
     public void killReturningNull() {
         PersistentModel persist = new PersistentModel();
@@ -188,4 +192,18 @@ public class KillBehaviourTreeTest {
         assertNotNull(action.point);
         System.out.println(action.toString());
     }
+
+    @Test
+    public void notKillingLastShip() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = PersistentModel.ActionType.FIRESHOT;
+        persist.lastAction.x = 12;
+        persist.lastAction.y = 3;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/not-killing-last-ship.json"), StateModel.class);
+        Action action = KillBehaviourTree.execute(state, persist);
+        
+        assertTrue("Must be close to last shot.",12 - action.point.x < 2);
+    }
+
 }
