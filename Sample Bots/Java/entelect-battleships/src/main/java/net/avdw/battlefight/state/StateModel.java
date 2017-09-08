@@ -1,8 +1,9 @@
 package net.avdw.battlefight.state;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class StateModel {
+public class StateModel implements Serializable {
 
     public PlayerMap PlayerMap;
     public OpponentMap OpponentMap;
@@ -12,7 +13,7 @@ public class StateModel {
     public int MapDimension;
     public int Phase;
 
-    static public class PlayerMap {
+    static public class PlayerMap implements Serializable {
 
         public Owner Owner;
         public ArrayList<Cell> Cells;
@@ -20,7 +21,7 @@ public class StateModel {
         public int MapHeight;
     }
 
-    static public class OpponentMap {
+    static public class OpponentMap implements Serializable {
 
         public boolean Alive;
         public int Points;
@@ -29,7 +30,7 @@ public class StateModel {
         public ArrayList<OpponentCell> Cells;
     }
 
-    static public class Owner {
+    static public class Owner implements Serializable {
 
         public int FailedFirstRoundCommands;
         public String Name;
@@ -44,7 +45,7 @@ public class StateModel {
         public char Key;
     }
 
-    static public class Cell {
+    static public class Cell implements Serializable {
 
         public boolean Occupied;
         public boolean Hit;
@@ -52,13 +53,13 @@ public class StateModel {
         public int Y;
     }
 
-    static public class OpponentShip {
+    static public class OpponentShip implements Serializable {
 
         public boolean Destroyed;
         public ShipType ShipType;
     }
 
-    static public class OpponentCell {
+    static public class OpponentCell implements Serializable{
 
         public boolean Damaged;
         public boolean Missed;
@@ -66,7 +67,7 @@ public class StateModel {
         public int Y;
     }
 
-    static public class Ship {
+    static public class Ship  implements Serializable{
 
         public boolean Destroyed;
         public boolean Placed;
@@ -75,13 +76,13 @@ public class StateModel {
         public ArrayList<Cell> Cells;
     }
 
-    static public class Weapon {
+    static public class Weapon implements Serializable {
 
         public WeaponType WeaponType;
         public int EnergyRequired;
     }
 
-    static public enum WeaponType {
+    static public enum WeaponType implements Serializable {
         SingleShot,
         SeekerMissle,
         DoubleShot,
@@ -90,7 +91,7 @@ public class StateModel {
         CrossShot
     }
 
-    static public enum ShipType {
+    static public enum ShipType implements Serializable {
         Battleship(4),
         Carrier(5),
         Cruiser(3),

@@ -11,17 +11,23 @@ import net.avdw.battlefight.struct.Direction;
 public class PotentialField {
 
     final int[][] field = new int[14][14];
+    int totalPotential = 0;
 
     public PotentialField(StateModel stateModel, boolean ignoreCell, Point cell) {
         Stream<StateModel.OpponentShip> huntShips = stateModel.OpponentMap.Ships.stream().filter((ship) -> !ship.Destroyed);
         StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-        
+
         if (ignoreCell) {
             map[cell.y][cell.x].Damaged = false;
             map[cell.y][cell.x].Missed = false;
         }
 
         placementField(huntShips, map);
+        for (int y = 0; y < 14; y++) {
+            for (int x = 0; x < 14; x++) {
+                totalPotential += field[y][x];
+            }
+        }
 
         System.out.println(this);
     }
@@ -165,5 +171,4 @@ public class PotentialField {
         sb.append(" 0  1  2  3  4  5  6  7  8  9 10 11 12 13");
         return sb.toString();
     }
-
 }
