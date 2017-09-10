@@ -22,4 +22,11 @@ public class HuntBehaviourTreeTest {
         System.out.println(action);
     }
     
+    @Test
+    public void testUseEnergy() throws IOException {
+        StateModel model = StateReader.read(new File("src/test/resources/cannot-find-ship.json"), StateModel.class);
+        
+        Action action = HuntBehaviourTree.execute(model);
+        assertNotEquals("Should use special shot.", "FIRESHOT", action.type.name());
+    }
 }
