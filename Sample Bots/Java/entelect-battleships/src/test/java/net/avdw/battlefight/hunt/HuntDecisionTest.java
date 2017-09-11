@@ -8,7 +8,9 @@ import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.struct.Action;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
+@Ignore
 public class HuntDecisionTest {
 
     @Test

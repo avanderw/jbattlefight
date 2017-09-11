@@ -24,11 +24,12 @@ public class PlacementDecision {
         action.place(StateModel.ShipType.Cruiser,
                 onCornerEdge(remainingSides.remove(ThreadLocalRandom.current().nextInt(remainingSides.size())), 3, 1));
         
+        Direction battleshipSide = remainingSides.remove(ThreadLocalRandom.current().nextInt(remainingSides.size()));
         action.place(StateModel.ShipType.Battleship,
-                onCornerEdge(remainingSides.remove(ThreadLocalRandom.current().nextInt(remainingSides.size())), 4, 1));
+                onCornerEdge(battleshipSide, 4, 1));
         
         action.place(StateModel.ShipType.Carrier, 
-                onCenterEdge(Direction.random(), 5, 2));
+                onCenterEdge(Direction.random(battleshipSide), 5, 2));
 
         return action;
     }

@@ -59,7 +59,7 @@ public class StateModel implements Serializable {
         public ShipType ShipType;
     }
 
-    static public class OpponentCell implements Serializable{
+    static public class OpponentCell implements Serializable {
 
         public boolean Damaged;
         public boolean Missed;
@@ -67,13 +67,18 @@ public class StateModel implements Serializable {
         public int Y;
     }
 
-    static public class Ship  implements Serializable{
+    static public class Ship implements Serializable {
 
         public boolean Destroyed;
         public boolean Placed;
         public ShipType ShipType;
         public ArrayList<Weapon> Weapons;
         public ArrayList<Cell> Cells;
+
+        @Override
+        public String toString() {
+            return ShipType.name();
+        }
     }
 
     static public class Weapon implements Serializable {

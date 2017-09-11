@@ -11,7 +11,9 @@ import net.avdw.battlefight.struct.Direction;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
+@Ignore
 public class KillDecisionTest {
 
     private static StateModel killState;

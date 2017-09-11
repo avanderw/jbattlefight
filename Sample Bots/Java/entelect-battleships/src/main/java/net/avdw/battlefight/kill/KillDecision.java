@@ -20,23 +20,25 @@ public class KillDecision {
         MapQuery.printMap(map);
 
         Optional<OpponentCell> nextShot = null;
-        switch (persist.lastHeading) {
-            case North:
-                nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x && cell.Y == persist.lastAction.y + 1).findAny();
-                break;
-            case South:
-                nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x && cell.Y == persist.lastAction.y - 1).findAny();
-                break;
-            case East:
-                nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x + 1 && cell.Y == persist.lastAction.y).findAny();
-                break;
-            case West:
-                nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x - 1 && cell.Y == persist.lastAction.y).findAny();
-                break;
-        }
-        
-        if (nextShot.isPresent() && !(nextShot.get().Damaged || nextShot.get().Missed)) {
-            return new KillAction(new Point(nextShot.get().X, nextShot.get().Y));
+        if (persist.lastHeading != null && !map[persist.lastAction.y][persist.lastAction.x].Missed) {
+            switch (persist.lastHeading) {
+                case North:
+                    nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x && cell.Y == persist.lastAction.y + 1).findAny();
+                    break;
+                case South:
+                    nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x && cell.Y == persist.lastAction.y - 1).findAny();
+                    break;
+                case East:
+                    nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x + 1 && cell.Y == persist.lastAction.y).findAny();
+                    break;
+                case West:
+                    nextShot = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.X == persist.lastAction.x - 1 && cell.Y == persist.lastAction.y).findAny();
+                    break;
+            }
+
+            if (nextShot.isPresent() && !(nextShot.get().Damaged || nextShot.get().Missed)) {
+                return new KillAction(new Point(nextShot.get().X, nextShot.get().Y));
+            }
         }
 
         Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist)).findAny();
