@@ -29,7 +29,7 @@ public class MapQuery {
         return fit;
     }
 
-    public static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell, PersistentModel.Action lastAction) {
+    public static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell, PersistentModel persist) {
         if (cell.Y - 1 >= 0 && map[cell.Y - 1][cell.X].Damaged && cell.Y + 1 < 14 && map[cell.Y + 1][cell.X].Damaged) {
             return false;
         }
@@ -56,22 +56,22 @@ public class MapQuery {
             return false;
         }
         
-        if (lastAction == null || cell.X == lastAction.x || cell.Y == lastAction.y) {
-            if (lastAction == null) {
+        if (persist == null || persist.lastAction == null || cell.X == persist.lastAction.x || cell.Y == persist.lastAction.y) {
+            if (persist== null || persist.lastAction == null) {
                 return true;
             }
-            if (cell.X != lastAction.x) {
-                int min = Math.min(cell.X, lastAction.x) +1;
-                int max = Math.max(cell.X, lastAction.x) -1;
+            if (cell.X != persist.lastAction.x) {
+                int min = Math.min(cell.X, persist.lastAction.x) +1;
+                int max = Math.max(cell.X, persist.lastAction.x) -1;
 
                 for (int i = min; i <= max; i++) {
                     if (!(map[cell.Y][i].Damaged || map[cell.Y][i].Missed)) {
                         return false;
                     }
                 }
-            } else if (cell.Y != lastAction.y) {
-                int min = Math.min(cell.Y, lastAction.y);
-                int max = Math.max(cell.Y, lastAction.y);
+            } else if (cell.Y != persist.lastAction.y) {
+                int min = Math.min(cell.Y, persist.lastAction.y);
+                int max = Math.max(cell.Y, persist.lastAction.y);
 
                 for (int i = min; i <= max; i++) {
                     if (!(map[i][cell.X].Damaged || map[i][cell.X].Missed)) {

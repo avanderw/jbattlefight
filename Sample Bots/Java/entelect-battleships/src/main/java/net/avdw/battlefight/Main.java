@@ -2,9 +2,9 @@ package net.avdw.battlefight;
 
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateResolver;
-import net.avdw.battlefight.kill.KillBehaviourTree;
-import net.avdw.battlefight.place.PlacementStrategy;
-import net.avdw.battlefight.hunt.HuntBehaviourTree;
+import net.avdw.battlefight.kill.KillDecision;
+import net.avdw.battlefight.place.PlacementDecision;
+import net.avdw.battlefight.hunt.HuntDecision;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -36,24 +36,24 @@ public class Main {
             Action action = null;
             switch (StateResolver.state) {
                 case PLACE:
-                    action = PlacementStrategy.place(state);
+                    action = PlacementDecision.place(state);
                     break;
                 case KILL:
                     System.out.println("Killing");
-                    action = KillBehaviourTree.execute(state, persist);
+                    action = KillDecision.execute(state, persist);
                     if (action != null) {
                         break;
                     }
                 case HUNT:
                     System.out.println("Hunting");
                     persist.lastHeading = null;
-                    action = HuntBehaviourTree.execute(state);
+                    action = HuntDecision.execute(state);
                     break;
             }
 
             if (action == null) {
                 System.out.println("Killing failed! Hunting as fallback.");
-                action = HuntBehaviourTree.execute(state);
+                action = HuntDecision.execute(state);
             } else if (state.Phase != 1) {
                 final Point p = action.point;
                 if (state.OpponentMap.Cells.stream().anyMatch(cell -> cell.Y == p.y && cell.X == p.x && (cell.Damaged || cell.Missed))) {

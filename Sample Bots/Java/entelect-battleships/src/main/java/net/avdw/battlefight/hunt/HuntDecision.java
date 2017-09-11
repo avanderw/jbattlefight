@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+import net.avdw.battlefight.NoAction;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateModel.OpponentCell;
 import net.avdw.battlefight.struct.Point;
 
-public class HuntBehaviourTree {
+public class HuntDecision {
 
     static public Action execute(StateModel stateModel) {
         List<Point> weakShots = new ArrayList();
@@ -36,6 +37,11 @@ public class HuntBehaviourTree {
         }
         PotentialField field = new PotentialField(stateModel, false, null);
 
+        if (field.maxPotential().isEmpty()) {
+            System.out.println("WARNING: empty potential field");
+            OpponentCell c = stateModel.OpponentMap.Cells.stream().filter(cell-> !(cell.Damaged || cell.Missed)).findAny().get();
+            return new HuntAction(new Point(c.X, c.Y));
+        }
         return new HuntAction(field.maxPotential().remove(ThreadLocalRandom.current().nextInt(field.maxPotential().size())));
     }
 }

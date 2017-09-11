@@ -1,5 +1,7 @@
 package net.avdw.battlefight.struct;
 
+import net.avdw.battlefight.state.StateModel.ShipType;
+
 public class Action {
 
     public String filename;
@@ -11,15 +13,23 @@ public class Action {
         return String.format("%s,%s,%s", type.ordinal(), point.x, point.y);
     }
 
-    public enum Type {
-        DO_NOTHING,
-        FIRESHOT,
-        DOUBLE_SHOT_VERTICAL,
-        DOUBLE_SHOT_HORIZONTAL,
-        CORNER_SHOT,
-        CROSS_SHOT_DIAGONAL,
-        CROSS_SHOT_HORIZONTAL,
-        SEEKER_MISSILE,
-        SHIELD;
+    static public enum Type {
+        DO_NOTHING(0, null),
+        FIRESHOT(1, null),
+        DOUBLE_SHOT_VERTICAL(32, ShipType.Destroyer),
+        DOUBLE_SHOT_HORIZONTAL(32, ShipType.Destroyer),
+        CORNER_SHOT(40, ShipType.Carrier),
+        CROSS_SHOT_DIAGONAL(48, ShipType.Battleship),
+        CROSS_SHOT_HORIZONTAL(56, ShipType.Cruiser),
+        SEEKER_MISSILE(48, ShipType.Submarine),
+        SHIELD(0, null);
+        
+        public int energy;
+        public ShipType ship;
+        
+        Type(int energy, ShipType ship) {
+            this.energy = energy;
+            this.ship = ship;
+        }
     }
 }

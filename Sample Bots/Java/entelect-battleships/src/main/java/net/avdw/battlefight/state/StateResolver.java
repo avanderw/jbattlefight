@@ -21,7 +21,7 @@ public class StateResolver {
                 state = AiState.HUNT;
             } else {
                 final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-                Stream<StateModel.OpponentCell> unfinishedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist.lastAction));
+                Stream<StateModel.OpponentCell> unfinishedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist));
                 state = (unfinishedCells.count() > 0) ? AiState.KILL : AiState.HUNT;
             }
         }

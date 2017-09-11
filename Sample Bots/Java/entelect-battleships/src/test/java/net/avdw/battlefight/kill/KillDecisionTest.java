@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class KillBehaviourTreeTest {
+public class KillDecisionTest {
 
     private static StateModel killState;
     private static StateModel continueKillState;
@@ -36,8 +36,9 @@ public class KillBehaviourTreeTest {
 
         PersistentModel model = new PersistentModel();
         model.lastAction = lastAction;
+        model.lastHeading = Direction.North;
 
-        Action action = KillBehaviourTree.execute(killState, model);
+        Action action = KillDecision.execute(killState, model);
         System.out.println(action);
         assertNotEquals("Cannot be an already shot cell", "1,7,3", action.toString());
         assertNotEquals(Action.Type.DO_NOTHING, action.type);
@@ -53,23 +54,10 @@ public class KillBehaviourTreeTest {
 
         PersistentModel model = new PersistentModel();
         model.lastAction = lastAction;
+        model.lastHeading = Direction.East;
 
-        Action action = KillBehaviourTree.execute(continueKillState, model);
+        Action action = KillDecision.execute(continueKillState, model);
         assertEquals("Ship is clearly on row 8", 8, action.point.y);
-    }
-
-    @Test
-    public void testFinishKill() {
-        PersistentModel.Action lastAction = new PersistentModel.Action();
-        lastAction.type = Action.Type.FIRESHOT;
-        lastAction.x = 9;
-        lastAction.y = 8;
-
-        PersistentModel model = new PersistentModel();
-        model.lastAction = lastAction;
-
-        Action action = KillBehaviourTree.execute(finishKillState, model);
-        assertNull("Kill is finished, should have hunted", action);
     }
 
     @Test
@@ -81,8 +69,9 @@ public class KillBehaviourTreeTest {
 
         PersistentModel model = new PersistentModel();
         model.lastAction = lastAction;
-
-        Action action = KillBehaviourTree.execute(continueHuntState, model);
+        model.lastHeading = Direction.North;
+        
+        Action action = KillDecision.execute(continueHuntState, model);
         assertNull(action);
     }
 
@@ -153,9 +142,10 @@ public class KillBehaviourTreeTest {
         model.lastAction = new PersistentModel.Action();
         model.lastAction.x = 13;
         model.lastAction.y = 2;
-        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class), model));
+        model.lastHeading = Direction.North;
+        assertNotNull(KillDecision.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class), model));
         model.lastAction.y = 1;
-        assertNotNull(KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class), model));
+        assertNotNull(KillDecision.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class), model));
     }
 
     @Test
@@ -165,14 +155,15 @@ public class KillBehaviourTreeTest {
         persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.y = 10;
         persist.lastAction.x = 10;
+        persist.lastHeading = Direction.North;
 
-        Action action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships.json"), StateModel.class), persist);
+        Action action = KillDecision.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships.json"), StateModel.class), persist);
         assertNotEquals("Row should be 9, 10, 11.", 5, action.point.y);
         assertNotEquals("Row should be 9, 10, 11.", 4, action.point.y);
         assertNotEquals("Row should be 9, 10, 11.", 3, action.point.y);
 
         persist.lastAction.y = 4;
-        action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships-again.json"), StateModel.class), persist);
+        action = KillDecision.execute(StateReader.read(new File("src/test/resources/dont-kill-dead-ships-again.json"), StateModel.class), persist);
         assertNotEquals("Row should be 3, 4, 5.", 10, action.point.y);
         assertNotEquals("Row should be 3, 4, 5.", 7, action.point.y);
     }
@@ -184,8 +175,9 @@ public class KillBehaviourTreeTest {
         persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.y = 10;
         persist.lastAction.x = 0;
+        persist.lastHeading = Direction.North;
 
-        Action action = KillBehaviourTree.execute(StateReader.read(new File("src/test/resources/bug/not-making-shot.json"), StateModel.class), persist);
+        Action action = KillDecision.execute(StateReader.read(new File("src/test/resources/bug/not-making-shot.json"), StateModel.class), persist);
         assertNotNull(action);
         assertNotNull(action.type);
         assertNotNull(action.point);
@@ -199,12 +191,13 @@ public class KillBehaviourTreeTest {
         persist.lastAction.type = Action.Type.FIRESHOT;
         persist.lastAction.x = 12;
         persist.lastAction.y = 3;
+        persist.lastHeading = Direction.North;
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-killing-last-ship.json"), StateModel.class);
-        Action action = KillBehaviourTree.execute(state, persist);
+        Action action = KillDecision.execute(state, persist);
 
         assertTrue("Must be close to last shot.", 12 - action.point.x < 2);
     }
-    
+
     @Test
     public void testV5Bug() {
         PersistentModel persist = new PersistentModel();
@@ -214,10 +207,10 @@ public class KillBehaviourTreeTest {
         persist.lastAction.y = 1;
         persist.lastHeading = Direction.East;
         StateModel state = StateReader.read(new File("src/test/resources/bug/v5-didnt-kill.json"), StateModel.class);
-        Action action = KillBehaviourTree.execute(state, persist);
+        Action action = KillDecision.execute(state, persist);
         assertEquals("Should kill the final ship.", "1,6,1", action.toString());
     }
-    
+
     @Test
     public void testNotReversing() {
         PersistentModel persist = new PersistentModel();
@@ -227,8 +220,35 @@ public class KillBehaviourTreeTest {
         persist.lastAction.y = 1;
         persist.lastHeading = Direction.South;
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-reversing.json"), StateModel.class);
-        Action action = KillBehaviourTree.execute(state, persist);
+        Action action = KillDecision.execute(state, persist);
         assertNotNull(action);
         assertEquals("Should kill the ship.", "1,13,4", action.toString());
     }
+
+    @Test
+    public void testV6NotFinishing() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 11;
+        persist.lastAction.y = 1;
+        persist.lastHeading = Direction.East;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-not-finishing.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        assertEquals("Should finish with 12,1.", "1,12,1", action.toString());
+    }
+    
+    @Test
+    public void testUsingEnergy() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 11;
+        persist.lastAction.y = 1;
+        persist.lastHeading = Direction.East;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-not-finishing.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        assertNotEquals("Should use special shot.", "FIRESHOT", action.type.name());
+    }
+    
 }

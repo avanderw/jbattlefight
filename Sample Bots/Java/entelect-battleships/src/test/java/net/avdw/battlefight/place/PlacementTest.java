@@ -31,7 +31,7 @@ public class PlacementTest {
 
     @BeforeClass
     public static void setUpClass() throws IOException {
-        action = PlacementStrategy.place(StateReader.read(new File("src/test/resources/state.json"), StateModel.class));
+        action = PlacementDecision.place(StateReader.read(new File("src/test/resources/state.json"), StateModel.class));
         System.out.println(action.toString());
         print();
     }

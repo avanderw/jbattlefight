@@ -9,7 +9,7 @@ import net.avdw.battlefight.struct.Action;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class HuntBehaviourTreeTest {
+public class HuntDecisionTest {
 
     @Test
     public void testCannotFindShip() throws IOException {
@@ -17,9 +17,16 @@ public class HuntBehaviourTreeTest {
         StateModel.OpponentCell[][] map = MapQuery.transformMap(model.OpponentMap.Cells);
         MapQuery.printMap(map);
         
-        Action action = HuntBehaviourTree.execute(model);
+        Action action = HuntDecision.execute(model);
         assertNotEquals("Don't make illegal shots.", "1,0,0", action.toString());
         System.out.println(action);
     }
     
+    @Test
+    public void testUseEnergy() throws IOException {
+        StateModel model = StateReader.read(new File("src/test/resources/cannot-find-ship.json"), StateModel.class);
+        
+        Action action = HuntDecision.execute(model);
+        assertNotEquals("Should use special shot.", "FIRESHOT", action.type.name());
+    }
 }

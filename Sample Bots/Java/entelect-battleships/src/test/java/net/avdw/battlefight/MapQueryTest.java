@@ -42,11 +42,14 @@ public class MapQueryTest {
         lastAction.type = Action.Type.FIRESHOT;
         lastAction.x = 10;
         lastAction.y = 10;
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = lastAction;
 
         StateModel stateModel = StateReader.read(new File("src/test/resources/dont-kill-dead-ships.json"), StateModel.class);
         final StateModel.OpponentCell[][] map1 = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-        Stream<StateModel.OpponentCell> unfinishedKillshots = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map1, cell, lastAction));
-        assertEquals("Do not allow more than two unfinshed-kill shots.", 1, unfinishedKillshots.count());
+        MapQuery.printMap(map1);
+        Stream<StateModel.OpponentCell> unfinishedKillshots = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map1, cell, persist));
+        assertEquals("Do not allow more than one unfinshed-kill shots.", 1, unfinishedKillshots.count());
 
         stateModel = StateReader.read(new File("src/test/resources/bug/not-making-shot.json"), StateModel.class);
         final StateModel.OpponentCell[][] map2 = MapQuery.transformMap(stateModel.OpponentMap.Cells);
@@ -56,10 +59,10 @@ public class MapQueryTest {
         cell.X = 0;
         lastAction.x = 0;
         lastAction.y = 11;
-        assertFalse("This is not an unfinished kill.", MapQuery.killIsUnfinished(map2, cell, lastAction));
+        assertFalse("This is not an unfinished kill.", MapQuery.killIsUnfinished(map2, cell, persist));
         lastAction.y = 10;
         cell.X = 1;
-        assertTrue("This is an unfinished kill.", MapQuery.killIsUnfinished(map2, cell, lastAction));
+        assertTrue("This is an unfinished kill.", MapQuery.killIsUnfinished(map2, cell, persist));
     }
 
     @Test

@@ -9,7 +9,7 @@ import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.struct.Direction;
 import net.avdw.battlefight.struct.Place;
 
-public class PlacementStrategy {
+public class PlacementDecision {
 
     static public Action place(StateModel stateModel) {
         List<Direction> remainingSides = new ArrayList(Arrays.asList(Direction.values()));
