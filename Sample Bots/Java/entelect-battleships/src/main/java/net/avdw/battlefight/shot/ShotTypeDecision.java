@@ -1,0 +1,63 @@
+package net.avdw.battlefight.shot;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.state.StateModel.Ship;
+import net.avdw.battlefight.struct.Action.Type;
+
+public class ShotTypeDecision {
+
+    static public Type huntShot(StateModel state) {
+
+        List<Ship> shipsThatCanFire = state.PlayerMap.Owner.Ships.stream()
+                .filter(ship -> !ship.Destroyed
+                && ship.Weapons.get(1).EnergyRequired < state.PlayerMap.Owner.Energy
+                && ship.Cells.stream().filter(cell -> cell.Hit).count() < ship.ShipType.length() - 1)
+                .sorted((ship1, ship2) -> {
+                    return ship2.Weapons.get(1).EnergyRequired - ship1.Weapons.get(1).EnergyRequired;
+                }).collect(Collectors.toList());
+
+        if (shipsThatCanFire.isEmpty()) {
+            return Type.FIRESHOT;
+        }
+
+        Optional<Ship> priorityShip = shipsThatCanFire.stream().filter(ship -> ship.Cells.stream().anyMatch(cell -> cell.Hit)).findAny();
+        Ship firingShip = shipsThatCanFire.get(0);
+        if (priorityShip.isPresent()) {
+            firingShip = priorityShip.get();
+        } else {
+            Ship waitForShip = state.PlayerMap.Owner.Ships.stream()
+                    .filter(ship -> !ship.Destroyed
+                    && ship.Cells.stream().filter(cell -> cell.Hit).count() == 0)
+                    .sorted((ship1, ship2) -> {
+                        return ship2.Weapons.get(1).EnergyRequired - ship1.Weapons.get(1).EnergyRequired;
+                    }).findFirst().get();
+
+            if (firingShip.ShipType != waitForShip.ShipType) {
+                return Type.FIRESHOT;
+            }
+        }
+
+        System.out.println("firing:" + firingShip);
+        switch (firingShip.ShipType) {
+            case Carrier:
+                return Type.CORNER_SHOT;
+            case Battleship:
+                return Type.CROSS_SHOT_DIAGONAL;
+            case Destroyer:
+                return Type.DOUBLE_SHOT_HORIZONTAL;
+            case Cruiser:
+                return Type.CROSS_SHOT_HORIZONTAL;
+            case Submarine:
+                return Type.SEEKER_MISSILE;
+        }
+
+        return Type.FIRESHOT;
+    }
+
+    static public Type killShot(StateModel state) {
+        return Type.FIRESHOT;
+    }
+}
