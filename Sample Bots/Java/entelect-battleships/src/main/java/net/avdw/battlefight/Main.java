@@ -56,8 +56,9 @@ public class Main {
                 action = HuntDecision.execute(state);
             } else if (state.Phase != 1) {
                 final Point p = action.point;
-                if (state.OpponentMap.Cells.stream().anyMatch(cell -> cell.Y == p.y && cell.X == p.x && (cell.Damaged || cell.Missed))) {
-                    throw new Exception("Something fucked out!");
+                final Action a = action;
+                if (state.OpponentMap.Cells.stream().anyMatch(cell -> cell.Y == p.y && cell.X == p.x && (cell.Damaged || cell.Missed) && a.type == Action.Type.FIRESHOT)) {
+                    throw new Exception("Something fucked out! Shooting a shot space.");
                 }
             }
 

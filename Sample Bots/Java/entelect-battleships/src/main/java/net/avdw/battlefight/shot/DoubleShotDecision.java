@@ -5,8 +5,11 @@
  */
 package net.avdw.battlefight.shot;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.avdw.battlefight.hunt.HuntAction;
 import net.avdw.battlefight.hunt.PotentialField;
+import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Point;
@@ -56,9 +59,28 @@ public class DoubleShotDecision {
             }
         }
 
-        System.out.println("Double shot fire (vertical:"+vertical+"): " + p);
+        System.out.println("Double shot fire (vertical:" + vertical + "): " + p);
 
         return new HuntAction(vertical ? Action.Type.DOUBLE_SHOT_VERTICAL : Action.Type.DOUBLE_SHOT_HORIZONTAL, p);
+    }
+
+    public static List<Point> check(StateModel.OpponentCell[][] map, PersistentModel.Action last) {
+        List<Point> hits = new ArrayList();
+
+        if (map[last.y - 1][last.x].Damaged) {
+            hits.add(new Point(last.x, last.y - 1));
+        }
+        if (map[last.y][last.x + 1].Damaged) {
+            hits.add(new Point(last.x + 1, last.y));
+        }
+        if (map[last.y][last.x - 1].Damaged) {
+            hits.add(new Point(last.x - 1, last.y));
+        }
+        if (map[last.y + 1][last.x].Damaged) {
+            hits.add(new Point(last.x, last.y + 1));
+        }
+
+        return hits;
     }
 
 }

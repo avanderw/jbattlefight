@@ -5,7 +5,11 @@
  */
 package net.avdw.battlefight.shot;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import net.avdw.battlefight.hunt.PotentialField;
+import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.struct.Point;
 
@@ -53,5 +57,51 @@ public class SeekerMissileDecision {
 
         return p;
     }
-    
+
+    public static List<Point> check(StateModel.OpponentCell[][] map, PersistentModel.Action last) {
+        List<Point> hits = new ArrayList();
+
+        if (map[last.y - 1][last.x - 1].Damaged) {
+            hits.add(new Point(last.x - 1, last.y - 1));
+        }
+        if (map[last.y - 1][last.x + 1].Damaged) {
+            hits.add(new Point(last.x + 1, last.y - 1));
+        }
+        if (map[last.y + 1][last.x - 1].Damaged) {
+            hits.add(new Point(last.x - 1, last.y + 1));
+        }
+        if (map[last.y + 1][last.x + 1].Damaged) {
+            hits.add(new Point(last.x + 1, last.y + 1));
+        }
+        if (map[last.y - 1][last.x].Damaged) {
+            hits.add(new Point(last.x, last.y - 1));
+        }
+        if (map[last.y][last.x + 1].Damaged) {
+            hits.add(new Point(last.x + 1, last.y));
+        }
+        if (map[last.y][last.x - 1].Damaged) {
+            hits.add(new Point(last.x - 1, last.y));
+        }
+        if (map[last.y + 1][last.x].Damaged) {
+            hits.add(new Point(last.x, last.y + 1));
+        }
+        if (map[last.y - 2][last.x].Damaged) {
+            hits.add(new Point(last.x, last.y - 2));
+        }
+        if (map[last.y][last.x + 2].Damaged) {
+            hits.add(new Point(last.x + 2, last.y));
+        }
+        if (map[last.y][last.x - 2].Damaged) {
+            hits.add(new Point(last.x - 2, last.y));
+        }
+        if (map[last.y + 2][last.x].Damaged) {
+            hits.add(new Point(last.x, last.y + 2));
+        }
+        if (map[last.y][last.x].Damaged) {
+            hits.add(new Point(last.x, last.y));
+        }
+
+        return hits;
+    }
+
 }

@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 public class MapQueryTest {
 
@@ -88,5 +89,24 @@ public class MapQueryTest {
         assertEquals("Ship can't start on a damaged space", 0, MapQuery.countShipFit(stateModel.OpponentMap, 4, 9, StateModel.ShipType.Destroyer));
         assertEquals("Ship can't start on a missed space", 0, MapQuery.countShipFit(stateModel.OpponentMap, 5, 7, StateModel.ShipType.Destroyer));
         assertEquals("Ship cannot fit over a shot space", 3, MapQuery.countShipFit(stateModel.OpponentMap, 4, 8, StateModel.ShipType.Destroyer));
+    }
+
+    @Test
+    @Ignore("Consider enabling when testing new method for determining kill shots")
+    public void testV6NotKilling() {
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-not-killing.json"), StateModel.class);
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.CORNER_SHOT;
+        persist.lastAction.x = 4;
+        persist.lastAction.y = 10;
+        persist.lastHeading = null;
+        
+        final StateModel.OpponentCell[][] map = MapQuery.transformMap(state.OpponentMap.Cells);
+        MapQuery.printMap(map);
+        
+        Stream<StateModel.OpponentCell> unfinishedKillshots = state.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist));
+        assertEquals("Should identify kill shot.", 1, unfinishedKillshots.count());
+        
     }
 }

@@ -1,8 +1,15 @@
 package net.avdw.battlefight.kill;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.hunt.PotentialField;
+import net.avdw.battlefight.shot.CornerShotDecision;
+import net.avdw.battlefight.shot.CrossShotDiagonalDecision;
+import net.avdw.battlefight.shot.CrossShotHorizontalDecision;
+import net.avdw.battlefight.shot.DoubleShotDecision;
+import net.avdw.battlefight.shot.SeekerMissileDecision;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
@@ -39,6 +46,33 @@ public class KillDecision {
             if (nextShot.isPresent() && !(nextShot.get().Damaged || nextShot.get().Missed)) {
                 return new KillAction(new Point(nextShot.get().X, nextShot.get().Y));
             }
+        }
+
+        List<Point> recentHits = new ArrayList();
+        if (persist.lastAction != null && persist.lastAction.type != null) {
+            switch (persist.lastAction.type) {
+                case CORNER_SHOT:
+                    recentHits.addAll(CornerShotDecision.check(map, persist.lastAction));
+                    break;
+                case CROSS_SHOT_DIAGONAL:
+                    recentHits.addAll(CrossShotDiagonalDecision.check(map, persist.lastAction));
+                    break;
+                case CROSS_SHOT_HORIZONTAL:
+                    recentHits.addAll(CrossShotHorizontalDecision.check(map, persist.lastAction));
+                    break;
+                case DOUBLE_SHOT_HORIZONTAL:
+                case DOUBLE_SHOT_VERTICAL:
+                    recentHits.addAll(DoubleShotDecision.check(map, persist.lastAction));
+                    break;
+                case SEEKER_MISSILE:
+                    recentHits.addAll(SeekerMissileDecision.check(map, persist.lastAction));
+                    break;
+            }
+        }
+
+        if (!recentHits.isEmpty()) {
+            Point p = recentHits.get(0);
+            return finishKill(map, map[p.y][p.x], persist);
         }
 
         Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist)).findAny();

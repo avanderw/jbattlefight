@@ -55,14 +55,14 @@ public class MapQuery {
         if ((cell.X == 13 && map[cell.Y][12].Damaged) || (cell.X == 0 && map[cell.Y][1].Damaged)) {
             return false;
         }
-        
+
         if (persist == null || persist.lastAction == null || cell.X == persist.lastAction.x || cell.Y == persist.lastAction.y) {
-            if (persist== null || persist.lastAction == null) {
+            if (persist == null || persist.lastAction == null) {
                 return true;
             }
             if (cell.X != persist.lastAction.x) {
-                int min = Math.min(cell.X, persist.lastAction.x) +1;
-                int max = Math.max(cell.X, persist.lastAction.x) -1;
+                int min = Math.min(cell.X, persist.lastAction.x) + 1;
+                int max = Math.max(cell.X, persist.lastAction.x) - 1;
 
                 for (int i = min; i <= max; i++) {
                     if (!(map[cell.Y][i].Damaged || map[cell.Y][i].Missed)) {

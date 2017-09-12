@@ -1,6 +1,9 @@
 package net.avdw.battlefight.shot;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.avdw.battlefight.hunt.PotentialField;
+import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.struct.Point;
 
@@ -35,4 +38,22 @@ public class CornerShotDecision {
         return p;
     }
 
+    static public List<Point> check(StateModel.OpponentCell[][] map, PersistentModel.Action last) {
+        List<Point> hits = new ArrayList();
+
+        if (map[last.y - 1][last.x - 1].Damaged) {
+            hits.add(new Point(last.x - 1, last.y - 1));
+        }
+        if (map[last.y - 1][last.x + 1].Damaged) {
+            hits.add(new Point(last.x + 1, last.y - 1));
+        }
+        if (map[last.y + 1][last.x - 1].Damaged) {
+            hits.add(new Point(last.x - 1, last.y + 1));
+        }
+        if (map[last.y + 1][last.x + 1].Damaged) {
+            hits.add(new Point(last.x + 1, last.y + 1));
+        }
+
+        return hits;
+    }
 }

@@ -71,7 +71,7 @@ public class KillDecisionTest {
         PersistentModel model = new PersistentModel();
         model.lastAction = lastAction;
         model.lastHeading = Direction.North;
-        
+
         Action action = KillDecision.execute(continueHuntState, model);
         assertNull(action);
     }
@@ -238,18 +238,43 @@ public class KillDecisionTest {
         Action action = KillDecision.execute(state, persist);
         assertEquals("Should finish with 12,1.", "1,12,1", action.toString());
     }
-    
+
     @Test
-    public void testUsingEnergy() {
+    public void testV6NotKilling() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.CORNER_SHOT;
+        persist.lastAction.x = 4;
+        persist.lastAction.y = 10;
+        persist.lastHeading = null;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-not-killing.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        assertEquals("Should finish.", "1,5,12", action.toString());
+    }
+
+    @Test
+    public void testV6120527() {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
         persist.lastAction.type = Action.Type.FIRESHOT;
-        persist.lastAction.x = 11;
-        persist.lastAction.y = 1;
-        persist.lastHeading = Direction.East;
-        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-not-finishing.json"), StateModel.class);
+        persist.lastAction.x = 4;
+        persist.lastAction.y = 8;
+        persist.lastHeading = null;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-12-05-27.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
-        assertNotEquals("Should use special shot.", "FIRESHOT", action.type.name());
+        assertNull("Wrong state.", action);
     }
-    
+
+    @Test
+    public void testV6120547() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.CROSS_SHOT_DIAGONAL;
+        persist.lastAction.x = 6;
+        persist.lastAction.y = 2;
+        persist.lastHeading = null;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-12-05-47.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        assertNotEquals("Not finishing kill.", "1,7,0", action.toString());
+    }
 }
