@@ -23,6 +23,7 @@ public class FireShotDecision {
             StateModel.OpponentCell c = state.OpponentMap.Cells.stream().filter(cell-> !(cell.Damaged || cell.Missed)).findAny().get();
             return new Point(c.X, c.Y);
         }
+        
         return field.maxPotential().remove(ThreadLocalRandom.current().nextInt(field.maxPotential().size()));
     }
 }
