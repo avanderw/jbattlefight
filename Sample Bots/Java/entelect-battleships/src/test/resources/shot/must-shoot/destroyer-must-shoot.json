@@ -1399,7 +1399,7 @@
                             "Shielded": false,
                             "ShieldHit": false
                         }],
-                    "Destroyed": false,
+                    "Destroyed": true,
                     "Placed": true,
                     "ShipType": "Submarine",
                     "Weapons": [{
@@ -1412,7 +1412,7 @@
                 }, {
                     "Cells": [{
                             "Occupied": true,
-                            "Hit": true,
+                            "Hit": false,
                             "X": 13,
                             "Y": 11,
                             "Shielded": false,
@@ -1465,7 +1465,7 @@
                             "Shielded": false,
                             "ShieldHit": false
                         }],
-                    "Destroyed": false,
+                    "Destroyed": true,
                     "Placed": true,
                     "ShipType": "Battleship",
                     "Weapons": [{

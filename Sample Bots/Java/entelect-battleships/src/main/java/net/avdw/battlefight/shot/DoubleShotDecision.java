@@ -5,7 +5,10 @@
  */
 package net.avdw.battlefight.shot;
 
+import net.avdw.battlefight.hunt.HuntAction;
+import net.avdw.battlefight.hunt.PotentialField;
 import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Point;
 
 /**
@@ -14,8 +17,48 @@ import net.avdw.battlefight.struct.Point;
  */
 public class DoubleShotDecision {
 
-    public static Point execute(StateModel state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static HuntAction execute(StateModel state) {
+        PotentialField potential = new PotentialField(state, false, null);
+        if (potential.maxPotential().isEmpty()) {
+            System.out.println("WARNING: empty potential field");
+            StateModel.OpponentCell c = state.OpponentMap.Cells.stream().filter(cell -> !(cell.Damaged || cell.Missed)).findAny().get();
+            return new HuntAction(Action.Type.FIRESHOT, new Point(c.X, c.Y));
+        }
+
+        boolean vertical = true;
+        int max = 0;
+        Point p = new Point(0, 0);
+        for (int y = 1; y < 13; y++) {
+            for (int x = 1; x < 13; x++) {
+                int total = 0;
+                total += potential.field[y - 1][x];
+                total += potential.field[y + 1][x];
+                if (total > max) {
+                    p.x = x;
+                    p.y = y;
+                    max = total;
+                    vertical = true;
+                }
+            }
+        }
+
+        for (int y = 1; y < 13; y++) {
+            for (int x = 1; x < 13; x++) {
+                int total = 0;
+                total += potential.field[y][x + 1];
+                total += potential.field[y][x - 1];
+                if (total > max) {
+                    p.x = x;
+                    p.y = y;
+                    max = total;
+                    vertical = false;
+                }
+            }
+        }
+
+        System.out.println("Double shot fire (vertical:"+vertical+"): " + p);
+
+        return new HuntAction(vertical ? Action.Type.DOUBLE_SHOT_VERTICAL : Action.Type.DOUBLE_SHOT_HORIZONTAL, p);
     }
-    
+
 }

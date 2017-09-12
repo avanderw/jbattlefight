@@ -49,7 +49,7 @@ public class HuntDecision {
             case CROSS_SHOT_HORIZONTAL:
                 return new HuntAction(Action.Type.CROSS_SHOT_HORIZONTAL, CrossShotHorizontalDecision.execute(state));
             case DOUBLE_SHOT_HORIZONTAL:
-                return new HuntAction(Action.Type.DOUBLE_SHOT_HORIZONTAL, DoubleShotDecision.execute(state));
+                return DoubleShotDecision.execute(state);
             case SEEKER_MISSILE:
                 return new HuntAction(Action.Type.SEEKER_MISSILE, SeekerMissileDecision.execute(state));
             case FIRESHOT:

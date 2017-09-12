@@ -72,5 +72,6 @@ public class HuntDecisionTest {
         assertNotEquals("Should use special shot.", "CROSS_SHOT_HORIZONTAL", action.type.name());
         assertNotEquals("Should use special shot.", "CROSS_SHOT_DIAGONAL", action.type.name());
         assertNotEquals("Should use special shot.", "CORNER_SHOT", action.type.name());
+        assertEquals("Should shoot highest potential.", "2,2,6", action.toString());
     }
 }
