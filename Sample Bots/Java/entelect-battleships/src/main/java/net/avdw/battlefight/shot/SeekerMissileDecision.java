@@ -5,10 +5,17 @@
  */
 package net.avdw.battlefight.shot;
 
+import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.struct.Point;
+
 /**
  *
  * @author CP318674
  */
 public class SeekerMissileDecision {
+
+    public static Point execute(StateModel state) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

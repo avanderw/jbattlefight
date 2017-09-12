@@ -5,10 +5,10 @@ import net.avdw.battlefight.struct.Point;
 
 public class HuntAction extends Action {
     
-    public HuntAction(Point point) {
+    public HuntAction(Type type,Point point) {
         super();
         filename = "command.txt";
-        this.type = Type.FIRESHOT;
+        this.type = type;
         this.point = point;
     }
 

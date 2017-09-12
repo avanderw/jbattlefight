@@ -10,7 +10,7 @@ import net.avdw.battlefight.struct.Direction;
 
 public class PotentialField {
 
-    final int[][] field = new int[14][14];
+    public final int[][] field = new int[14][14];
     int totalPotential = 0;
 
     public PotentialField(StateModel stateModel, boolean ignoreCell, Point cell) {
@@ -123,7 +123,7 @@ public class PotentialField {
         return field[y][x];
     }
 
-    void apply(HuntMask huntMask) {
+    public void apply(HuntMask huntMask) {
         for (int y = 0; y < field.length; y++) {
             for (int x = 0; x < field.length; x++) {
                 field[y][x] = huntMask.mask[y][x] ? field[y][x] : 0;
@@ -131,7 +131,7 @@ public class PotentialField {
         }
     }
 
-    List<Point> maxPotential() {
+    public List<Point> maxPotential() {
         int max = 0;
         for (int y = 0; y < field.length; y++) {
             for (int x = 0; x < field.length; x++) {
