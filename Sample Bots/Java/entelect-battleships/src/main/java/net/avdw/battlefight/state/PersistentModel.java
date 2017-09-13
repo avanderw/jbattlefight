@@ -10,6 +10,7 @@ public class PersistentModel {
     public Direction lastHeading;
     public StateResolver.AiState lastState;
     public List<Point> unclearedHits;
+    public List<Point> clearedHits;
 
     static public class Action {
 

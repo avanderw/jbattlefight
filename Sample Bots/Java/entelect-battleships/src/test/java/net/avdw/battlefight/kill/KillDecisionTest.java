@@ -314,4 +314,21 @@ public class KillDecisionTest {
         System.out.println(action);
         assertEquals("Not finishing kill.", "1,8,8", action.toString());
     }
+    
+    @Test
+    public void testV6130931() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 13;
+        persist.lastAction.y = 4;
+        persist.lastHeading = null;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(13, 4));
+        persist.unclearedHits.add(new Point(13, 5));
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-09-31.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        System.out.println(action);
+        assertEquals("Not finishing kill.", "1,13,6", action.toString());
+    }
 }

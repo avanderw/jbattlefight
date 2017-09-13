@@ -1,5 +1,6 @@
 package net.avdw.battlefight;
 
+import com.google.gson.Gson;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateResolver;
 import net.avdw.battlefight.kill.KillDecision;
@@ -31,6 +32,9 @@ public class Main {
             if (persist.unclearedHits == null) {
                 persist.unclearedHits = new ArrayList();
             }
+            if (persist.clearedHits == null) {
+                persist.clearedHits = new ArrayList();
+            }
         }
 
         try {
@@ -51,6 +55,10 @@ public class Main {
                 case HUNT:
                     System.out.println("Hunting");
                     persist.lastHeading = null;
+                    if (persist.lastState == StateResolver.AiState.KILL) {
+                        persist.clearedHits.addAll(persist.unclearedHits);
+                        persist.unclearedHits.clear();
+                    }
                     action = HuntDecision.execute(state);
                     break;
             }
@@ -84,6 +92,7 @@ public class Main {
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            System.out.println(new Gson().toJson(persist));
             StateWriter.write("persistent.json", persist);
             long endTime = System.currentTimeMillis();
             System.out.println(String.format("[Bot]\tBot finished in %d ms.", (endTime - startTime)));

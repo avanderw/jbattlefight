@@ -86,8 +86,8 @@ public class KillDecision {
                     return new KillAction(new Point(recentHits.get(0).x, (recentHits.get(0).y + recentHits.get(1).y) / 2));
                 }
             }
-            Point p = recentHits.get(0);
-            return finishKill(map, map[p.y][p.x], persist);
+//            Point p = recentHits.get(0);
+//            return finishKill(map, map[p.y][p.x], persist);
         }
         
         if (persist.unclearedHits.isEmpty()) {
