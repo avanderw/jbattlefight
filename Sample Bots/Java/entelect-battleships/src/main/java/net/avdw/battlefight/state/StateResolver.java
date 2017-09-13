@@ -20,13 +20,9 @@ public class StateResolver {
             int deadShipCells = stateModel.OpponentMap.Ships.stream().filter(ship -> ship.Destroyed).mapToInt((ship) -> ship.ShipType.length()).sum();
             if (damagedCells == deadShipCells) {
                 state = AiState.HUNT;
-            } else if (persist.lastAction.type != Action.Type.FIRESHOT) {
-                state = AiState.KILL;
             } else {
-                final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
-                Stream<StateModel.OpponentCell> unfinishedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist));
-                state = (unfinishedCells.count() > 0) ? AiState.KILL : AiState.HUNT;
-            }
+                state = AiState.KILL;
+            } 
         }
     }
 

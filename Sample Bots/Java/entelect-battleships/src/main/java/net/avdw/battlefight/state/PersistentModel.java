@@ -1,11 +1,15 @@
 package net.avdw.battlefight.state;
 
+import java.util.List;
 import net.avdw.battlefight.struct.Direction;
+import net.avdw.battlefight.struct.Point;
 
 public class PersistentModel {
 
     public Action lastAction;
     public Direction lastHeading;
+    public StateResolver.AiState lastState;
+    public List<Point> unclearedHits;
 
     static public class Action {
 

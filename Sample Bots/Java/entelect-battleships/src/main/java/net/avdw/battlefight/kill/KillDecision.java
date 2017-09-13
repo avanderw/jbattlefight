@@ -9,6 +9,7 @@ import net.avdw.battlefight.shot.CornerShotDecision;
 import net.avdw.battlefight.shot.CrossShotDiagonalDecision;
 import net.avdw.battlefight.shot.CrossShotHorizontalDecision;
 import net.avdw.battlefight.shot.DoubleShotDecision;
+import net.avdw.battlefight.shot.FireShotDecision;
 import net.avdw.battlefight.shot.SeekerMissileDecision;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.struct.Action;
@@ -67,10 +68,17 @@ public class KillDecision {
                 case SEEKER_MISSILE:
                     recentHits.addAll(SeekerMissileDecision.check(map, persist.lastAction));
                     break;
+                case FIRESHOT: 
+                    recentHits.addAll(FireShotDecision.check(map, persist.lastAction));
+                    break;
             }
         }
 
         if (!recentHits.isEmpty()) {
+            if (persist.unclearedHits == null) {
+                persist.unclearedHits = new ArrayList();
+            }
+            persist.unclearedHits.addAll(recentHits);
             if (recentHits.size() == 2) {
                 if (recentHits.get(0).x - recentHits.get(1).x != 0) {
                     return new KillAction(new Point((recentHits.get(0).x + recentHits.get(1).x) / 2, recentHits.get(0).y));
@@ -80,6 +88,10 @@ public class KillDecision {
             }
             Point p = recentHits.get(0);
             return finishKill(map, map[p.y][p.x], persist);
+        }
+        
+        if (persist.unclearedHits.isEmpty()) {
+            return null;
         }
 
         Optional<StateModel.OpponentCell> killShotOption = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map, cell, persist)).findAny();

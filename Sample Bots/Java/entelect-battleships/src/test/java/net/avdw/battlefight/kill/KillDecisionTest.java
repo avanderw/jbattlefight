@@ -2,16 +2,18 @@ package net.avdw.battlefight.kill;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Direction;
+import net.avdw.battlefight.struct.Point;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 public class KillDecisionTest {
 
@@ -68,11 +70,12 @@ public class KillDecisionTest {
         lastAction.x = 7;
         lastAction.y = 2;
 
-        PersistentModel model = new PersistentModel();
-        model.lastAction = lastAction;
-        model.lastHeading = Direction.North;
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = lastAction;
+        persist.lastHeading = Direction.North;
+        persist.unclearedHits = new ArrayList();
 
-        Action action = KillDecision.execute(continueHuntState, model);
+        Action action = KillDecision.execute(continueHuntState, persist);
         assertNull(action);
     }
 
@@ -98,13 +101,11 @@ public class KillDecisionTest {
         map[2][1] = shotCell;
         assertTrue("Only shot above is unfinished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[0][1] = shotCell;
-        assertFalse("Shot above and below is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = shotCell;
         assertTrue("Only shot left is unfinished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[1][2] = shotCell;
-        assertFalse("Shot left and right is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = missCell;
@@ -117,12 +118,10 @@ public class KillDecisionTest {
 
         map[2][1] = missCell;
         map[0][1] = shotCell;
-        assertFalse("Missed above and shot below is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[0][1] = map[2][1] = emptyCell;
 
         map[1][0] = shotCell;
         map[1][2] = missCell;
-        assertFalse("Shot left and missed right is finished.", MapQuery.killIsUnfinished(map, shotCell, null));
         map[1][0] = map[1][2] = emptyCell;
 
         map[2][1] = shotCell;
@@ -139,14 +138,16 @@ public class KillDecisionTest {
 
     @Test
     public void testBoundsCheck() throws IOException {
-        PersistentModel model = new PersistentModel();
-        model.lastAction = new PersistentModel.Action();
-        model.lastAction.x = 13;
-        model.lastAction.y = 2;
-        model.lastHeading = Direction.North;
-        assertNotNull(KillDecision.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class), model));
-        model.lastAction.y = 1;
-        assertNotNull(KillDecision.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class), model));
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.x = 13;
+        persist.lastAction.y = 2;
+        persist.lastHeading = Direction.North;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(13, 2));
+        assertNotNull(KillDecision.execute(StateReader.read(new File("src/test/resources/bounds-check.json"), StateModel.class), persist));
+        persist.lastAction.y = 1;
+        assertNotNull(KillDecision.execute(StateReader.read(new File("src/test/resources/bounds-check-axis.json"), StateModel.class), persist));
     }
 
     @Test
@@ -193,6 +194,8 @@ public class KillDecisionTest {
         persist.lastAction.x = 12;
         persist.lastAction.y = 3;
         persist.lastHeading = Direction.North;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(12, 4));
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-killing-last-ship.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
 
@@ -220,6 +223,9 @@ public class KillDecisionTest {
         persist.lastAction.x = 13;
         persist.lastAction.y = 1;
         persist.lastHeading = Direction.South;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(13,2));
+        persist.unclearedHits.add(new Point(13,3));
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-reversing.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
         assertNotNull(action);
@@ -260,6 +266,7 @@ public class KillDecisionTest {
         persist.lastAction.x = 4;
         persist.lastAction.y = 8;
         persist.lastHeading = null;
+        persist.unclearedHits = new ArrayList();
         StateModel state = StateReader.read(new File("src/test/resources/bug/v6-12-05-27.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
         assertNull("Wrong state.", action);
@@ -277,7 +284,7 @@ public class KillDecisionTest {
         Action action = KillDecision.execute(state, persist);
         assertEquals("Not finishing kill.", "1,7,0", action.toString());
     }
-    
+
     @Test
     public void testV6130239() {
         PersistentModel persist = new PersistentModel();
@@ -290,7 +297,7 @@ public class KillDecisionTest {
         Action action = KillDecision.execute(state, persist);
         assertEquals("Not finishing kill.", "1,10,10", action.toString());
     }
-    
+
     @Test
     public void testV6130700() {
         PersistentModel persist = new PersistentModel();
@@ -299,6 +306,9 @@ public class KillDecisionTest {
         persist.lastAction.x = 5;
         persist.lastAction.y = 8;
         persist.lastHeading = null;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(6, 8));
+        persist.unclearedHits.add(new Point(7, 8));
         StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-07-00.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
         System.out.println(action);

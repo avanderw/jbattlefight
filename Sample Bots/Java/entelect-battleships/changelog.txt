@@ -18,6 +18,7 @@ high:96
 average:60-80
 
 analysis:
+- rewrote isKillFinished()
 - fix bug v6-13-07-00
 - fix bug v6-13-07-05
 - prioritize weak shots on potential

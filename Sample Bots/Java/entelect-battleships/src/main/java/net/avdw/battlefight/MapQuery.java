@@ -30,60 +30,27 @@ public class MapQuery {
     }
 
     public static boolean killIsUnfinished(StateModel.OpponentCell[][] map, StateModel.OpponentCell cell, PersistentModel persist) {
-        if (cell.Y - 1 >= 0 && map[cell.Y - 1][cell.X].Damaged && cell.Y + 1 < 14 && map[cell.Y + 1][cell.X].Damaged) {
-            return false;
-        }
-        if (cell.X - 1 >= 0 && map[cell.Y][cell.X - 1].Damaged && cell.X + 1 < 14 && map[cell.Y][cell.X + 1].Damaged) {
-            return false;
-        }
-        if (cell.Y - 1 >= 0 && map[cell.Y - 1][cell.X].Damaged && cell.Y + 1 < 14 && map[cell.Y + 1][cell.X].Missed) {
-            return false;
-        }
-        if (cell.Y - 1 >= 0 && map[cell.Y - 1][cell.X].Missed && cell.Y + 1 < 14 && map[cell.Y + 1][cell.X].Damaged) {
-            return false;
-        }
-        if (cell.X - 1 >= 0 && map[cell.Y][cell.X - 1].Damaged && cell.X + 1 < 14 && map[cell.Y][cell.X + 1].Missed) {
-            return false;
-        }
-        if (cell.X - 1 >= 0 && map[cell.Y][cell.X - 1].Missed && cell.X + 1 < 14 && map[cell.Y][cell.X + 1].Damaged) {
-            return false;
-        }
-
-        if ((cell.Y == 13 && map[12][cell.X].Damaged) || (cell.Y == 0 && map[1][cell.X].Damaged)) {
-            return false;
-        }
-        if ((cell.X == 13 && map[cell.Y][12].Damaged) || (cell.X == 0 && map[cell.Y][1].Damaged)) {
-            return false;
-        }
-
-        if (persist == null || persist.lastAction == null || cell.X == persist.lastAction.x || cell.Y == persist.lastAction.y) {
-            if (persist == null || persist.lastAction == null) {
-                return true;
-            }
-            if (cell.X != persist.lastAction.x) {
-                int min = Math.min(cell.X, persist.lastAction.x) + 1;
-                int max = Math.max(cell.X, persist.lastAction.x) - 1;
-
-                for (int i = min; i <= max; i++) {
-                    if (!(map[cell.Y][i].Damaged || map[cell.Y][i].Missed)) {
-                        return false;
-                    }
-                }
-            } else if (cell.Y != persist.lastAction.y) {
-                int min = Math.min(cell.Y, persist.lastAction.y);
-                int max = Math.max(cell.Y, persist.lastAction.y);
-
-                for (int i = min; i <= max; i++) {
-                    if (!(map[i][cell.X].Damaged || map[i][cell.X].Missed)) {
-                        return false;
-                    }
-                }
-            }
+        if (persist == null) {
+            System.out.println("WARN: Test state only");
             return true;
-        } else {
-            return false;
         }
 
+        if (persist.unclearedHits.stream().anyMatch(point -> point.x == cell.X && point.y == cell.Y)) {
+            if (persist.unclearedHits.size() == 1) {
+                return true;
+            } else {
+                if (persist.unclearedHits.get(0).y - persist.unclearedHits.get(1).y == 0) {
+                    boolean leftShot = cell.X - 1 < 0 || map[cell.Y][cell.X - 1].Damaged || map[cell.Y][cell.X - 1].Missed;
+                    boolean rightShot = cell.X + 1 > 13 || map[cell.Y][cell.X + 1].Damaged || map[cell.Y][cell.X + 1].Missed;
+                    return !(leftShot && rightShot);
+                } else if (persist.unclearedHits.get(0).x - persist.unclearedHits.get(1).x == 0) {
+                    boolean belowShot = cell.Y - 1 < 0 || map[cell.Y - 1][cell.X].Damaged || map[cell.Y - 1][cell.X].Missed;
+                    boolean aboveShot = cell.Y + 1 > 13 || map[cell.Y + 1][cell.X].Damaged || map[cell.Y + 1][cell.X].Missed;
+                    return !(belowShot && aboveShot);
+                }
+            }
+        }
+        return false;
     }
 
     public static StateModel.OpponentCell[][] transformMap(List<StateModel.OpponentCell> cells) {

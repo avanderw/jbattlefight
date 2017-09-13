@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.avdw.battlefight.place.PlaceAction;
@@ -27,6 +28,9 @@ public class Main {
         PersistentModel persist = null;
         if (new File("persistent.json").exists()) {
             persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
+            if (persist.unclearedHits == null) {
+                persist.unclearedHits = new ArrayList();
+            }
         }
 
         try {
@@ -69,6 +73,7 @@ public class Main {
 
             System.out.println(action);
             System.out.println(action.type);
+            persist.lastState = StateResolver.state;
             if (!(action instanceof PlaceAction)) {
                 persist.lastAction = new PersistentModel.Action();
                 System.out.println(action.type.name());

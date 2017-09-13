@@ -2,12 +2,14 @@ package net.avdw.battlefight;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Direction;
+import net.avdw.battlefight.struct.Point;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,6 +51,8 @@ public class MapQueryTest {
         StateModel stateModel = StateReader.read(new File("src/test/resources/dont-kill-dead-ships.json"), StateModel.class);
         final StateModel.OpponentCell[][] map1 = MapQuery.transformMap(stateModel.OpponentMap.Cells);
         MapQuery.printMap(map1);
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(10, 10));
         Stream<StateModel.OpponentCell> unfinishedKillshots = stateModel.OpponentMap.Cells.stream().filter(cell -> cell.Damaged && MapQuery.killIsUnfinished(map1, cell, persist));
         assertEquals("Do not allow more than one unfinshed-kill shots.", 1, unfinishedKillshots.count());
 
@@ -63,6 +67,8 @@ public class MapQueryTest {
         assertFalse("This is not an unfinished kill.", MapQuery.killIsUnfinished(map2, cell, persist));
         lastAction.y = 10;
         cell.X = 1;
+        persist.unclearedHits.clear();
+        persist.unclearedHits.add(new Point(1, 10));
         assertTrue("This is an unfinished kill.", MapQuery.killIsUnfinished(map2, cell, persist));
     }
 
