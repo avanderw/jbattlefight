@@ -127,4 +127,13 @@ public class HuntDecisionTest {
         System.out.println(action);
         assertTrue("Hunt weak shots first with last ship.", action.point.x == 13 || action.point.x == 0 || action.point.y == 13 || action.point.y == 0);
     }
+    
+    @Test
+    public void testV6131013() {
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-10-13.json"), StateModel.class);
+        assertNotNull(state);
+        Action action = HuntDecision.execute(state);
+        System.out.println(action);
+        assertTrue("Hunt weak shots first with last ship.", action.point.x == 13 || action.point.x == 0 || action.point.y == 13 || action.point.y == 0);
+    }
 }
