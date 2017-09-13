@@ -23,3 +23,14 @@ analysis:
 - fix bug v6-13-07-05
 - prioritize weak shots on potential
 - consider allowing cruiser to kill targets (don't implement)
+
+v13.22 vs v4
+win:6, lose:4
+low:58
+high:91
+average:70-80
+
+analysis:
+- implement special shots when killing last ship
+- consider bringing back the mask for destroyer
+- fixed clearing the persistent file!

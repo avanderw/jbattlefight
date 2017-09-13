@@ -38,6 +38,7 @@ public class HuntDecision {
             weakShots.add(new PotentialFieldPoint(11, 13, potential.field[13][11]));
             weakShots.add(new PotentialFieldPoint(13, 11, potential.field[11][13]));
 
+            System.out.println(weakShots);
             if (weakShots.peek().potential != 0) {
                 PotentialFieldPoint p = weakShots.remove();
                 return new HuntAction(Action.Type.FIRESHOT, new Point(p.x, p.y));

@@ -19,4 +19,9 @@ public class PotentialFieldPoint {
         this.y = y;
         this.potential = potential;
     }
+    
+    @Override
+    public String toString() {
+        return x+","+y+":"+potential;
+    }
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import net.avdw.battlefight.place.PlaceAction;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
@@ -26,21 +27,28 @@ public class Main {
         long startTime = System.currentTimeMillis();
         String workingDirectory = args[1];
 
-        PersistentModel persist = null;
-        if (new File("persistent.json").exists()) {
-            persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
-            if (persist.unclearedHits == null) {
-                persist.unclearedHits = new ArrayList();
-            }
-            if (persist.clearedHits == null) {
-                persist.clearedHits = new ArrayList();
-            }
-        }
-
         try {
             StateModel state = StateReader.read(new File(workingDirectory, "state.json"), StateModel.class);
-            StateResolver.setup(state, persist);
 
+            if (state.Phase == 1 && new File("persistent.json").exists()) {
+                new File("persistent.json").delete();
+            }
+            PersistentModel persist = null;
+            if (new File("persistent.json").exists()) {
+                persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
+                if (persist.unclearedHits == null) {
+                    persist.unclearedHits = new ArrayList();
+                }
+                if (persist.clearedHits == null) {
+                    persist.clearedHits = new ArrayList();
+                }
+            } else {
+                persist = new PersistentModel();
+                persist.unclearedHits = new ArrayList();
+                persist.clearedHits = new ArrayList();
+            }
+
+            StateResolver.setup(state, persist);
             Action action = null;
             switch (StateResolver.state) {
                 case PLACE:
@@ -89,11 +97,13 @@ public class Main {
                 persist.lastAction.x = action.point.x;
                 persist.lastAction.y = action.point.y;
             }
+            persist.clearedHits = persist.clearedHits.stream().distinct().collect(Collectors.toList());
+            persist.unclearedHits = persist.unclearedHits.stream().distinct().collect(Collectors.toList());
+            System.out.println(new Gson().toJson(persist));
+            StateWriter.write("persistent.json", persist);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            System.out.println(new Gson().toJson(persist));
-            StateWriter.write("persistent.json", persist);
             long endTime = System.currentTimeMillis();
             System.out.println(String.format("[Bot]\tBot finished in %d ms.", (endTime - startTime)));
         }
