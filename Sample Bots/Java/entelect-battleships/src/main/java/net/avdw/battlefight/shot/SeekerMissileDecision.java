@@ -44,7 +44,7 @@ public class SeekerMissileDecision {
                 total += potential.field[y][x + 2];
                 total += potential.field[y][x - 2];
                 total += potential.field[y + 2][x];
-                total += potential.field[y][x];
+                total += potential.field[y][x] == 0 ? -8 : potential.field[y][x];
                 if (total > max) {
                     p.x = x;
                     p.y = y;

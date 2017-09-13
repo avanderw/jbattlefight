@@ -22,10 +22,12 @@ public class CornerShotDecision {
         for (int y = 1; y < 13; y++) {
             for (int x = 1; x < 13; x++) {
                 int total = 0;
-                total += potential.field[y - 1][x - 1];
-                total += potential.field[y - 1][x + 1];
-                total += potential.field[y + 1][x - 1];
-                total += potential.field[y + 1][x + 1];
+                if (x <= 3 || x >= 10 || y <= 3 || y >= 10) {
+                    total += potential.field[y - 1][x - 1];
+                    total += potential.field[y - 1][x + 1];
+                    total += potential.field[y + 1][x - 1];
+                    total += potential.field[y + 1][x + 1];
+                }
                 if (total > max) {
                     p.x = x;
                     p.y = y;

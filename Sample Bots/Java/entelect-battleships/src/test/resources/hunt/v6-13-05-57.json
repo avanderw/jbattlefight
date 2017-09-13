@@ -2,14 +2,14 @@
     "PlayerMap": {
         "Cells": [{
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 0,
                 "Y": 0,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 0,
                 "Y": 1,
                 "Shielded": false,
@@ -37,22 +37,22 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 0,
                 "Y": 5,
-                "Shielded": false,
-                "ShieldHit": false
-            }, {
-                "Occupied": false,
-                "Hit": false,
-                "X": 0,
-                "Y": 6,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
                 "Hit": false,
                 "X": 0,
+                "Y": 6,
+                "Shielded": false,
+                "ShieldHit": false
+            }, {
+                "Occupied": false,
+                "Hit": false,
+                "X": 0,
                 "Y": 7,
                 "Shielded": false,
                 "ShieldHit": false
@@ -65,42 +65,42 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 0,
                 "Y": 9,
-                "Shielded": false,
-                "ShieldHit": false
-            }, {
-                "Occupied": false,
-                "Hit": false,
-                "X": 0,
-                "Y": 10,
-                "Shielded": false,
-                "ShieldHit": false
-            }, {
-                "Occupied": false,
-                "Hit": false,
-                "X": 0,
-                "Y": 11,
-                "Shielded": false,
-                "ShieldHit": false
-            }, {
-                "Occupied": false,
-                "Hit": false,
-                "X": 0,
-                "Y": 12,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
                 "Hit": true,
                 "X": 0,
-                "Y": 13,
+                "Y": 10,
+                "Shielded": false,
+                "ShieldHit": false
+            }, {
+                "Occupied": false,
+                "Hit": true,
+                "X": 0,
+                "Y": 11,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
                 "Hit": false,
+                "X": 0,
+                "Y": 12,
+                "Shielded": false,
+                "ShieldHit": false
+            }, {
+                "Occupied": false,
+                "Hit": false,
+                "X": 0,
+                "Y": 13,
+                "Shielded": false,
+                "ShieldHit": false
+            }, {
+                "Occupied": false,
+                "Hit": true,
                 "X": 1,
                 "Y": 0,
                 "Shielded": false,
@@ -113,43 +113,43 @@
                 "Shielded": false,
                 "ShieldHit": false
             }, {
-                "Occupied": true,
-                "Hit": false,
+                "Occupied": false,
+                "Hit": true,
                 "X": 1,
                 "Y": 2,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": true,
-                "Hit": false,
+                "Hit": true,
                 "X": 1,
                 "Y": 3,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": true,
-                "Hit": false,
+                "Hit": true,
                 "X": 1,
                 "Y": 4,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
-                "Occupied": false,
+                "Occupied": true,
                 "Hit": true,
                 "X": 1,
                 "Y": 5,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
-                "Occupied": false,
-                "Hit": false,
+                "Occupied": true,
+                "Hit": true,
                 "X": 1,
                 "Y": 6,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 1,
                 "Y": 7,
                 "Shielded": false,
@@ -177,14 +177,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 1,
                 "Y": 11,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 1,
                 "Y": 12,
                 "Shielded": false,
@@ -219,7 +219,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 2,
                 "Y": 3,
                 "Shielded": false,
@@ -233,7 +233,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 2,
                 "Y": 5,
                 "Shielded": false,
@@ -247,14 +247,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 2,
                 "Y": 7,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 2,
                 "Y": 8,
                 "Shielded": false,
@@ -275,21 +275,21 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 2,
                 "Y": 11,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 2,
                 "Y": 12,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 2,
                 "Y": 13,
                 "Shielded": false,
@@ -303,7 +303,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 3,
                 "Y": 1,
                 "Shielded": false,
@@ -317,14 +317,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 3,
                 "Y": 3,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 3,
                 "Y": 4,
                 "Shielded": false,
@@ -338,7 +338,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 3,
                 "Y": 6,
                 "Shielded": false,
@@ -359,14 +359,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 3,
                 "Y": 9,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 3,
                 "Y": 10,
                 "Shielded": false,
@@ -387,7 +387,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 3,
                 "Y": 13,
                 "Shielded": false,
@@ -415,14 +415,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 4,
                 "Y": 3,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 4,
                 "Y": 4,
                 "Shielded": false,
@@ -443,7 +443,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 4,
                 "Y": 7,
                 "Shielded": false,
@@ -457,14 +457,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 4,
                 "Y": 9,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 4,
                 "Y": 10,
                 "Shielded": false,
@@ -485,14 +485,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 4,
                 "Y": 13,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 5,
                 "Y": 0,
                 "Shielded": false,
@@ -527,7 +527,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 5,
                 "Y": 5,
                 "Shielded": false,
@@ -569,7 +569,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 5,
                 "Y": 11,
                 "Shielded": false,
@@ -597,7 +597,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 6,
                 "Y": 1,
                 "Shielded": false,
@@ -618,7 +618,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 6,
                 "Y": 4,
                 "Shielded": false,
@@ -632,14 +632,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 6,
                 "Y": 6,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 6,
                 "Y": 7,
                 "Shielded": false,
@@ -674,7 +674,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 6,
                 "Y": 12,
                 "Shielded": false,
@@ -709,7 +709,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 7,
                 "Y": 3,
                 "Shielded": false,
@@ -723,14 +723,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 7,
                 "Y": 5,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 7,
                 "Y": 6,
                 "Shielded": false,
@@ -751,7 +751,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 7,
                 "Y": 9,
                 "Shielded": false,
@@ -786,7 +786,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 8,
                 "Y": 0,
                 "Shielded": false,
@@ -814,14 +814,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 8,
                 "Y": 4,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 8,
                 "Y": 5,
                 "Shielded": false,
@@ -842,7 +842,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 8,
                 "Y": 8,
                 "Shielded": false,
@@ -877,7 +877,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 8,
                 "Y": 13,
                 "Shielded": false,
@@ -926,21 +926,21 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 9,
                 "Y": 6,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 9,
                 "Y": 7,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 9,
                 "Y": 8,
                 "Shielded": false,
@@ -961,13 +961,13 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 9,
                 "Y": 11,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
-                "Occupied": true,
+                "Occupied": false,
                 "Hit": true,
                 "X": 9,
                 "Y": 12,
@@ -996,7 +996,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 10,
                 "Y": 2,
                 "Shielded": false,
@@ -1010,14 +1010,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 10,
                 "Y": 4,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 10,
                 "Y": 5,
                 "Shielded": false,
@@ -1031,14 +1031,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 10,
                 "Y": 7,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 10,
                 "Y": 8,
                 "Shielded": false,
@@ -1052,21 +1052,21 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 10,
                 "Y": 10,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 10,
                 "Y": 11,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": true,
-                "Hit": false,
+                "Hit": true,
                 "X": 10,
                 "Y": 12,
                 "Shielded": false,
@@ -1080,21 +1080,21 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 11,
                 "Y": 0,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 11,
                 "Y": 1,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 11,
                 "Y": 2,
                 "Shielded": false,
@@ -1115,14 +1115,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 11,
                 "Y": 5,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 11,
                 "Y": 6,
                 "Shielded": false,
@@ -1143,14 +1143,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 11,
                 "Y": 9,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 11,
                 "Y": 10,
                 "Shielded": false,
@@ -1164,7 +1164,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": true,
-                "Hit": false,
+                "Hit": true,
                 "X": 11,
                 "Y": 12,
                 "Shielded": false,
@@ -1199,7 +1199,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 12,
                 "Y": 3,
                 "Shielded": false,
@@ -1227,7 +1227,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 12,
                 "Y": 7,
                 "Shielded": false,
@@ -1255,14 +1255,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 12,
                 "Y": 11,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": true,
-                "Hit": false,
+                "Hit": true,
                 "X": 12,
                 "Y": 12,
                 "Shielded": false,
@@ -1276,7 +1276,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 13,
                 "Y": 0,
                 "Shielded": false,
@@ -1297,7 +1297,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 13,
                 "Y": 3,
                 "Shielded": false,
@@ -1318,7 +1318,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 13,
                 "Y": 6,
                 "Shielded": false,
@@ -1332,7 +1332,7 @@
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": false,
+                "Hit": true,
                 "X": 13,
                 "Y": 8,
                 "Shielded": false,
@@ -1360,14 +1360,14 @@
                 "ShieldHit": false
             }, {
                 "Occupied": true,
-                "Hit": false,
+                "Hit": true,
                 "X": 13,
                 "Y": 12,
                 "Shielded": false,
                 "ShieldHit": false
             }, {
                 "Occupied": false,
-                "Hit": true,
+                "Hit": false,
                 "X": 13,
                 "Y": 13,
                 "Shielded": false,
@@ -1379,7 +1379,7 @@
             "Ships": [{
                     "Cells": [{
                             "Occupied": true,
-                            "Hit": true,
+                            "Hit": false,
                             "X": 2,
                             "Y": 0,
                             "Shielded": false,
@@ -1412,14 +1412,14 @@
                 }, {
                     "Cells": [{
                             "Occupied": true,
-                            "Hit": true,
+                            "Hit": false,
                             "X": 13,
                             "Y": 11,
                             "Shielded": false,
                             "ShieldHit": false
                         }, {
                             "Occupied": true,
-                            "Hit": false,
+                            "Hit": true,
                             "X": 13,
                             "Y": 12,
                             "Shielded": false,
@@ -1438,34 +1438,34 @@
                 }, {
                     "Cells": [{
                             "Occupied": true,
-                            "Hit": false,
-                            "X": 9,
-                            "Y": 12,
+                            "Hit": true,
+                            "X": 1,
+                            "Y": 3,
                             "Shielded": false,
                             "ShieldHit": false
                         }, {
                             "Occupied": true,
-                            "Hit": false,
-                            "X": 10,
-                            "Y": 12,
+                            "Hit": true,
+                            "X": 1,
+                            "Y": 4,
                             "Shielded": false,
                             "ShieldHit": false
                         }, {
                             "Occupied": true,
-                            "Hit": false,
-                            "X": 11,
-                            "Y": 12,
+                            "Hit": true,
+                            "X": 1,
+                            "Y": 5,
                             "Shielded": false,
                             "ShieldHit": false
                         }, {
                             "Occupied": true,
-                            "Hit": false,
-                            "X": 12,
-                            "Y": 12,
+                            "Hit": true,
+                            "X": 1,
+                            "Y": 6,
                             "Shielded": false,
                             "ShieldHit": false
                         }],
-                    "Destroyed": false,
+                    "Destroyed": true,
                     "Placed": true,
                     "ShipType": "Battleship",
                     "Weapons": [{
@@ -1526,22 +1526,22 @@
                     "Cells": [{
                             "Occupied": true,
                             "Hit": true,
-                            "X": 1,
-                            "Y": 2,
+                            "X": 10,
+                            "Y": 12,
                             "Shielded": false,
                             "ShieldHit": false
                         }, {
                             "Occupied": true,
                             "Hit": true,
-                            "X": 1,
-                            "Y": 3,
+                            "X": 11,
+                            "Y": 12,
                             "Shielded": false,
                             "ShieldHit": false
                         }, {
                             "Occupied": true,
                             "Hit": true,
-                            "X": 1,
-                            "Y": 4,
+                            "X": 12,
+                            "Y": 12,
                             "Shielded": false,
                             "ShieldHit": false
                         }],
@@ -1556,22 +1556,22 @@
                             "EnergyRequired": 56
                         }]
                 }],
-            "Points": 120,
-            "Energy": 100,
+            "Points": 270,
+            "Energy": 5,
             "Killed": false,
             "IsWinner": false,
-            "ShotsFired": 32,
-            "ShotsHit": 6,
+            "ShotsFired": 76,
+            "ShotsHit": 15,
             "Shield": {
                 "ChargeTime": 7,
                 "RoundLastUsed": 0,
-                "CurrentCharges": 4,
+                "CurrentCharges": 10,
                 "Active": false,
                 "CurrentRadius": 3,
                 "MaxRadius": 3,
                 "CenterPoint": "0, 0"
             },
-            "ShipsRemaining": 4,
+            "ShipsRemaining": 2,
             "Key": "B"
         },
         "MapWidth": 14,
@@ -1582,1139 +1582,1139 @@
                 "Destroyed": true,
                 "ShipType": "Submarine"
             }, {
-                "Destroyed": true,
+                "Destroyed": false,
                 "ShipType": "Destroyer"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Battleship"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Carrier"
             }, {
-                "Destroyed": false,
+                "Destroyed": true,
                 "ShipType": "Cruiser"
             }],
         "Alive": true,
-        "Points": 90,
-        "Name": "Battlefight v5",
+        "Points": 220,
+        "Name": "Battlefight v4",
         "Cells": [{
                 "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
                 "Missed": true,
                 "X": 0,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 0,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 0,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 0,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 0,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 0,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 1,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 1,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 1,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 1,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 1,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 1,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 1,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 1,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 1,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 1,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 1,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 1,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 1,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 1,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 2,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 2,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 2,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 2,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 2,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 2,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 2,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 2,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 2,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 2,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 2,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 2,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 2,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 2,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 3,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 3,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 3,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 3,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 3,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 3,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 3,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 4,
                 "Y": 0,
                 "ShieldHit": false
             }, {
                 "Damaged": true,
                 "Missed": false,
-                "X": 0,
+                "X": 4,
                 "Y": 1,
                 "ShieldHit": false
             }, {
                 "Damaged": true,
                 "Missed": false,
-                "X": 0,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 0,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 0,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 0,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 0,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 1,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 1,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 2,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 2,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 2,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 3,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 3,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
                 "X": 4,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 4,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 4,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 5,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 5,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 5,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 6,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 6,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 6,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 7,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": true,
-                "Missed": false,
-                "X": 7,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 7,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 7,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 8,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 8,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 9,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 9,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 10,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 10,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 10,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 11,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 11,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 11,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 12,
-                "Y": 2,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 3,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 4,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 5,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 6,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 7,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 8,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 9,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 10,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 11,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 12,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": false,
-                "X": 12,
-                "Y": 13,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 13,
-                "Y": 0,
-                "ShieldHit": false
-            }, {
-                "Damaged": false,
-                "Missed": true,
-                "X": 13,
-                "Y": 1,
-                "ShieldHit": false
-            }, {
-                "Damaged": true,
-                "Missed": false,
-                "X": 13,
                 "Y": 2,
                 "ShieldHit": false
             }, {
                 "Damaged": true,
                 "Missed": false,
-                "X": 13,
+                "X": 4,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 4,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 4,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 4,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 4,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 4,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 4,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 4,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 4,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 4,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 4,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 5,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 5,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 5,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 5,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 5,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 6,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 6,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 6,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 6,
                 "Y": 3,
                 "ShieldHit": false
             }, {
                 "Damaged": true,
+                "Missed": false,
+                "X": 6,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 6,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 6,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 6,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 6,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 6,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 6,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 6,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 6,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 6,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 7,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 7,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 7,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 7,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 7,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 7,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 8,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 8,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 8,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 8,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 8,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 8,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 9,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 9,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 9,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 9,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 9,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 9,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 9,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 9,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 9,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 9,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 9,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 9,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 9,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 9,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 10,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 10,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 10,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 10,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 10,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 10,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 11,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 11,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 11,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": true,
+                "Missed": false,
+                "X": 11,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 11,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 11,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 11,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 12,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 12,
+                "Y": 4,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 5,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 6,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 7,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 12,
+                "Y": 8,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 9,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 10,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 11,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 12,
+                "Y": 12,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 12,
+                "Y": 13,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 13,
+                "Y": 0,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 13,
+                "Y": 1,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": true,
+                "X": 13,
+                "Y": 2,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
+                "Missed": false,
+                "X": 13,
+                "Y": 3,
+                "ShieldHit": false
+            }, {
+                "Damaged": false,
                 "Missed": false,
                 "X": 13,
                 "Y": 4,
@@ -2745,7 +2745,7 @@
                 "ShieldHit": false
             }, {
                 "Damaged": false,
-                "Missed": false,
+                "Missed": true,
                 "X": 13,
                 "Y": 9,
                 "ShieldHit": false
@@ -2777,7 +2777,7 @@
     },
     "GameVersion": "1.0.0",
     "GameLevel": 1,
-    "Round": 33,
+    "Round": 77,
     "MapDimension": 14,
     "Phase": 2,
     "Player1Map": null,

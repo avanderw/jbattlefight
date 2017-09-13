@@ -275,6 +275,33 @@ public class KillDecisionTest {
         persist.lastHeading = null;
         StateModel state = StateReader.read(new File("src/test/resources/bug/v6-12-05-47.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
-        assertNotEquals("Not finishing kill.", "1,7,0", action.toString());
+        assertEquals("Not finishing kill.", "1,7,0", action.toString());
+    }
+    
+    @Test
+    public void testV6130239() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.CORNER_SHOT;
+        persist.lastAction.x = 9;
+        persist.lastAction.y = 10;
+        persist.lastHeading = null;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-02-39.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        assertEquals("Not finishing kill.", "1,10,10", action.toString());
+    }
+    
+    @Test
+    public void testV6130700() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 5;
+        persist.lastAction.y = 8;
+        persist.lastHeading = null;
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-07-00.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        System.out.println(action);
+        assertEquals("Not finishing kill.", "1,8,8", action.toString());
     }
 }

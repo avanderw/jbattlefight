@@ -71,6 +71,13 @@ public class KillDecision {
         }
 
         if (!recentHits.isEmpty()) {
+            if (recentHits.size() == 2) {
+                if (recentHits.get(0).x - recentHits.get(1).x != 0) {
+                    return new KillAction(new Point((recentHits.get(0).x + recentHits.get(1).x) / 2, recentHits.get(0).y));
+                } else {
+                    return new KillAction(new Point(recentHits.get(0).x, (recentHits.get(0).y + recentHits.get(1).y) / 2));
+                }
+            }
             Point p = recentHits.get(0);
             return finishKill(map, map[p.y][p.x], persist);
         }

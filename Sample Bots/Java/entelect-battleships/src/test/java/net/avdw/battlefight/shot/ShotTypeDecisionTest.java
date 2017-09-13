@@ -61,6 +61,7 @@ public class ShotTypeDecisionTest {
     }
 
     @Test
+    @Ignore("Don't like firing the cruiser")
     public void testCruiserMustShoot() {
         StateModel state = StateReader.read(new File("src/test/resources/shot/must-shoot/cruiser-must-shoot.json"), StateModel.class);
         Action.Type expResult = Type.CROSS_SHOT_HORIZONTAL;
@@ -85,6 +86,7 @@ public class ShotTypeDecisionTest {
     }
 
     @Test
+    @Ignore("Not going to wait for cruiser")
     public void testBattleshipSubWait() {
         StateModel state = StateReader.read(new File("src/test/resources/shot/ready/battleship-submarine-wait.json"), StateModel.class);
         Action.Type expResult = Type.FIRESHOT;
@@ -101,6 +103,7 @@ public class ShotTypeDecisionTest {
     }
 
     @Test
+    @Ignore("Don't like firing the cruiser")
     public void testCruiserReady() {
         StateModel state = StateReader.read(new File("src/test/resources/shot/ready/cruiser-ready.json"), StateModel.class);
         Action.Type expResult = Type.CROSS_SHOT_HORIZONTAL;

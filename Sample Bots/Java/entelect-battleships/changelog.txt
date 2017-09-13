@@ -1,0 +1,23 @@
+v13.17 vs v4
+------------
+win:5, lose:3
+low:53
+high:92
+average:60-70
+
+analysis:
+- hunt weak spots last
+- prefer battleship over damaged carrier
+- use special shots outside of the middle
+
+v13.19 vs v4
+------------
+win:6, lose:2
+low:48
+high:96
+average:60-80
+
+analysis:
+- fix bug v6-13-07-00
+- fix bug v6-13-07-05
+- prioritize weak shots on potential

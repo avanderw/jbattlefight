@@ -18,27 +18,28 @@ import net.avdw.battlefight.struct.Point;
 public class HuntDecision {
 
     static public Action execute(StateModel state) {
-        List<Point> weakShots = new ArrayList();
-        weakShots.add(new Point(0, 0));
-        weakShots.add(new Point(0, 2));
-        weakShots.add(new Point(2, 0));
-        weakShots.add(new Point(13, 0));
-        weakShots.add(new Point(13, 2));
-        weakShots.add(new Point(11, 0));
-        weakShots.add(new Point(0, 13));
-        weakShots.add(new Point(2, 13));
-        weakShots.add(new Point(0, 11));
-        weakShots.add(new Point(13, 13));
-        weakShots.add(new Point(11, 13));
-        weakShots.add(new Point(13, 11));
+        if (state.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed).count() == 1) {
+            List<Point> weakShots = new ArrayList();
+            weakShots.add(new Point(0, 0));
+            weakShots.add(new Point(0, 2));
+            weakShots.add(new Point(2, 0));
+            weakShots.add(new Point(13, 0));
+            weakShots.add(new Point(13, 2));
+            weakShots.add(new Point(11, 0));
+            weakShots.add(new Point(0, 13));
+            weakShots.add(new Point(2, 13));
+            weakShots.add(new Point(0, 11));
+            weakShots.add(new Point(13, 13));
+            weakShots.add(new Point(11, 13));
+            weakShots.add(new Point(13, 11));
 
-        while (!weakShots.isEmpty()) {
-            Point weak = weakShots.remove(0);
-            Optional<OpponentCell> shot = state.OpponentMap.Cells.stream().filter(cell -> cell.X == weak.x && cell.Y == weak.y && !(cell.Damaged || cell.Missed)).findAny();
-            if (shot.isPresent()) {
-                return new HuntAction(Action.Type.FIRESHOT, weak);
+            while (!weakShots.isEmpty()) {
+                Point weak = weakShots.remove(0);
+                Optional<OpponentCell> shot = state.OpponentMap.Cells.stream().filter(cell -> cell.X == weak.x && cell.Y == weak.y && !(cell.Damaged || cell.Missed)).findAny();
+                if (shot.isPresent()) {
+                    return new HuntAction(Action.Type.FIRESHOT, weak);
+                }
             }
-
         }
 
         switch (ShotTypeDecision.huntShot(state)) {
