@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.state.StateModel.OpponentShip;
 import net.avdw.battlefight.state.StateModel.Ship;
-import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Action.Type;
 
 public class ShotTypeDecision {
@@ -21,7 +21,15 @@ public class ShotTypeDecision {
                 }).collect(Collectors.toList());
 
         if (shipsThatCanFire.isEmpty()) {
-            return Type.FIRESHOT;
+            if (state.PlayerMap.Owner.Ships.stream().filter(ship -> !ship.Destroyed).count() == 1) {
+                if (state.PlayerMap.Owner.Ships.stream().anyMatch(ship -> !ship.Destroyed && ship.ShipType == StateModel.ShipType.Cruiser)) {
+                    return Type.CROSS_SHOT_HORIZONTAL;
+                } else {
+                    return Type.FIRESHOT;
+                }
+            } else {
+                return Type.FIRESHOT;
+            }
         }
 
         Optional<Ship> priorityShip = shipsThatCanFire.stream().filter(ship -> ship.Cells.stream().anyMatch(cell -> cell.Hit)).findAny();
@@ -30,6 +38,11 @@ public class ShotTypeDecision {
             return Type.CROSS_SHOT_DIAGONAL;
         } else {
             firingShip = shipsThatCanFire.get(0);
+            if (firingShip.ShipType == StateModel.ShipType.Destroyer
+                    && state.PlayerMap.Owner.Ships.stream().anyMatch(ship -> !ship.Destroyed && ship.ShipType == StateModel.ShipType.Cruiser
+                    && ship.Weapons.get(1).EnergyRequired < state.PlayerMap.Owner.Energy)) {
+                firingShip = state.PlayerMap.Owner.Ships.stream().filter(ship -> !ship.Destroyed && ship.ShipType == StateModel.ShipType.Cruiser).findAny().get();
+            }
         }
 
         if (priorityShip.isPresent() && !(priorityShip.get().ShipType == StateModel.ShipType.Carrier && state.PlayerMap.Owner.Ships.stream().anyMatch(ship -> ship.ShipType == StateModel.ShipType.Battleship && ship.Destroyed == false))) {

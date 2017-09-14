@@ -127,7 +127,7 @@ public class HuntDecisionTest {
         System.out.println(action);
         assertTrue("Hunt weak shots first with last ship.", action.point.x == 13 || action.point.x == 0 || action.point.y == 13 || action.point.y == 0);
     }
-    
+
     @Test
     public void testV6131013() {
         StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-10-13.json"), StateModel.class);
@@ -136,13 +136,39 @@ public class HuntDecisionTest {
         System.out.println(action);
         assertTrue("Hunt weak shots first with last ship.", action.point.x == 13 || action.point.x == 0 || action.point.y == 13 || action.point.y == 0);
     }
-    
+
     @Test
     public void testV6132322() {
         StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-23-22.json"), StateModel.class);
         assertNotNull(state);
         Action action = HuntDecision.execute(state);
         System.out.println(action);
-        assertNotEquals("There is a better shot.", Action.Type.DOUBLE_SHOT_HORIZONTAL, action.type);
+        assertEquals("There is no better shot.", Action.Type.DOUBLE_SHOT_HORIZONTAL, action.type);
+    }
+
+    @Test
+    public void testV6141930() {
+        StateModel state = StateReader.read(new File("src/test/resources/hunt/v6-14-19-30.json"), StateModel.class);
+        assertNotNull(state);
+        Action action = HuntDecision.execute(state);
+        System.out.println(action);
+        assertNotEquals("Use special shot.", Action.Type.FIRESHOT, action.type);
+    }
+
+    @Test
+    public void testV6141935() {
+        StateModel state = StateReader.read(new File("src/test/resources/hunt/v6-14-19-35.json"), StateModel.class);
+        assertNotNull(state);
+        Action action = HuntDecision.execute(state);
+        System.out.println(action);
+        assertNotEquals("Use special shot.", Action.Type.FIRESHOT, action.type);
+    }
+
+    @Test
+    public void testV6141954() {
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v6-14-19-54.json"), StateModel.class);
+        assertNotNull(state);
+        Action action = HuntDecision.execute(state);
+        System.out.println(action);
     }
 }

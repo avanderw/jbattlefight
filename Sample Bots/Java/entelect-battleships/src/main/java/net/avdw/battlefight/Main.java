@@ -97,6 +97,7 @@ public class Main {
                 persist.lastAction.x = action.point.x;
                 persist.lastAction.y = action.point.y;
             }
+            persist.huntShips = state.OpponentMap.Ships.stream().filter(ship->!ship.Destroyed).collect(Collectors.toList());
             persist.clearedHits = persist.clearedHits.stream().distinct().collect(Collectors.toList());
             persist.unclearedHits = persist.unclearedHits.stream().distinct().collect(Collectors.toList());
             System.out.println(new Gson().toJson(persist));

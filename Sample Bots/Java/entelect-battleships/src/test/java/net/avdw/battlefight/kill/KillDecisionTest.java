@@ -8,6 +8,7 @@ import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
+import net.avdw.battlefight.state.StateResolver;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Direction;
 import net.avdw.battlefight.struct.Point;
@@ -224,8 +225,8 @@ public class KillDecisionTest {
         persist.lastAction.y = 1;
         persist.lastHeading = Direction.South;
         persist.unclearedHits = new ArrayList();
-        persist.unclearedHits.add(new Point(13,2));
-        persist.unclearedHits.add(new Point(13,3));
+        persist.unclearedHits.add(new Point(13, 2));
+        persist.unclearedHits.add(new Point(13, 3));
         StateModel state = StateReader.read(new File("src/test/resources/bug/not-reversing.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
         assertNotNull(action);
@@ -314,7 +315,7 @@ public class KillDecisionTest {
         System.out.println(action);
         assertEquals("Not finishing kill.", "1,8,8", action.toString());
     }
-    
+
     @Test
     public void testV6130931() {
         PersistentModel persist = new PersistentModel();
@@ -331,8 +332,8 @@ public class KillDecisionTest {
         System.out.println(action);
         assertEquals("Not finishing kill.", "1,13,6", action.toString());
     }
-    
-        @Test
+
+    @Test
     public void testV6132233() {
         PersistentModel persist = new PersistentModel();
         persist.lastAction = new PersistentModel.Action();
@@ -346,5 +347,68 @@ public class KillDecisionTest {
         Action action = KillDecision.execute(state, persist);
         System.out.println(action);
         assertEquals("Not finishing kill.", "1,8,7", action.toString());
+    }
+
+    @Test
+    public void testV6141622() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 9;
+        persist.lastAction.y = 0;
+        persist.lastHeading = Direction.West;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(10, 0));
+        persist.unclearedHits.add(new Point(11, 0));
+        StateModel state = StateReader.read(new File("src/test/resources/kill/v6-14-16-22.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        System.out.println(action);
+        assertEquals("Use special shot.", "1,8,0", action.toString());
+    }
+
+    @Test
+    public void testV6141740() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 4;
+        persist.lastAction.y = 7;
+        persist.lastHeading = Direction.South;
+        persist.lastState = StateResolver.AiState.KILL;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(4, 11));
+        persist.unclearedHits.add(new Point(6, 11));
+        persist.unclearedHits.add(new Point(4, 10));
+        persist.unclearedHits.add(new Point(4, 9));
+        persist.unclearedHits.add(new Point(4, 8));
+        persist.unclearedHits.add(new Point(4, 7));
+        persist.huntShips = new ArrayList();
+        persist.huntShips.add(new StateModel.OpponentShip(StateModel.ShipType.Destroyer));
+        persist.huntShips.add(new StateModel.OpponentShip(StateModel.ShipType.Cruiser));
+        persist.huntShips.add(new StateModel.OpponentShip(StateModel.ShipType.Battleship));
+        persist.huntShips.add(new StateModel.OpponentShip(StateModel.ShipType.Carrier));
+        persist.clearedHits = new ArrayList();
+        StateModel state = StateReader.read(new File("src/test/resources/kill/v6-14-17-40.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        System.out.println(action);
+        assertEquals("Use special shot.", "1,6,10", action.toString());
+    }
+
+    @Test
+    public void testV6141753() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 4;
+        persist.lastAction.y = 9;
+        persist.lastHeading = Direction.South;
+        persist.lastState = StateResolver.AiState.KILL;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(4, 11));
+        persist.unclearedHits.add(new Point(6, 11));
+        persist.unclearedHits.add(new Point(4, 10));
+        StateModel state = StateReader.read(new File("src/test/resources/kill/v6-14-17-53.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        assertTrue("Uncleared list should grow.", persist.unclearedHits.size() > 3);
     }
 }

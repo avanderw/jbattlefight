@@ -2,6 +2,7 @@ package net.avdw.battlefight.state;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StateModel implements Serializable {
 
@@ -55,6 +56,31 @@ public class StateModel implements Serializable {
 
     static public class OpponentShip implements Serializable {
 
+        public OpponentShip() {
+        }
+
+        public OpponentShip(ShipType type) {
+            this.Destroyed = false;
+            this.ShipType = type;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof OpponentShip) {
+                OpponentShip s = (OpponentShip) o;
+                return this.ShipType == s.ShipType;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 79 * hash + (this.Destroyed ? 1 : 0);
+            hash = 79 * hash + Objects.hashCode(this.ShipType);
+            return hash;
+        }
         public boolean Destroyed;
         public ShipType ShipType;
     }

@@ -25,12 +25,16 @@ analysis:
 - consider allowing cruiser to kill targets (don't implement)
 
 v13.22 vs v4
+------------
 win:6, lose:4
 low:58
 high:91
 average:70-80
 
 analysis:
-- implement special shots when killing last ship
+- don't implement special shots when killing last ship (too much effort)
 - consider bringing back the mask for destroyer
 - fixed clearing the persistent file!
+
+- BUG: if only cruiser left then use power!
+- ENHANCE: add weak area

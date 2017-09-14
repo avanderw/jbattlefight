@@ -3,6 +3,7 @@ package net.avdw.battlefight.kill;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.hunt.PotentialField;
 import net.avdw.battlefight.shot.CornerShotDecision;
@@ -15,6 +16,7 @@ import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateModel.OpponentCell;
+import net.avdw.battlefight.state.StateModel.OpponentShip;
 import net.avdw.battlefight.struct.Direction;
 import net.avdw.battlefight.struct.Point;
 
@@ -26,6 +28,62 @@ public class KillDecision {
         state = stateModel;
         final StateModel.OpponentCell[][] map = MapQuery.transformMap(stateModel.OpponentMap.Cells);
         MapQuery.printMap(map);
+
+        List<Point> recentHits = new ArrayList();
+        if (persist.lastAction != null && persist.lastAction.type != null) {
+            switch (persist.lastAction.type) {
+                case CORNER_SHOT:
+                    recentHits.addAll(CornerShotDecision.check(map, persist.lastAction));
+                    break;
+                case CROSS_SHOT_DIAGONAL:
+                    recentHits.addAll(CrossShotDiagonalDecision.check(map, persist.lastAction));
+                    break;
+                case CROSS_SHOT_HORIZONTAL:
+                    recentHits.addAll(CrossShotHorizontalDecision.check(map, persist.lastAction));
+                    break;
+                case DOUBLE_SHOT_HORIZONTAL:
+                case DOUBLE_SHOT_VERTICAL:
+                    recentHits.addAll(DoubleShotDecision.check(map, persist.lastAction));
+                    break;
+                case SEEKER_MISSILE:
+                    recentHits.addAll(SeekerMissileDecision.check(map, persist.lastAction));
+                    break;
+                case FIRESHOT:
+                    recentHits.addAll(FireShotDecision.check(map, persist.lastAction));
+                    break;
+            }
+        }
+        if (persist.unclearedHits == null) {
+            persist.unclearedHits = new ArrayList();
+        }
+        persist.unclearedHits.addAll(recentHits);
+
+        if (persist.huntShips != null && persist.huntShips.size() > state.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed).count()) {
+            // determine ship that was killed
+            for (OpponentShip ship : state.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed).collect(Collectors.toList())) {
+                persist.huntShips.remove(ship);
+            }
+            int clear = persist.huntShips.get(0).ShipType.length();
+            if (persist.unclearedHits.size() == clear) {
+                System.out.println("Clearing shots");
+                persist.clearedHits.addAll(persist.unclearedHits);
+                persist.unclearedHits.clear();
+            } else {
+                System.out.println("Clearing shots with reamainder");
+                int remain = persist.unclearedHits.size() - clear;
+                for (int i = persist.unclearedHits.size() - 1; i > remain; i--) {
+                    persist.clearedHits.add(persist.unclearedHits.remove(i));
+                }
+                Point p = persist.unclearedHits.remove(persist.unclearedHits.size() - 1);
+                persist.clearedHits.add(p);
+
+                Point rPoint = persist.unclearedHits.stream().filter(point -> Math.abs(p.x - point.x) < 2 || Math.abs(p.y - point.y) < 2).findAny().get();
+                persist.unclearedHits.remove(rPoint);
+                persist.clearedHits.add(rPoint);
+
+                System.out.println("Remainder uncleared " + persist.unclearedHits);
+            }
+        }
 
         Optional<OpponentCell> nextShot = null;
         if (persist.lastHeading != null && !map[persist.lastAction.y][persist.lastAction.x].Missed) {
@@ -49,36 +107,8 @@ public class KillDecision {
             }
         }
 
-        List<Point> recentHits = new ArrayList();
-        if (persist.lastAction != null && persist.lastAction.type != null) {
-            switch (persist.lastAction.type) {
-                case CORNER_SHOT:
-                    recentHits.addAll(CornerShotDecision.check(map, persist.lastAction));
-                    break;
-                case CROSS_SHOT_DIAGONAL:
-                    recentHits.addAll(CrossShotDiagonalDecision.check(map, persist.lastAction));
-                    break;
-                case CROSS_SHOT_HORIZONTAL:
-                    recentHits.addAll(CrossShotHorizontalDecision.check(map, persist.lastAction));
-                    break;
-                case DOUBLE_SHOT_HORIZONTAL:
-                case DOUBLE_SHOT_VERTICAL:
-                    recentHits.addAll(DoubleShotDecision.check(map, persist.lastAction));
-                    break;
-                case SEEKER_MISSILE:
-                    recentHits.addAll(SeekerMissileDecision.check(map, persist.lastAction));
-                    break;
-                case FIRESHOT: 
-                    recentHits.addAll(FireShotDecision.check(map, persist.lastAction));
-                    break;
-            }
-        }
-
         if (!recentHits.isEmpty()) {
-            if (persist.unclearedHits == null) {
-                persist.unclearedHits = new ArrayList();
-            }
-            persist.unclearedHits.addAll(recentHits);
+
             if (recentHits.size() == 2) {
                 if (recentHits.get(0).x - recentHits.get(1).x != 0) {
                     return new KillAction(new Point((recentHits.get(0).x + recentHits.get(1).x) / 2, recentHits.get(0).y));
@@ -89,7 +119,7 @@ public class KillDecision {
 //            Point p = recentHits.get(0);
 //            return finishKill(map, map[p.y][p.x], persist);
         }
-        
+
         if (persist.unclearedHits.isEmpty()) {
             return null;
         }

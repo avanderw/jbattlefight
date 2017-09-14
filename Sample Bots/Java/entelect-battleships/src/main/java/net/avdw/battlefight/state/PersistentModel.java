@@ -11,6 +11,7 @@ public class PersistentModel {
     public StateResolver.AiState lastState;
     public List<Point> unclearedHits;
     public List<Point> clearedHits;
+    public List<StateModel.OpponentShip> huntShips;
 
     static public class Action {
 
