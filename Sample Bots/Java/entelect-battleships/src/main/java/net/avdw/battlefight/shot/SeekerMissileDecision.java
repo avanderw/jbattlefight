@@ -100,7 +100,7 @@ public class SeekerMissileDecision {
         if (map[last.y][last.x].Damaged) {
             hits.add(new Point(last.x, last.y));
         }
-
+        
         return hits;
     }
 

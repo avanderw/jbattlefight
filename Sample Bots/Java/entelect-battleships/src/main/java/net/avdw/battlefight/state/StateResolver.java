@@ -1,8 +1,9 @@
 package net.avdw.battlefight.state;
 
-import java.util.stream.Stream;
-import net.avdw.battlefight.MapQuery;
-import net.avdw.battlefight.struct.Action;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import net.avdw.battlefight.state.StateModel.Cell;
 
 public class StateResolver {
 
@@ -16,17 +17,23 @@ public class StateResolver {
         if (stateModel.Phase == 1) {
             state = AiState.PLACE;
         } else {
-            long damagedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged).count();
-            int deadShipCells = stateModel.OpponentMap.Ships.stream().filter(ship -> ship.Destroyed).mapToInt((ship) -> ship.ShipType.length()).sum();
-            if (damagedCells == deadShipCells) {
-                state = AiState.HUNT;
+            long myDamagedCells = stateModel.PlayerMap.Owner.Ships.stream().mapToLong(ship -> ship.Cells.stream().filter(cell -> cell.Hit).count()).sum();
+            long myShipCells = stateModel.PlayerMap.Owner.Ships.stream().mapToLong(ship -> ship.Cells.size()).sum();
+            if (!stateModel.PlayerMap.Owner.Shield.Active && stateModel.PlayerMap.Owner.Shield.CurrentCharges > 0 && myShipCells - myDamagedCells <= 1) {
+                state = AiState.SHIELD;
             } else {
-                state = AiState.KILL;
-            } 
+                long damagedCells = stateModel.OpponentMap.Cells.stream().filter((cell) -> cell.Damaged).count();
+                int deadShipCells = stateModel.OpponentMap.Ships.stream().filter(ship -> ship.Destroyed).mapToInt((ship) -> ship.ShipType.length()).sum();
+                if (damagedCells == deadShipCells) {
+                    state = AiState.HUNT;
+                } else {
+                    state = AiState.KILL;
+                }
+            }
         }
     }
 
     public enum AiState {
-        PLACE, HUNT, KILL;
+        PLACE, HUNT, KILL, SHIELD;
     }
 }

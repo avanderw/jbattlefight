@@ -44,6 +44,18 @@ public class StateModel implements Serializable {
         public int ShotsHit;
         public int ShipsRemaining;
         public char Key;
+        public Shield Shield;
+    }
+
+    static public class Shield implements Serializable {
+
+        public int ChargeTime;
+        public int RoundLastUsed;
+        public int CurrentCharges;
+        public boolean Active;
+        public int CurrentRadius;
+        public int MaxRadius;
+        public String CenterPoint;
     }
 
     static public class Cell implements Serializable {

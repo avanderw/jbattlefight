@@ -1,8 +1,8 @@
 {
     "Author":"Andrew van der Westhuizen",
     "Email":"avanderw@gmail.com",
-    "NickName" :"Battlefight v6",
+    "NickName" :"Battlefight v7",
     "BotType": 1,
     "ProjectLocation" : "",
-    "RunFile" : "target\\battlefight-6.0.jar"
+    "RunFile" : "target\\battlefight-7.0.jar"
 }

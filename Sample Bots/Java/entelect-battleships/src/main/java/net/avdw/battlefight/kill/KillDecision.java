@@ -56,6 +56,11 @@ public class KillDecision {
         if (persist.unclearedHits == null) {
             persist.unclearedHits = new ArrayList();
         }
+        if (persist.clearedHits == null) {
+            persist.clearedHits = new ArrayList();
+        }
+        
+        persist.clearedHits.stream().forEach(p -> recentHits.remove(p));
         persist.unclearedHits.addAll(recentHits);
 
         if (persist.huntShips != null && persist.huntShips.size() > state.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed).count()) {

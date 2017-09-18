@@ -171,4 +171,13 @@ public class HuntDecisionTest {
         Action action = HuntDecision.execute(state);
         System.out.println(action);
     }
+    
+    @Test
+    public void testV7151600() {
+        StateModel state = StateReader.read(new File("src/test/resources/bug/v7-15-16-00.json"), StateModel.class);
+        assertNotNull(state);
+        Action action = HuntDecision.execute(state);
+        System.out.println(action);
+        assertNotEquals("Don't use shots without energy", "6,1,1", action.toString());
+    }
 }

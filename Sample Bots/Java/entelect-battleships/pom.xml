@@ -4,7 +4,7 @@
 
     <groupId>za.co.entelect.challenge</groupId>
     <artifactId>battlefight</artifactId>
-    <version>6.0</version>
+    <version>7.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -54,6 +54,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.openclover</groupId>

@@ -3,10 +3,10 @@ package net.avdw.battlefight.kill;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import net.avdw.battlefight.MapQuery;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
+import net.avdw.battlefight.state.StateModel.ShipType;
 import net.avdw.battlefight.state.StateReader;
 import net.avdw.battlefight.state.StateResolver;
 import net.avdw.battlefight.struct.Action;
@@ -410,5 +410,35 @@ public class KillDecisionTest {
         StateModel state = StateReader.read(new File("src/test/resources/kill/v6-14-17-53.json"), StateModel.class);
         Action action = KillDecision.execute(state, persist);
         assertTrue("Uncleared list should grow.", persist.unclearedHits.size() > 3);
+    }
+    
+    @Test
+    public void testV71717() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.SEEKER_MISSILE;
+        persist.lastAction.x = 4;
+        persist.lastAction.y = 4;
+        persist.lastHeading = null;
+        persist.lastState = StateResolver.AiState.KILL;
+        persist.unclearedHits = new ArrayList();
+        persist.unclearedHits.add(new Point(5, 5));
+        persist.huntShips = new ArrayList();
+        persist.huntShips.add(new StateModel.OpponentShip(StateModel.ShipType.Destroyer));
+        persist.huntShips.add(new StateModel.OpponentShip(StateModel.ShipType.Submarine));
+        persist.clearedHits = new ArrayList();
+        persist.clearedHits.add(new Point(9, 10));
+        persist.clearedHits.add(new Point(8, 10));
+        persist.clearedHits.add(new Point(7, 10));
+        persist.clearedHits.add(new Point(8, 3));
+        persist.clearedHits.add(new Point(8, 2));
+        persist.clearedHits.add(new Point(2, 4));
+        persist.clearedHits.add(new Point(2, 3));
+        persist.clearedHits.add(new Point(2, 2));
+        persist.clearedHits.add(new Point(2, 5));
+        StateModel state = StateReader.read(new File("src/test/resources/kill/v71717.json"), StateModel.class);
+        Action action = KillDecision.execute(state, persist);
+        System.out.println(action);
+        assertEquals("Dumb shot.", "1,6,5", action.toString());
     }
 }

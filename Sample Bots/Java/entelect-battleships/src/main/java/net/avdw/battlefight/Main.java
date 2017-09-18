@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import net.avdw.battlefight.place.PlaceAction;
+import net.avdw.battlefight.shield.ShieldAction;
+import net.avdw.battlefight.shield.ShieldDecision;
 import net.avdw.battlefight.state.PersistentModel;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateReader;
@@ -69,6 +71,9 @@ public class Main {
                     }
                     action = HuntDecision.execute(state);
                     break;
+                case SHIELD:
+                    action = ShieldDecision.execute(state);
+                    break;
             }
 
             if (action == null) {
@@ -87,21 +92,23 @@ public class Main {
                 bufferedWriter.flush();
             }
 
-            System.out.println(action);
-            System.out.println(action.type);
-            persist.lastState = StateResolver.state;
-            if (!(action instanceof PlaceAction)) {
-                persist.lastAction = new PersistentModel.Action();
-                System.out.println(action.type.name());
-                persist.lastAction.type = Action.Type.valueOf(action.type.name());
-                persist.lastAction.x = action.point.x;
-                persist.lastAction.y = action.point.y;
+            if (!(action instanceof ShieldAction)) {
+                System.out.println(action);
+                System.out.println(action.type);
+                persist.lastState = StateResolver.state;
+                if (!(action instanceof PlaceAction)) {
+                    persist.lastAction = new PersistentModel.Action();
+                    System.out.println(action.type.name());
+                    persist.lastAction.type = Action.Type.valueOf(action.type.name());
+                    persist.lastAction.x = action.point.x;
+                    persist.lastAction.y = action.point.y;
+                }
+                persist.huntShips = state.OpponentMap.Ships.stream().filter(ship -> !ship.Destroyed).collect(Collectors.toList());
+                persist.clearedHits = persist.clearedHits.stream().distinct().collect(Collectors.toList());
+                persist.unclearedHits = persist.unclearedHits.stream().distinct().collect(Collectors.toList());
+                System.out.println(new Gson().toJson(persist));
+                StateWriter.write("persistent.json", persist);
             }
-            persist.huntShips = state.OpponentMap.Ships.stream().filter(ship->!ship.Destroyed).collect(Collectors.toList());
-            persist.clearedHits = persist.clearedHits.stream().distinct().collect(Collectors.toList());
-            persist.unclearedHits = persist.unclearedHits.stream().distinct().collect(Collectors.toList());
-            System.out.println(new Gson().toJson(persist));
-            StateWriter.write("persistent.json", persist);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

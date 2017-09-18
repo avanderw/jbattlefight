@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import net.avdw.battlefight.state.StateModel;
 import net.avdw.battlefight.state.StateModel.OpponentShip;
 import net.avdw.battlefight.state.StateModel.Ship;
+import net.avdw.battlefight.struct.Action;
 import net.avdw.battlefight.struct.Action.Type;
 
 public class ShotTypeDecision {
@@ -23,7 +24,11 @@ public class ShotTypeDecision {
         if (shipsThatCanFire.isEmpty()) {
             if (state.PlayerMap.Owner.Ships.stream().filter(ship -> !ship.Destroyed).count() == 1) {
                 if (state.PlayerMap.Owner.Ships.stream().anyMatch(ship -> !ship.Destroyed && ship.ShipType == StateModel.ShipType.Cruiser)) {
-                    return Type.CROSS_SHOT_HORIZONTAL;
+                    if (state.PlayerMap.Owner.Energy > Action.Type.CROSS_SHOT_HORIZONTAL.energy) {
+                        return Type.CROSS_SHOT_HORIZONTAL;
+                    } else {
+                        return Type.FIRESHOT;
+                    }
                 } else {
                     return Type.FIRESHOT;
                 }

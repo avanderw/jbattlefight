@@ -22,27 +22,6 @@ import static org.junit.Assert.*;
 public class StateResolverTest {
 
     @Test
-    public void testHuntState() throws IOException {
-        PersistentModel persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
-        StateModel state = StateReader.read(new File("src/test/resources/no-ships-hit.json"), StateModel.class);
-        StateResolver.setup(state, persist);
-        assertEquals("Should always hunt if no ships are hit.", StateResolver.AiState.HUNT, StateResolver.state);
-    }
-
-    @Test
-    public void testKillState() throws IOException {
-        PersistentModel persist = new PersistentModel();
-        persist.lastAction = new PersistentModel.Action();
-        persist.lastAction.type = Action.Type.FIRESHOT;
-        persist.lastAction.x = 4;
-        persist.lastAction.y = 9;
-
-        StateModel state = StateReader.read(new File("src/test/resources/no-ships-sunk.json"), StateModel.class);
-        StateResolver.setup(state, persist);
-        assertEquals("Should always kill when ships not sunk.", StateResolver.AiState.KILL, StateResolver.state);
-    }
-
-    @Test
     public void testPlaceState() throws IOException {
         PersistentModel persist = StateReader.read(new File("persistent.json"), PersistentModel.class);
         StateModel state = StateReader.read(new File("src/test/resources/place-state.json"), StateModel.class);
@@ -153,5 +132,18 @@ public class StateResolverTest {
         StateModel state = StateReader.read(new File("src/test/resources/bug/v6-13-07-05.json"), StateModel.class);
         StateResolver.setup(state, persist);
         assertEquals("Kill state.", StateResolver.AiState.KILL, StateResolver.state);
+    }
+    
+    @Test
+    public void testShield() {
+        PersistentModel persist = new PersistentModel();
+        persist.lastAction = new PersistentModel.Action();
+        persist.lastAction.type = Action.Type.FIRESHOT;
+        persist.lastAction.x = 10;
+        persist.lastAction.y = 13;
+        persist.lastHeading = null;
+        StateModel state = StateReader.read(new File("src/test/resources/shield/v7-15-15-07.json"), StateModel.class);
+        StateResolver.setup(state, persist);
+        assertEquals("Kill state.", StateResolver.AiState.SHIELD, StateResolver.state);
     }
 }
